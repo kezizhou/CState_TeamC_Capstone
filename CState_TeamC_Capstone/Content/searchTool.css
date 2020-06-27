@@ -1,3 +1,20 @@
-﻿td {
-    display: inline-block;
+﻿resultTable {
+    border: 1px solid black;
+    border-collapse: collapse;
+}
+
+.resultTable td,
+.resultTable tr,
+.resultTable th {
+    border: 1px solid black;
+    border-collapse: collapse;
+    padding: 5px;
+}
+
+.resultTable th {
+    background-color: #BECDD7;
+}
+
+.resultTable td {
+    background-color: white;
 }
