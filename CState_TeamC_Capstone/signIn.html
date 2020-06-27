@@ -1,0 +1,91 @@
+﻿<!DOCTYPE html>
+
+<html>
+
+<head>
+    <meta charset=utf-8>
+    <script src="http://cdnjs.cloudflare.com/ajax/libs/html5shiv/3.6/html5shiv.min.js"></script>
+    <link rel="stylesheet" type="text/css" href="Content/Site.css" media="screen">
+    <link rel="stylesheet" type="text/css" href="Content/signIn.css" media="screen">
+
+    <title>Near Miss Reporting - Sign In</title>
+</head>
+
+<body>
+    <div class="container">
+
+        <div class="header">
+            <img class="logo" src="Media/logo.png">
+        </div>
+
+        <form name="frmSignIn" method="get" action="">
+            <h2>Norwood Safety Near Miss Reporting</h2>
+            <h5>Please sign in.</h5>
+
+            <div id="invalidInput" class="incompleteInput center">
+                Incorrect username or password entered.
+            </div>
+
+            <table class="signInTable">
+                <tr>
+                    <td>
+                        <label for="txtUsername">Username:</label>
+                    </td>
+                    <td>
+                        <input id="txtUsername" type="text" name="txtUsername"> </input>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <label for="txtPassword">Password:</label>
+                    </td>
+                    <td>
+                        <input id="txtPassword" type="password" name="txtOperator"> </input>
+                    </td>
+                </tr>
+                <tr>
+                    <td colspan="2">
+                        <button type="button" id="btnSubmit" class="center" onclick="invalidCredentials()">Login</button>
+                    </td>
+                </tr>
+            </table>
+
+        </form>
+
+        <div class="push"></div>
+
+    </div>
+
+    <footer class="footer">
+        <table>
+            <tr>
+                <td colspan="2">Copyright ©</td>
+            </tr>
+            <tr>
+                <td>
+                    <a href="">TERMS OF USE</a>
+                </td>
+                <td class="separateBorder">
+                    <a href="">PRIVACY POLICY</a>
+                </td>
+            </tr>
+        </table>
+    </footer>
+
+</body>
+
+</html>
+
+
+<script>
+    function invalidCredentials() {
+        var x = document.getElementById("invalidInput");
+        if (x.style.display === "none") {
+            x.style.display = "block";
+        } else {
+            x.style.display = "none";
+        }
+
+        window.scrollTo(0, 0);
+    }
+</script>
