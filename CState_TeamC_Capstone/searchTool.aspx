@@ -9,6 +9,7 @@
     <script src="http://cdnjs.cloudflare.com/ajax/libs/html5shiv/3.6/html5shiv.min.js"></script>
     <link rel="stylesheet" type="text/css" href="Content/Site.css" media="screen"/>
     <link rel="stylesheet" type="text/css" href="Content/searchTool.css" media="screen"/>
+<%--    <link rel="stylesheet" type="text/css" href="Content/bootstrap.css" media="screen"/>--%>
 
     <title>Near Miss Reporting - Search Tool</title>
 </head>
@@ -89,15 +90,28 @@
 
         <div class="wrapper">
             <table class="resultTable">
-                <tr>
-                    <th>Operator Name</th>
-                    <th>Department</th>
-                    <th>Near Miss Type</th>
-                    <th>Assigned To</th>
-                    <th>Severity Level</th>
-                    <th>Risk Level</th>
-                    <th>Brief Detail</th>
-                </tr>
+                <thead>
+                    <tr>
+                        <th scope="col">Operator Name</th>
+                        <th scope="col">Department</th>
+                        <th scope="col">Near Miss Type</th>
+                        <th scope="col">Assigned To</th>
+                        <th scope="col">Severity Level</th>
+                        <th scope="col">Risk Level</th>
+                        <th scope="col">Brief Detail</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>FirstName LastName</td>
+                        <td>SampleDepartment</td>
+                        <td>Spill</td>
+                        <td>FirstName LastName</td>
+                        <td>Medium</td>
+                        <td>Low</td>
+                        <td>This is a paragraph of brief detail describing the incident.</td>
+                    </tr>
+                </tbody>
             </table>
         </div>
 
