@@ -2,11 +2,6 @@
 .signInTable {
     width: 300px;
     height: 150px;
-    position: absolute;
-    margin-left: -150px;
-    margin-top: -75px;
-    top: 50%;
-    left: 50%;
 }
 
 .signInTable td {
@@ -30,4 +25,9 @@ button {
 
 button:hover {
     background-color: #007575;
+}
+
+
+.header {
+   margin-bottom: 70px;
 }

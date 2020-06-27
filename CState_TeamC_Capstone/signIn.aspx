@@ -1,12 +1,14 @@
-﻿<!DOCTYPE html>
+﻿<%@ Page Language="C#" AutoEventWireup="true" CodeBehind="signIn.aspx.cs" Inherits="CState_TeamC_Capstone.signIn" %>
 
-<html>
+<!DOCTYPE html>
 
-<head>
-    <meta charset=utf-8>
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+<head runat="server">
+    <meta charset="utf-8"/>
     <script src="http://cdnjs.cloudflare.com/ajax/libs/html5shiv/3.6/html5shiv.min.js"></script>
-    <link rel="stylesheet" type="text/css" href="Content/Site.css" media="screen">
-    <link rel="stylesheet" type="text/css" href="Content/signIn.css" media="screen">
+    <link rel="stylesheet" type="text/css" href="Content/Site.css" media="screen"/>
+    <link rel="stylesheet" type="text/css" href="Content/signIn.css" media="screen"/>
 
     <title>Near Miss Reporting - Sign In</title>
 </head>
@@ -15,10 +17,10 @@
     <div class="container">
 
         <div class="header">
-            <img class="logo" src="Media/logo.png">
+            <img class="logo" src="Media/logo.png"/>
         </div>
 
-        <form name="frmSignIn" method="get" action="">
+        <form name="frmSignIn" method="get" action="" runat="server">
             <h2>Norwood Safety Near Miss Reporting</h2>
             <h5>Please sign in.</h5>
 
@@ -32,7 +34,7 @@
                         <label for="txtUsername">Username:</label>
                     </td>
                     <td>
-                        <input id="txtUsername" type="text" name="txtUsername"> </input>
+                        <input id="txtUsername" type="text" name="txtUsername"/>
                     </td>
                 </tr>
                 <tr>
@@ -40,7 +42,7 @@
                         <label for="txtPassword">Password:</label>
                     </td>
                     <td>
-                        <input id="txtPassword" type="password" name="txtOperator"> </input>
+                        <input id="txtPassword" type="password" name="txtOperator"/>
                     </td>
                 </tr>
                 <tr>

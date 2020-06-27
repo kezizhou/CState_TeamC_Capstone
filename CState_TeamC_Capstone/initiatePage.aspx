@@ -1,12 +1,14 @@
-﻿<!DOCTYPE html>
+﻿<%@ Page Language="C#" AutoEventWireup="true" CodeBehind="initiatePage.aspx.cs" Inherits="CState_TeamC_Capstone.initiatePage" %>
 
-<html>
+<!DOCTYPE html>
 
-<head>
-    <meta charset=utf-8>
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+<head runat="server">
+    <meta charset="utf-8"/>
     <script src="http://cdnjs.cloudflare.com/ajax/libs/html5shiv/3.6/html5shiv.min.js"></script>
-    <link rel="stylesheet" type="text/css" href="Content/Site.css" media="screen">
-    <link rel="stylesheet" type="text/css" href="Content/InitiatePage.css" media="screen">
+    <link rel="stylesheet" type="text/css" href="Content/Site.css" media="screen"/>
+    <link rel="stylesheet" type="text/css" href="Content/InitiatePage.css" media="screen"/>
 
     <title>Near Miss Reporting - New Incident</title>
 </head>
@@ -15,7 +17,7 @@
     <div class="container">
 
         <div class="header">
-            <img class="logo" src="Media/logo.png">
+            <img class="logo" src="Media/logo.png"/>
         </div>
 
         <div class="topnav">
@@ -24,7 +26,7 @@
             <a href="">Sign Out</a>
         </div>
 
-        <form name="frmNewIncident" method="get" action="">
+        <form name="frmNewIncident" method="get" action="" runat="server">
             <h2>Norwood Safety Near Miss Reporting</h2>
             <h5>Welcome: LastName, FirstName</h5>
 
@@ -56,23 +58,23 @@
                         <label for="txtOperator">Operator Name:</label>
                     </td>
                     <td>
-                        <input id="txtOperator" type="text" name="txtOperator"> </input>
+                        <input id="txtOperator" type="text" name="txtOperator"/>
                     </td>
                 </tr>
                 <tr>
                     <td> <label for="sltDepartment">Department:</label> </td>
                     <td>
                         <select id="sltDepartment" name="sltDepartment">
-                            <option value="none" selected disabled hidden>Select Production Area</option>
+                            <option value="none" selected="selected" disabled="disabled" hidden="hidden">Select Production Area</option>
                             <option value="value">These will be populated from database</option>
                         </select>
                     </td>
                 </tr>
                 <tr>
-                    <td> <label for="sltDepartment">Type of Near Miss:</label> </td>
+                    <td> <label for="sltType">Type of Near Miss:</label> </td>
                     <td>
-                        <select id="sltDepartment" name="sltDepartment">
-                            <option value="none" selected disabled hidden>Select Near Miss</option>
+                        <select id="sltType" name="sltType">
+                            <option value="none" selected="selected" disabled="disabled" hidden="hidden">Select Near Miss</option>
                             <option value="value">These will be populated from database</option>
                         </select>
                     </td>
