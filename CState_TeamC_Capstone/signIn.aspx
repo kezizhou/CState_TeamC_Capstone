@@ -14,13 +14,15 @@
 </head>
 
 <body>
-    <div class="container">
-
+    <header>
         <div class="header">
             <img class="logo" src="Media/logo.png"/>
         </div>
+    </header>
 
-        <form name="frmSignIn" method="get" action="" runat="server">
+    <main role="main" class="container-fluid">
+
+        <form name="frmSignIn" method="get" action="#" runat="server">
             <h2>Norwood Safety Near Miss Reporting</h2>
             <h5>Please sign in.</h5>
 
@@ -54,25 +56,19 @@
 
         </form>
 
-        <div class="push"></div>
-
-    </div>
+    </main>
 
     <footer class="footer">
-        <table>
-            <tr>
-                <td colspan="2">Copyright ©</td>
-            </tr>
-            <tr>
-                <td>
-                    <a href="">TERMS OF USE</a>
-                </td>
-                <td class="separateBorder">
-                    <a href="">PRIVACY POLICY</a>
-                </td>
-            </tr>
-        </table>
+        <div class="container-fluid">
+            Copyright © 2020 Cincinnati State Capstone Team C
+        </div>
     </footer>
+
+    <!-- JavaScript for Bootstrap -->
+    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js" integrity="sha384-OgVRvuATP1z7JjHLkuOU7Xw704+h835Lr+6QL9UvYjZE3Ipu6Tp75j7Bh/kR0JKI" crossorigin="anonymous"></script>
 
 </body>
 

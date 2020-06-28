@@ -1,52 +1,37 @@
 ﻿/**
-Header
+    Header
 */
-.logo {
-    background-color: #879BAA;
-    float: right;
-    height: 50px;
-    padding: 5px;
+.header {
+    background-color: #009999;
+    height: 70px;
+    border-bottom: 1px solid white;
+    padding: 15px;
 }
 
-.header {
-    background-color: #879BAA;
-    height: 100px;
+.logo {
+    width: 50px;
+    margin: 0;
+    padding: 0;
 }
+
 
 /**
-Top Navigation Bar
+    Top Navigation Bar
 */
-/* Top navigation bar background*/
-.topnav {
-    background-color: #009999;
-    overflow: hidden;
-}
-
-/* Links inside the navigation bar */
-.topnav a {
-    float: left;
-    color: #f2f2f2;
-    text-align: center;
-    padding: 14px 16px;
-    text-decoration: none;
-    font-size: 17px;
-}
-
 /* Change the color of links on hover */
-.topnav a:hover {
+.navbar-nav a:hover {
     background-color: #007575;
     color: #EEEEEE;
 }
 
-/* Add a color to the active/current link */
-.topnav a.active {
-    background-color: #BECDD7;
-    color: #000000;
+nav {
+    margin-bottom: 15px;
+    background-color: #009999;
 }
 
 
 /**
-Validation
+    Validation
 */
 .incompleteInput {
     background-color: #FAFAD2;
@@ -63,7 +48,7 @@ Validation
 
 
 /**
-Elements
+    Elements
 */
 body {
     font-family: Verdana;
@@ -88,7 +73,6 @@ input {
     padding: 0;
 }
 
-/* This color was darkened */
 h2 {
     text-align: center;
     color: #637b8c;
@@ -111,7 +95,6 @@ textarea {
     resize: none;
 }
 
-/* This color was darkened */
 label {
     color: #637b8c;
     font-weight: bold;
@@ -125,35 +108,51 @@ h6 {
 }
 
 table {
-    margin-left: auto;
-    margin-right: auto;
     margin-top: 15px;
 }
+
+
+/** 
+    Bootstrap Elements
+*/
+.btn {
+    margin: 5px 0px 0px 2px;
+}
+
+.btn-secondary {
+    background-color: #879BAA;
+}
+
+.container-fluid {
+    padding: 0px 30px;
+}
+
 
 
 /**
-Footer
+    Footer
 */
 .footer {
     background-color: #879BAA;
-    height: 100px;
     margin-top: 15px;
     padding-top: 10px;
-}
-
-.footer table {
+    display: block;
+    height: 70px;
     text-align: center;
+    color: white;
 }
 
-.footer td {
-    padding: 0px 10px;
-}
-
-.footer, .push {
-    height: 100px;
-}
-
-.container {
+html {
+    position: relative;
     min-height: 100%;
-    margin-bottom: -100px;
+}
+
+body {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+}
+
+main {
+    flex-grow: 1;
 }
