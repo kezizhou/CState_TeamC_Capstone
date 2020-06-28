@@ -11,10 +11,14 @@
     padding: 5px;
 }
 
-.resultTable th {
+.thead-light {
     background-color: #BECDD7;
 }
 
 .resultTable td {
     background-color: white;
+}
+
+#frmFilters {
+    padding: 15px 0px;
 }
