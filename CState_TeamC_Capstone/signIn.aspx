@@ -5,8 +5,14 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
 
 <head runat="server">
+    <!-- Required meta tags -->
     <meta charset="utf-8"/>
-    <script src="http://cdnjs.cloudflare.com/ajax/libs/html5shiv/3.6/html5shiv.min.js"></script>
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no"/>
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous"/>
+    
+    <!-- Custom CSS -->
     <link rel="stylesheet" type="text/css" href="Content/Site.css" media="screen"/>
     <link rel="stylesheet" type="text/css" href="Content/signIn.css" media="screen"/>
 
@@ -49,7 +55,7 @@
                 </tr>
                 <tr>
                     <td colspan="2">
-                        <button type="button" id="btnSubmit" class="center" onclick="invalidCredentials()">Login</button>
+                        <button type="button" id="btnSubmit" class="btn btn-primary btn-sm center" onclick="invalidCredentials()">Login</button>
                     </td>
                 </tr>
             </table>
@@ -63,6 +69,7 @@
             Copyright © 2020 Cincinnati State Capstone Team C
         </div>
     </footer>
+
 
     <!-- JavaScript for Bootstrap -->
     <!-- jQuery first, then Popper.js, then Bootstrap JS -->

@@ -30,6 +30,20 @@ nav {
     background-color: #009999;
 }
 
+.userInitials {
+    border: 1px solid #EEEEEE;
+    height: 35px;
+    width: 35px;
+    text-align: center;
+    margin-right: 5px;
+    font-size: smaller;
+    background-color: white;
+}
+
+.navbar-text {
+    color: #009999 !important;
+}
+
 
 /**
     Validation
@@ -65,9 +79,15 @@ h1 {
     color: #F5F5F5;
 }
 
+button,
+btn {
+    border-radius: 7px;
+}
+
 select {
     height: 30px;
     border-radius: 7px;
+    border: 1px solid #767676;
 }
 
 option {
@@ -78,6 +98,7 @@ input {
     height: 30px;
     padding: 5px;
     border-radius: 7px;
+    border: 1px solid #767676;
 }
 
 h2 {
@@ -101,6 +122,7 @@ textarea {
     overflow-y: scroll;
     resize: none;
     border-radius: 7px;
+    border: 1px solid #767676;
 }
 
 label {
@@ -123,8 +145,30 @@ table {
 /** 
     Bootstrap Elements
 */
-.btn-secondary {
+.btn-primary,
+.btn-primary:focus {
+    background-color: #009999;
+    box-shadow: none;
+}
+
+.btn-primary:hover,
+.btn-primary:active {
+    background-color: #007575 !important;
+    border: 1px solid #879BAA ;
+    box-shadow: #879BAA;
+}
+
+.btn-secondary,
+.btn-secondary:focus {
     background-color: #879BAA;
+    box-shadow: none;
+}
+
+.btn-secondary:hover,
+.btn-secondary:active {
+    background-color: #6c757d;
+    border: 1px solid #879BAA;
+    box-shadow: #879BAA;
 }
 
 .container-fluid {
@@ -139,9 +183,8 @@ table {
 .footer {
     background-color: #879BAA;
     margin-top: 15px;
-    padding-top: 10px;
+    padding: 15px 0px;
     display: block;
-    height: 70px;
     text-align: center;
     color: white;
 }
