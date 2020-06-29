@@ -9,6 +9,9 @@
     <meta charset="utf-8"/>
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no"/>
 
+    <!-- Font Awesome Icons -->
+    <script src="https://kit.fontawesome.com/65ffd49b86.js" crossorigin="anonymous"></script>
+
     <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous"/>
     
@@ -56,6 +59,7 @@
         <!-- Search filters -->
         <form name="frmFilters" id="frmFilters" method="get" action="#" runat="server">
             <div class="container-fluid">
+                <i class="fas fa-filter"></i>
                 <select id="sltOperatorName" name="sltOperatorName">
                     <option value="none" selected="selected" disabled="disabled" hidden="hidden">Operator Name</option>
                     <option value="value">Populated from database</option>
@@ -115,6 +119,19 @@
             </table>
         </div>
     </main>
+
+    <!-- Page numbers -->
+    <!-- To be programmed with scripting -->
+    <div class="pagination center">
+        <a href="#">&laquo;</a>
+        <a href="#" class="active">1</a>
+        <a href="#">2</a>
+        <a href="#">3</a>
+        <a href="#">4</a>
+        <a href="#">5</a>
+        <a href="#">6</a>
+        <a href="#">&raquo;</a>
+    </div>
 
     <footer class="footer">
         <div class="container-fluid">
