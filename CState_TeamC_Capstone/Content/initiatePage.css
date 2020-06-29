@@ -16,17 +16,3 @@
 .formTable textarea {
     margin-bottom: 5px;
 }
-
-/*
-    Button
-*/
-button {
-    background-color: #009999;
-    color: #F5F5F5;
-    padding: 10px 20px;
-    font-weight: bold;
-}
-
-button:hover {
-    background-color: #007575;
-}

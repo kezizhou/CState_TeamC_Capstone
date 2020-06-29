@@ -19,14 +19,25 @@
     background-color: white;
 }
 
+
+/** 
+    Filters
+*/
 #frmFilters {
     padding: 15px 0px;
 }
+
+
+#btnExport {
+    margin-top: 15px;
+}
+
 
 select,
 input {
     margin-bottom: 7px;
 }
+
 
 /**
     Pagination
@@ -42,10 +53,10 @@ input {
 .pagination a.active {
     background-color: #009999;
     color: white;
-    border-radius: 5px;
+    border-radius: 7px;
 }
 
 .pagination a:hover:not(.active) {
     background-color: #ddd;
-    border-radius: 5px;
+    border-radius: 7px;
 }

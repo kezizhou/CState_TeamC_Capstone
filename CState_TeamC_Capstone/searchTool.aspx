@@ -10,7 +10,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no"/>
 
     <!-- Font Awesome Icons -->
-    <script src="https://kit.fontawesome.com/65ffd49b86.js" crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.13.1/css/all.css" integrity="sha384-xxzQGERXS00kBmZW/6qxqJPyxW3UR0BPsL4c8ILaIWXva5kFi7TxkIIaMiKtqV1Q" crossorigin="anonymous"/>
 
     <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous"/>
@@ -40,12 +40,18 @@
             </button>
             <div class="collapse navbar-collapse" id="navbarText">
                 <div class="navbar-nav">
-                    <a class="nav-item nav-link" href="#">Home</a>
+                    <a class="nav-item nav-link" href="~/Home.aspx" runat="server">Home</a>
                     <a class="nav-item nav-link" href="~/initiatePage.aspx" runat="server">Initiate Incident</a>
                     <a class="nav-item nav-link active" href="#">Search Tool<span class="sr-only">(current)</span></a>
                 </div>
                 <div class="navbar-nav ml-auto">
-                    <a class="nav-item nav-link" id="signout" href="~/signIn.aspx" runat="server">Sign Out</a>
+                    <a class="nav-item nav-link" id="signout" href="~/signIn.aspx" runat="server">
+                        <span id="userinitials" class="navbar-text userInitials rounded-circle">
+                            <!-- User initials here -->
+                            XX
+                        </span>
+                        Sign Out
+                    </a>
                 </div>
             </div>
         </nav>
@@ -53,44 +59,62 @@
 
 
     <main role="main" class="container-fluid">
-        <h2>Norwood Safety Near Miss Search Tool</h2>
-        <h5>Welcome: LastName, FirstName</h5>
-
         <!-- Search filters -->
-        <form name="frmFilters" id="frmFilters" method="get" action="#" runat="server">
-            <div class="container-fluid">
-                <i class="fas fa-filter"></i>
-                <select id="sltOperatorName" name="sltOperatorName">
-                    <option value="none" selected="selected" disabled="disabled" hidden="hidden">Operator Name</option>
-                    <option value="value">Populated from database</option>
-                </select>
-                <select id="sltDepartment" name="sltDepartment">
-                    <option value="none" selected="selected" disabled="disabled" hidden="hidden">Department</option>
-                    <option value="value">Populated from database</option>
-                </select>
-                <select id="sltNearMissType" name="sltNearMissType">
-                    <option value="none" selected="selected" disabled="disabled" hidden="hidden">Near Miss Type</option>
-                    <option value="value">Populated from database</option>
-                </select>
-                <select id="sltAssignedTo" name="sltAssignedTo">
-                    <option value="none" selected="selected" disabled="disabled" hidden="hidden">Assigned To</option>
-                    <option value="value">Populated from database</option>
-                </select>
-                <select id="sltSeverityLevel" name="sltSeverityLevel">
-                    <option value="none" selected="selected" disabled="disabled" hidden="hidden">Severity Level</option>
-                    <option value="value">Populated from database</option>
-                </select>
-                <select id="sltRiskLevel" name="sltRiskLevel">
-                    <option value="none" selected="selected" disabled="disabled" hidden="hidden">Risk Level</option>
-                    <option value="value">Populated from database</option>
-                </select>
-                <input id="txtCustomFilter" type="text" name="txtCustomFilter" placeholder="Text to search"/>    
-                <button type="button" id="btnFilter" class="btn btn-secondary btn-sm" onclick="">Filter</button>     
-                <button type="button" id="btnClear" class="btn btn-secondary btn-sm" onclick="">Clear Filters</button>    
-                <button type="button" id="btnExport" class="btn btn-secondary btn-sm" onclick="">Export to Excel</button>
-            </div>
-        </form>
+        <!-- Future feature: Allow select boxes to be searched for a string -->
+        <div class="container-fluid">
+            <select id="sltDepartment" name="sltDepartment">
+                <option value="none" selected="selected"></option>
+                <option value="none" selected="selected" disabled="disabled" hidden="hidden">Department</option>
+                <option value="value">Populated from database</option>
+            </select>
+            <select id="sltNearMissType" name="sltNearMissType">
+                <option value="none" selected="selected"></option>
+                <option value="none" selected="selected" disabled="disabled" hidden="hidden">Near Miss Type</option>
+                <option value="value">Populated from database</option>
+            </select>
+            <select id="sltSeverityLevel" name="sltSeverityLevel">
+                <option value="none" selected="selected"></option>
+                <option value="none" selected="selected" disabled="disabled" hidden="hidden">Severity Level</option>
+                <option value="value">Populated from database</option>
+            </select>
+            <select id="sltRiskLevel" name="sltRiskLevel">
+                <option value="none" selected="selected"></option>
+                <option value="none" selected="selected" disabled="disabled" hidden="hidden">Risk Level</option>
+                <option value="value">Populated from database</option>
+            </select>
+            <button id="btnToggleFilters" class="btn btn-primary" type="button" data-toggle="collapse" data-target="#filtersCollapse" aria-expanded="false" aria-controls="filtersCollapse">
+                Advanced Filters
+            </button>
+        </div>
 
+        <!-- Advanced Filters -->
+        <div id="filtersCollapse" class="collapse">
+            <div class="card card-body">
+                <form name="frmFilters" id="frmFilters" method="get" action="#" runat="server">
+                    <div class="container-fluid">
+                        <i class="fas fa-filter"></i>
+                        <select id="sltOperatorName" name="sltOperatorName">
+                            <option value="none" selected="selected"></option>
+                            <option value="none" selected="selected" disabled="disabled" hidden="hidden">Operator Name</option>
+                            <option value="value">Populated from database</option>
+                        </select>
+                        <select id="sltAssignedTo" name="sltAssignedTo">
+                            <option value="none" selected="selected"></option>
+                            <option value="none" selected="selected" disabled="disabled" hidden="hidden">Assigned To</option>
+                            <option value="value">Populated from database</option>
+                        </select>
+                        <input id="txtCustomFilter" type="text" name="txtCustomFilter" placeholder="Text to search"/>    
+                        <button type="button" id="btnFilter" class="btn btn-secondary btn-sm" onclick="">Filter</button>     
+                        <button type="button" id="btnClear" class="btn btn-secondary btn-sm" onclick="">Clear Filters</button>    
+                    </div>
+                </form>
+            </div>
+        </div>
+
+        <div class="container-fluid">
+            <button type="button" id="btnExport" class="btn btn-secondary btn-sm" onclick="">Export to Excel</button>
+        </div>
+          
         <!-- Results table -->
         <div class="container-fluid .table-responsive">
             <table class="resultTable">
@@ -140,12 +164,13 @@
     </footer>
 
 
-
     <!-- JavaScript for Bootstrap -->
     <!-- jQuery first, then Popper.js, then Bootstrap JS -->
     <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js" integrity="sha384-OgVRvuATP1z7JjHLkuOU7Xw704+h835Lr+6QL9UvYjZE3Ipu6Tp75j7Bh/kR0JKI" crossorigin="anonymous"></script>
+
+    <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
 
 </body>
 

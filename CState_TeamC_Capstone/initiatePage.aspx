@@ -37,19 +37,25 @@
             </button>
             <div class="collapse navbar-collapse" id="navbarText">
                 <div class="navbar-nav">
-                    <a class="nav-item nav-link" href="#">Home</a>
+                    <a class="nav-item nav-link" href="~/Home.aspx" runat="server">Home</a>
                     <a class="nav-item nav-link active" href="~/initiatePage.aspx" runat="server">Initiate Incident<span class="sr-only">(current)</span></a>
                     <a class="nav-item nav-link" href="~/searchTool.aspx" runat="server">Search Tool</a>
                 </div>
                 <div class="navbar-nav ml-auto">
-                    <a class="nav-item nav-link" id="signout" href="~/signIn.aspx" runat="server">Sign Out</a>
+                    <a class="nav-item nav-link" id="signout" href="~/signIn.aspx" runat="server">
+                        <span id="userinitials" class="navbar-text userInitials rounded-circle">
+                            <!-- User initials here -->
+                            XX
+                        </span>
+                        Sign Out
+                    </a>
                 </div>
             </div>
         </nav>
     </header>
 
     <main role="main" class="container-fluid">
-        <h2>Norwood Safety Near Miss Reporting</h2>
+        <h2>Report a New Incident</h2>
         <h5>Welcome: LastName, FirstName</h5>
 
         <!-- Validation for incomplete form -->
@@ -118,7 +124,7 @@
             </div>
 
             <div>
-                <button type="button" id="btnSubmit" class="center" onclick="incompleteInput()">Submit Near Miss</button>
+                <button type="button" id="btnSubmit"  class="btn btn-primary btn-sm center" onclick="incompleteInput()">Submit Near Miss</button>
             </div>
         </form>
 
