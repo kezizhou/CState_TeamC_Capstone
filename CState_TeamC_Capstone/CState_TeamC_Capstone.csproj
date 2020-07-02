@@ -106,7 +106,7 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Content\Home.css" />
-    <Content Include="Content\initiatePage.css" />
+    <Content Include="Content\initiateIncident.css" />
     <Content Include="Content\searchTool.css" />
     <Content Include="Content\signIn.css" />
     <Content Include="Content\Site.css" />
@@ -118,7 +118,7 @@
     <Content Include="fonts\glyphicons-halflings-regular.eot" />
     <None Include="Scripts\jquery-3.3.1.intellisense.js" />
     <Content Include="Home.aspx" />
-    <Content Include="initiatePage.aspx" />
+    <Content Include="initiateIncident.aspx" />
     <Content Include="Media\logo.png" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
@@ -169,12 +169,12 @@
     <Compile Include="Home.aspx.designer.cs">
       <DependentUpon>Home.aspx</DependentUpon>
     </Compile>
-    <Compile Include="initiatePage.aspx.cs">
-      <DependentUpon>initiatePage.aspx</DependentUpon>
+    <Compile Include="initiateIncident.aspx.cs">
+      <DependentUpon>initiateIncident.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
-    <Compile Include="initiatePage.aspx.designer.cs">
-      <DependentUpon>initiatePage.aspx</DependentUpon>
+    <Compile Include="initiateIncident.aspx.designer.cs">
+      <DependentUpon>initiateIncident.aspx</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="searchTool.aspx.cs">
