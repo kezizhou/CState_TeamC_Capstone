@@ -16,3 +16,8 @@
 .formTable textarea {
     margin-bottom: 5px;
 }
+
+.populated {
+    background-color: lightgray;
+    pointer-events: none;
+}
