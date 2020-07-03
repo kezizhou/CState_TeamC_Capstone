@@ -42,6 +42,8 @@
                 <div class="navbar-nav">
                     <a class="nav-item nav-link" href="~/Home" runat="server">Home</a>
                     <a class="nav-item nav-link active" href="~/initiateIncident" runat="server">Initiate Incident</a>
+                    <a class="nav-item nav-link" href="~/reviewIncident" runat="server">Review Incident</a>
+                    <a class="nav-item nav-link" href="~/updateIncident" runat="server">Update Action</a>
                     <a class="nav-item nav-link" href="~/searchTool" runat="server">Search Tool</a>
                 </div>
                 <div class="navbar-nav ml-auto">

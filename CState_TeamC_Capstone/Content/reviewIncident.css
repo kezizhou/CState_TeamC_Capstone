@@ -1,0 +1,51 @@
+﻿resultTable {
+    border: 1px solid black;
+    border-collapse: collapse;
+}
+
+.resultTable td,
+.resultTable tr,
+.resultTable th {
+    border: 1px solid black;
+    border-collapse: collapse;
+    padding: 5px;
+}
+
+.thead-light {
+    background-color: #BECDD7;
+}
+
+.resultTable td {
+    background-color: white;
+}
+
+
+
+#incompleteInput {
+    display: none;
+}
+
+
+/**
+    Form Table
+*/
+.formTable label {
+    padding-right: 20px;
+}
+
+.formTable input,
+.formTable label,
+.formTable select,
+.formTable textarea {
+    margin-bottom: 5px;
+}
+
+.populated {
+    background-color: lightgray;
+    pointer-events: none;
+}
+
+.formTable {
+    border-collapse:separate;
+    border-spacing:0 15px;
+}
