@@ -52,13 +52,15 @@
                             <option value="value">Populated from database</option>
                         </select>
                         <input id="txtCustomFilter" type="text" name="txtCustomFilter" placeholder="Text to search"/>    
-                        <button type="button" id="btnFilter" class="btn btn-secondary btn-sm" onclick="">Filter</button>     
-                        <button type="button" id="btnClear" class="btn btn-secondary btn-sm" onclick="">Clear Filters</button>    
                     </div>
                 </form>
             </div>
         </div>
 
+        <div class="container-fluid">
+            <button type="button" id="btnFilter" class="btn btn-secondary btn-sm" onclick="">Filter</button>     
+            <button type="button" id="btnClear" class="btn btn-secondary btn-sm" onclick="">Clear Filters</button>
+        </div>
         <div class="container-fluid">
             <button type="button" id="btnExport" class="btn btn-secondary btn-sm" onclick="">Export to Excel</button>
         </div>

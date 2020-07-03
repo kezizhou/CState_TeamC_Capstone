@@ -32,6 +32,14 @@
     margin-top: 15px;
 }
 
+#btnToggleFilters {
+    margin-bottom: 10px;
+}
+
+.card-body {
+    margin-bottom: 10px;
+}
+
 
 select,
 input {
