@@ -27,13 +27,8 @@
     padding: 15px 0px;
 }
 
-
-#btnExport {
-    margin-top: 15px;
-}
-
 #btnToggleFilters {
-    margin-bottom: 10px;
+    margin: 0px 0px 10px 5px;
 }
 
 .card-body {
@@ -42,8 +37,9 @@
 
 
 select,
-input {
-    margin-bottom: 7px;
+input,
+button {
+    margin: 0px 0px 7px 5px;
 }
 
 

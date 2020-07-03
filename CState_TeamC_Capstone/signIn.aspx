@@ -58,6 +58,11 @@
                         <button type="button" id="btnSubmit" class="btn btn-primary btn-sm center" onclick="invalidCredentials()">Login</button>
                     </td>
                 </tr>
+                <tr>
+                    <td colspan="2"  id="forgotCredentials" class="text-center">
+                        <a href="#">Forgot Username or Password?</a>
+                    </td>
+                </tr>
             </table>
 
         </form>

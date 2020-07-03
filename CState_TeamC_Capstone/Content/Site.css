@@ -116,6 +116,14 @@ h5 {
     display: block;
 }
 
+
+.center2 {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-wrap: wrap;
+}
+
 textarea {
     width: 450px;
     height: 170px;
