@@ -27,15 +27,19 @@
     padding: 15px 0px;
 }
 
+#btnToggleFilters {
+    margin: 0px 0px 10px 5px;
+}
 
-#btnExport {
-    margin-top: 15px;
+.card-body {
+    margin-bottom: 10px;
 }
 
 
 select,
-input {
-    margin-bottom: 7px;
+input,
+button {
+    margin: 0px 0px 7px 5px;
 }
 
 

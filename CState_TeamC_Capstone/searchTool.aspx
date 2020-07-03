@@ -9,7 +9,7 @@
     <main role="main" class="container-fluid">
         <!-- Search filters -->
         <!-- Future feature: Allow select boxes to be searched for a string -->
-        <div class="container-fluid">
+        <div class="container-fluid center2">
             <select id="sltDepartment" name="sltDepartment">
                 <option value="none" selected="selected"></option>
                 <option value="none" selected="selected" disabled="disabled" hidden="hidden">Department</option>
@@ -37,7 +37,7 @@
 
         <!-- Advanced Filters -->
         <div id="filtersCollapse" class="collapse">
-            <div class="card card-body">
+            <div class="card card-body center2">
                 <form name="frmFilters" id="frmFilters" method="get" action="#" runat="server">
                     <div class="container-fluid">
                         <i class="fas fa-filter"></i>
@@ -52,19 +52,19 @@
                             <option value="value">Populated from database</option>
                         </select>
                         <input id="txtCustomFilter" type="text" name="txtCustomFilter" placeholder="Text to search"/>    
-                        <button type="button" id="btnFilter" class="btn btn-secondary btn-sm" onclick="">Filter</button>     
-                        <button type="button" id="btnClear" class="btn btn-secondary btn-sm" onclick="">Clear Filters</button>    
                     </div>
                 </form>
             </div>
         </div>
-
-        <div class="container-fluid">
+        
+        <div class="container-fluid center2">
+            <button type="button" id="btnFilter" class="btn btn-secondary btn-sm" onclick="">Filter</button>     
+            <button type="button" id="btnClear" class="btn btn-secondary btn-sm" onclick="">Clear Filters</button>
             <button type="button" id="btnExport" class="btn btn-secondary btn-sm" onclick="">Export to Excel</button>
         </div>
           
         <!-- Results table -->
-        <div class="container-fluid .table-responsive">
+        <div class="container-fluid .table-responsive row justify-content-center">
             <table class="resultTable">
                 <thead class="thead-light">
                     <tr>
