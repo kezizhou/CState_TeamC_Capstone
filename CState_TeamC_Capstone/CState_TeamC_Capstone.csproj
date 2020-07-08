@@ -119,6 +119,7 @@
     <Content Include="fonts\glyphicons-halflings-regular.eot" />
     <None Include="Scripts\jquery-3.3.1.intellisense.js" />
     <Content Include="Home.aspx" />
+    <Content Include="initiateIncident_asp.aspx" />
     <Content Include="initiateIncident.aspx" />
     <Content Include="Media\logo.png" />
     <Content Include="reviewIncident.aspx" />
@@ -171,6 +172,13 @@
     </Compile>
     <Compile Include="Home.aspx.designer.cs">
       <DependentUpon>Home.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="initiateIncident_asp.aspx.cs">
+      <DependentUpon>initiateIncident_asp.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="initiateIncident_asp.aspx.designer.cs">
+      <DependentUpon>initiateIncident_asp.aspx</DependentUpon>
     </Compile>
     <Compile Include="initiateIncident.aspx.cs">
       <DependentUpon>initiateIncident.aspx</DependentUpon>

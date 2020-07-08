@@ -149,6 +149,22 @@ table {
     margin-top: 15px;
 }
 
+.buttonsubmit {
+    font-weight: bold;
+    font-family: Verdana;
+    font-size: large;
+    height: 46px;
+    width: 240px;
+    color: white;
+    background-color: #007575;
+}
+
+.validationerrormessage {
+    font-family: 'Siemens Sans';
+    font-size: small;
+    color: red;
+    font-weight: bold;
+}
 
 /** 
     Bootstrap Elements
@@ -183,8 +199,6 @@ table {
     padding: 0px 30px;
 }
 
-
-
 /**
     Footer
 */
@@ -211,3 +225,6 @@ body {
 main {
     flex-grow: 1;
 }
+
+
+

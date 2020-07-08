@@ -11,6 +11,8 @@
 
         <!-- Validation for incomplete form -->
         <div id="incompleteInput" class="incompleteInput center">
+           
+                    
             Please correct the following:
             <ul>
                 <li>Enter badge number.</li>
@@ -23,11 +25,13 @@
 
         <!-- Form -->
         <form name="frmNewIncident" method="get" action="#" runat="server">
+    
             <div class="row justify-content-center">
                 <table class="formTable">
-                    <tr>
+                                      <tr>
                         <td>
                             <label for="dteIncident">Date of Near Miss:</label>
+                            <asp:Label ID="lblIncidentDate" runat="server"></asp:Label>
                         </td>
                         <td>
                             <input id="dteIncident" name="dteIncident" type="date" />
@@ -36,9 +40,10 @@
                     <tr>
                         <td>
                             <label for="txtOperator">Operator Name:</label>
-                        </td>
+                             </td>
                         <td>
                             <!-- Populated from account info in database -->
+                                                
                             <input id="txtOperator" type="text" name="txtOperator" value="FirstName LastName" readonly="readonly" class="populated"/>
                         </td>
                     </tr>
@@ -80,12 +85,17 @@
                             <textarea name="txaActionTaken" id="txaActionTaken"></textarea>
                         </td>
                     </tr>
+                  
                 </table>
             </div>
 
             <div>
-                <button type="button" id="btnSubmit"  class="btn btn-primary btn-sm center" onclick="incompleteInput()">Submit Near Miss</button>
-            </div>
+                <button type="button" 
+                    id="btnSubmit"  
+                    class="btn btn-primary btn-sm center" 
+                    onclick="incompleteInput()"
+                    validationgroup="ValidationSummary_EHSSafetyNearMiss">Submit Near Miss</button>
+           </div>
         </form>
 
     </main>
