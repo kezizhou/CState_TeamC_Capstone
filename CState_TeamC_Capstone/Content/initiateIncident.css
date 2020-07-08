@@ -2,6 +2,34 @@
     display: none;
 }
 
+.label {
+    color: #000000;
+    font-weight: bold;
+    font-size: 14px;
+}
+
+textarea {
+    width: 450px;
+    height: 170px;
+    overflow-y: scroll;
+    resize: none;
+    border-radius: 7px;
+    border: 1px solid #767676;
+    
+}
+
+.buttonsubmit {
+    font-weight: bold;
+    font-family: Verdana;
+    font-size: large;
+    height: 46px;
+    width: 240px;
+    color: white;
+    background-color: #007575;
+    vertical-align: middle;
+    text-align: center;
+    align-content: center;
+}
 
 /**
     Form Table
@@ -21,3 +49,4 @@
     background-color: lightgray;
     pointer-events: none;
 }
+
