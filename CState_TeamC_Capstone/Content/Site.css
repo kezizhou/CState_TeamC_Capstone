@@ -52,13 +52,35 @@ nav {
     background-color: #FAFAD2;
     color: #FF0000;
     width: 400px;
-    padding: 15px;
+    padding: 15px 15px 0px 15px;;
     border: 1px solid #FF0000;
+    display: none;
 }
 
+.error, .errorAsterisk {
+    font-weight: normal;
+}
+
+label[id*='-error'] {
+    color: #FF0000;
+}
+
+#incompleteInput {
+    margin-top: 7px;
+}
 
 .separateBorder {
     border-left: 1px solid #000000;
+}
+
+#incompleteWrapper {
+    margin: 0 auto;
+}
+
+input.error,
+select.error,
+textarea.error {
+    background-color: #FAFAD2;
 }
 
 

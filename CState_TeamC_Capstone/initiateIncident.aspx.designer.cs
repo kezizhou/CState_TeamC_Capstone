@@ -13,12 +13,12 @@ namespace CState_TeamC_Capstone {
     public partial class initiateIncident {
         
         /// <summary>
-        /// lblIncidentDate control.
+        /// frmNewIncident control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Label lblIncidentDate;
+        protected global::System.Web.UI.HtmlControls.HtmlForm frmNewIncident;
     }
 }
