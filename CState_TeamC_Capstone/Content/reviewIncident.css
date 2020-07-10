@@ -1,6 +1,7 @@
-﻿resultTable {
+﻿.resultTable {
     border: 1px solid black;
     border-collapse: collapse;
+    margin-bottom: 30px;
 }
 
 .resultTable td,
@@ -17,12 +18,6 @@
 
 .resultTable td {
     background-color: white;
-}
-
-
-
-#incompleteInput {
-    display: none;
 }
 
 

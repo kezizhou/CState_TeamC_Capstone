@@ -5,6 +5,7 @@ $(function () {
     $("#frmNewIncident").validate({
         // Specify validation rules
         rules: {
+
             // The key name on the left side is the name attribute
             // of an input field. Validation rules are defined
             // on the right side
@@ -33,6 +34,7 @@ $(function () {
                 minlength: 3,
             },
         },
+
         // Specify validation error messages
         messages: {
             dteIncident: {
@@ -54,10 +56,12 @@ $(function () {
                 minlength: "Minimum description is 5 characters",
             },
         },
-        // Show validation summary at the top
-        errorContainer: "#incompleteWrapper, #incompleteInput",
-        errorLabelContainer: "#incompleteInput",
-        wrapper: "li",
+
+        // Uncomment for eager validation - Validate when focus leaves
+        //onfocusout: function (element) {
+        //    this.element(element);
+        //},
+
         // Make sure the form is submitted to the destination defined
         // in the "action" attribute of the form when valid
         submitHandler: function(form) {

@@ -48,17 +48,9 @@ nav {
 /**
     Validation
 */
-.incompleteInput {
-    background-color: #FAFAD2;
-    color: #FF0000;
-    width: 400px;
-    padding: 15px 15px 0px 15px;;
-    border: 1px solid #FF0000;
-    display: none;
-}
-
-.error, .errorAsterisk {
+.error {
     font-weight: normal;
+    color: #FF0000;
 }
 
 label[id*='-error'] {
@@ -78,11 +70,18 @@ label[id*='-error'] {
 }
 
 input.error,
+input.error:focus,
 select.error,
-textarea.error {
+select.error:focus,
+textarea.error,
+textarea.error:focus {
+    border: 1px solid #FF0000;
     background-color: #FAFAD2;
 }
 
+input.form-control.error {
+    padding: .375rem .75rem;
+}
 
 /**
     Elements
@@ -147,16 +146,20 @@ h5 {
 }
 
 textarea {
+    /* These can be deleted if switching to vertical form*/
     width: 450px;
     height: 170px;
     overflow-y: scroll;
     resize: none;
+
+
     border-radius: 7px;
     border: 1px solid #767676;
+    height: 100%;
 }
 
 label {
-    color: #637b8c;
+    color: #4A6273;
     font-weight: bold;
     font-size: 14px;
 }

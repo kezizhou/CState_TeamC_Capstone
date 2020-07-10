@@ -13,57 +13,12 @@ namespace CState_TeamC_Capstone {
     public partial class updateIncident {
         
         /// <summary>
-        /// pnlSpills control.
+        /// frmUpdateIncident control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Panel pnlSpills;
-        
-        /// <summary>
-        /// lblSpills control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Label lblSpills;
-        
-        /// <summary>
-        /// pnlTrips control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Panel pnlTrips;
-        
-        /// <summary>
-        /// lblTripsTitle control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Label lblTripsTitle;
-        
-        /// <summary>
-        /// pnlFalls control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Panel pnlFalls;
-        
-        /// <summary>
-        /// lblFallsTitle control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Label lblFallsTitle;
+        protected global::System.Web.UI.HtmlControls.HtmlForm frmUpdateIncident;
     }
 }

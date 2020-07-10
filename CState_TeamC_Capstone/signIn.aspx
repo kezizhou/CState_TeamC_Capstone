@@ -9,6 +9,9 @@
     <meta charset="utf-8"/>
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no"/>
 
+    <!-- Font Awesome Icons -->
+    <script src="https://kit.fontawesome.com/65ffd49b86.js" crossorigin="anonymous"></script>
+
     <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous"/>
     
@@ -28,48 +31,58 @@
 
     <main role="main" class="container-fluid">
 
-        <form name="frmSignIn" id="frmSignIn" method="post" action="#" runat="server">
-            <h2>Norwood Safety Near Miss Reporting</h2>
-            <h5>Please sign in.</h5>
+        <h2>Norwood Safety Near Miss Reporting</h2>
+        <h5>Please sign in.</h5>
 
-            <div class="incompleteInput" id="incompleteWrapper">
-                <span>Please correct the following:</span>
-                <ul id="incompleteInput">
-                    <!-- Validation message from Jquery goes here -->
-                </ul>
-            </div>
+        <div id="invalidInput">
+            Incorrect username or password entered.
+        </div>
 
-            <table class="signInTable">
-                <tr>
-                    <td>
-                        <label for="txtUsername">Username:</label>
-                    </td>
-                    <td>
-                        <input id="txtUsername" type="text" name="txtUsername" required="required"/>
-                    </td>
-                </tr>
-                <tr>
-                    <td>
-                        <label for="txtPassword">Password:</label>
-                    </td>
-                    <td>
-                        <input id="txtPassword" type="password" name="txtPassword" required="required"/>
-                    </td>
-                </tr>
-                <tr>
-                    <td colspan="2">
-                        <button type="submit" id="btnSubmit" class="btn btn-primary btn-sm center">Login</button>
-                    </td>
-                </tr>
-                <tr>
-                    <td colspan="2"  id="forgotCredentials" class="text-center">
-                        <a href="#">Forgot Username or Password?</a>
-                    </td>
-                </tr>
-            </table>
+        <div class="container center2">
+            <form name="frmSignIn" id="frmSignIn" method="post" action="#" runat="server">
+                <div class="form-group">
+                    <div class="input-group">
+                        <div class="input-group-prepend">
+                            <span class="input-group-text">
+                                <i class="fas fa-user"></i>
+                            </span>
+                            <!-- Maxlength is plus 1 so user is alerted through jquery -->
+                            <input id="txtUsername" type="text" name="txtUsername" class="form-control" required="required" placeholder="Username" maxlength="21"/>
+                        </div>
+                    </div> 
+                    <span class="errorInfo form-text">
+                        <i class="fas fa-exclamation-circle"></i>
+                        <!-- Jquery validation goes here -->
+                    </span>
+                </div>
 
-        </form>
+                <div class="form-group">   
+                    <div class="input-group">
+                        <div class="input-group-prepend">
+                            <span class="input-group-text">
+                                <i class="fas fa-lock"></i>
+                            </span>
+                            <!-- Maxlength is plus 1 so user is alerted through jquery -->
+                            <input id="txtPassword" type="password" name="txtPassword" class="form-control" required="required" placeholder="Password" maxlength="26"/>
+                        </div>
+                    </div>
+                    <span class="errorInfo form-text">
+                        <i class="fas fa-exclamation-circle"></i>
+                        <!-- Jquery validation goes here -->
+                    </span>
+                </div>
 
+                <div class="container">
+                    <button type="submit" id="btnSubmit" class="btn btn-primary btn-sm center">
+                        <i class="fas fa-sign-in-alt"></i> Login
+                    </button>
+                </div>
+                        
+                <div class="center2">
+                    <a href="#">Forgot Username or Password?</a>
+                </div>
+            </form>
+        </div>
     </main>
 
     <footer class="footer">
