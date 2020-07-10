@@ -79,8 +79,8 @@ textarea.error:focus {
     background-color: #FAFAD2;
 }
 
-input.error {
-    padding: 5px;
+input.form-control.error {
+    padding: .375rem .75rem;
 }
 
 /**

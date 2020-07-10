@@ -11,7 +11,7 @@
 
         <!-- Form -->
         <div class="container">
-            <form name="frmNewIncident" id="frmNewIncident" class="form-horizontal" method="post" action="#" runat="server">
+            <form name="frmNewIncident" id="frmNewIncident" method="post" action="#" runat="server">
                 <div class="form-group">
                     <label for="dteIncident" class="control-label">Date of Near Miss:</label>
                     <input id="dteIncident" name="dteIncident" class="form-control" type="date" required="required"/>

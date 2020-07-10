@@ -38,7 +38,7 @@
             Incorrect username or password entered.
         </div>
 
-        <div class="container">
+        <div class="container center2">
             <form name="frmSignIn" id="frmSignIn" method="post" action="#" runat="server">
                 <div class="form-group">
                     <div class="input-group">
@@ -47,7 +47,7 @@
                                 <i class="fas fa-user"></i>
                             </span>
                             <!-- Maxlength is plus 1 so user is alerted through jquery -->
-                            <input id="txtUsername" type="text" name="txtUsername" required="required" placeholder="Username" maxlength="21"/>
+                            <input id="txtUsername" type="text" name="txtUsername" class="form-control" required="required" placeholder="Username" maxlength="21"/>
                         </div>
                     </div> 
                     <span class="errorInfo form-text">
@@ -63,7 +63,7 @@
                                 <i class="fas fa-lock"></i>
                             </span>
                             <!-- Maxlength is plus 1 so user is alerted through jquery -->
-                            <input id="txtPassword" type="password" name="txtPassword" required="required" placeholder="Password" maxlength="26"/>
+                            <input id="txtPassword" type="password" name="txtPassword" class="form-control" required="required" placeholder="Password" maxlength="26"/>
                         </div>
                     </div>
                     <span class="errorInfo form-text">
@@ -72,7 +72,7 @@
                     </span>
                 </div>
 
-                <div>
+                <div class="container">
                     <button type="submit" id="btnSubmit" class="btn btn-primary btn-sm center">
                         <i class="fas fa-sign-in-alt"></i> Login
                     </button>
