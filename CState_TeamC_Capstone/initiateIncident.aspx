@@ -9,82 +9,49 @@
         <h2>Report a New Incident</h2>
         <h5>Welcome: LastName, FirstName</h5>
 
-            <div class="incompleteInput" id="incompleteWrapper">
-                <span>Please correct the following:</span>
-                <ul id="incompleteInput">
-                    <!-- Validation message from Jquery goes here -->
-                </ul>
-            </div>
-
         <!-- Form -->
-        <form name="frmNewIncident" id="frmNewIncident" method="post" action="#" runat="server">
-    
-            <div class="row justify-content-center">
-                <table class="formTable">
-                    <tr>
-                        <td>
-                            <label for="dteIncident">Date of Near Miss:</label>
-                        </td>
-                        <td>
-                            <input id="dteIncident" name="dteIncident" type="date" required="required"/>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>
-                            <label for="txtOperator">Operator Name:</label>
-                        </td>
-                        <td>
-                            <!-- Populated from account info in database -->               
-                            <input id="txtOperator" type="text" name="txtOperator" value="FirstName LastName" readonly="readonly" class="populated"/>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>
-                            <label for="txtBadgeNumber">Badge Number:</label>
-                        </td>
-                        <td>
-                            <input id="txtBadgeNumber" type="text" name="txtBadgeNumber" required="required"/>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td> <label for="sltDepartment">Department:</label> </td>
-                        <td>
-                            <select id="sltDepartment" name="sltDepartment" class="required">
-                                <option value="" selected="selected" disabled="disabled" hidden="hidden">Select Production Area</option>
-                                <option value="value">These will be populated from database</option>
-                            </select>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td> <label for="sltType">Type of Near Miss:</label> </td>
-                        <td>
-                            <select id="sltType" name="sltType" class="required">
-                                <option value="" selected="selected" disabled="disabled" hidden="hidden">Select Near Miss</option>
-                                <option value="value">These will be populated from database</option>
-                            </select>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td> <label for="txaSolution"> Near Miss Proposed Solution: </label> </td>
-                        <td>
-                            <textarea name="txaSolution" id="txaSolution" required="required"></textarea>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td> <label for="txaActionTaken"> Action Taken: </label> </td>
-                        <td>
-                            <textarea name="txaActionTaken" id="txaActionTaken" required="required"></textarea>
-                        </td>
-                    </tr>
-                  
-                </table>
-            </div>
-
-            <div>
-                <button type="submit" id="btnSubmit" class="btn btn-primary btn-sm center" >Submit Near Miss</button>
-           </div>
-        </form>
-
+        <div class="container">
+            <form name="frmNewIncident" id="frmNewIncident" class="form-horizontal" method="post" action="#" runat="server">
+                <div class="form-group">
+                    <label for="dteIncident" class="control-label">Date of Near Miss:</label>
+                    <input id="dteIncident" name="dteIncident" class="form-control" type="date" required="required"/>
+                </div>
+                <div class="form-group">
+                    <label for="txtOperator" class="control-label">Operator Name:</label>
+                    <!-- Populated from account info in database -->               
+                    <input id="txtOperator" type="text" name="txtOperator" class="form-control" value="FirstName LastName" readonly="readonly" class="populated"/>
+                </div>
+                <div class="form-group">
+                    <label for="txtBadgeNumber" class="control-label">Badge Number:</label>
+                    <input id="txtBadgeNumber" type="text" name="txtBadgeNumber" class="form-control" required="required"/>
+                </div>
+                <div class="form-group">
+                    <label for="sltDepartment" class="control-label">Department:</label>
+                    <select id="sltDepartment" name="sltDepartment" class="required form-control">
+                        <option value="" selected="selected" disabled="disabled" hidden="hidden">Select Production Area</option>
+                        <option value="value">These will be populated from database</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="sltType" class="control-label">Type of Near Miss:</label>
+                    <select id="sltType" name="sltType" class="required form-control">
+                        <option value="" selected="selected" disabled="disabled" hidden="hidden">Select Near Miss</option>
+                        <option value="value">These will be populated from database</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="txaSolution" class="control-label"> Near Miss Proposed Solution: </label>
+                    <textarea name="txaSolution" id="txaSolution" class="form-control" rows="8" required="required"></textarea>
+                </div>
+                <div class="form-group">
+                    <label for="txaActionTaken" class="control-label"> Action Taken: </label>
+                    <textarea name="txaActionTaken" id="txaActionTaken" class="form-control" rows="8" required="required"></textarea>
+                </div>
+                <div class="container">
+                    <button type="submit" id="btnSubmit" class="btn btn-primary btn-sm center" >Submit Near Miss</button>
+                </div>
+            </form>
+        </div>
     </main>
 </asp:Content>
 
