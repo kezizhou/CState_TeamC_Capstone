@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Configuration;
 using System.Data.SqlClient;
@@ -14,4 +14,3 @@ namespace CState_TeamC_Capstone {
 
 		}
 	}
-}

@@ -14,5 +14,6 @@ namespace CState_TeamC_Capstone {
 			RouteConfig.RegisterRoutes(RouteTable.Routes);
 			BundleConfig.RegisterBundles(BundleTable.Bundles);
 		}
-	}
+    }
+
 }
