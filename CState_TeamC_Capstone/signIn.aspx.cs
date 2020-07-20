@@ -1,19 +1,16 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Configuration;
 using System.Data.SqlClient;
-using System.Linq;
-using System.Web;
 using System.Web.Security;
-using System.Web.UI;
-using System.Web.UI.WebControls;
 
 namespace CState_TeamC_Capstone {
 	public partial class signIn : System.Web.UI.Page {
 		SqlConnection conn = new SqlConnection(ConfigurationManager.ConnectionStrings["sqlConn"].ToString());
 
 		protected void Page_Load(object sender, EventArgs e) {
-
+			if (this.Context.User.Identity.IsAuthenticated) {
+				Response.Redirect("Home.aspx");
+			}
 		}
 
 		protected void btnSubmit_Click(object sender, EventArgs e) {

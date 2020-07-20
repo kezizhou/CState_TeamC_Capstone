@@ -21,7 +21,7 @@ namespace CState_TeamC_Capstone {
 				// Get the hashed token in the database
 				SqlConnection conn = new SqlConnection(ConfigurationManager.ConnectionStrings["sqlConn"].ToString());
 				conn.Open();
-				string qry = "SELECT R.Token_Hash FROM Data.ResetTokens AS R JOIN Data.Employee AS E ON R.Person_ID = E.Person_ID WHERE E.Username = @username AND R.Token_Used = 0 AND DATEDIFF(HOUR, R.Expiration_Date, GETDATE()) > 0";
+				string qry = "SELECT R.Token_Hash FROM Data.ResetTokens AS R JOIN Data.Employee AS E ON R.Person_ID = E.Person_ID WHERE E.Username = @username AND R.Token_Used = 0 AND DATEDIFF(HOUR, R.Expiration_Date, GETDATE()) < 0";
 				using (SqlCommand cmd = new SqlCommand(qry, conn)) {
 					var usernameParam = new SqlParameter("@username", System.Data.SqlDbType.VarChar);
 					usernameParam.Value = strUsername;
