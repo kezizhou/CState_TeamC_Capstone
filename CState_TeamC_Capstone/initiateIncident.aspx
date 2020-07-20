@@ -19,7 +19,7 @@
                 <div class="form-group">
                     <label for="txtOperator" class="control-label">Operator Name:</label>
                     <!-- Populated from account info in database -->               
-                    <input id="txtOperator" type="text" name="txtOperator" class="form-control" value="FirstName LastName" readonly="readonly" />
+                    <input id="txtOperator" type="text" name="txtOperator" class="form-control populated" value="FirstName LastName" readonly="readonly" />
                 </div>
                 <div class="form-group">
                     <label for="txtBadgeNumber" class="control-label">Badge Number:</label>
