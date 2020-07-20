@@ -1,0 +1,20 @@
+﻿.header {
+    margin-bottom: 70px;
+    padding-bottom: 65px;
+}
+
+.btn-primary {
+    margin: 10px auto;
+    padding: 8px 15px;
+}
+
+.container {
+    margin-top: 10px;
+}
+
+#unauthorizedMessage {
+    border: 1px solid #009999;
+    padding: 10px;
+    background: #CDD5C6;
+    margin: 15px;
+}

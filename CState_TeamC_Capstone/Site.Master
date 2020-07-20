@@ -40,15 +40,15 @@
             </button>
             <div class="collapse navbar-collapse" id="navbarText">
                 <div class="navbar-nav">
-                    <a class="nav-item nav-link" href="~/Home" runat="server">Home</a>
-                    <a class="nav-item nav-link active" href="~/initiateIncident" runat="server">Initiate Incident</a>
-                    <a class="nav-item nav-link" href="~/reviewIncident" runat="server">Review Incident</a>
-                    <a class="nav-item nav-link" href="~/updateIncident" runat="server">Update Action</a>
-                    <a class="nav-item nav-link" href="~/searchTool" runat="server">Search Tool</a>
+                    <a id="Home" class="nav-item nav-link" href="~/Home" runat="server">Home</a>
+                    <a id="InitiateIncident" class="nav-item nav-link active" href="~/initiateIncident" runat="server">Initiate Incident</a>
+                    <a id="ReviewIncident" class="nav-item nav-link" href="~/reviewIncident" runat="server">Review Incident</a>
+                    <a id="UpdateIncident" class="nav-item nav-link" href="~/updateIncident" runat="server">Update Action</a>
+                    <a id="SearchTool" class="nav-item nav-link" href="~/searchTool" runat="server">Search Tool</a>
                 </div>
                 <div class="navbar-nav ml-auto">
-                    <a class="nav-item nav-link" id="signout" href="~/signIn" runat="server">
-                        <span id="userinitials" class="navbar-text userInitials rounded-circle">
+                    <a class="nav-item nav-link" id="signout" onserverclick="signout_ServerClick" runat="server">
+                        <span id="userinitials" class="navbar-text userInitials rounded-circle" runat="server">
                             <!-- User initials here -->
                             XX
                         </span>

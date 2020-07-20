@@ -10,25 +10,16 @@
 namespace CState_TeamC_Capstone {
     
     
-    public partial class signIn {
+    public partial class resetPassword {
         
         /// <summary>
-        /// invalidInput control.
+        /// frmNewPassword control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlGenericControl invalidInput;
-        
-        /// <summary>
-        /// frmSignIn control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlForm frmSignIn;
+        protected global::System.Web.UI.HtmlControls.HtmlForm frmNewPassword;
         
         /// <summary>
         /// txtUsername control.
@@ -49,12 +40,21 @@ namespace CState_TeamC_Capstone {
         protected global::System.Web.UI.HtmlControls.HtmlInputPassword txtPassword;
         
         /// <summary>
-        /// btnSubmit control.
+        /// txtConfirmedPassword control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlButton btnSubmit;
+        protected global::System.Web.UI.HtmlControls.HtmlInputPassword txtConfirmedPassword;
+        
+        /// <summary>
+        /// btnResetPassword control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlButton btnResetPassword;
     }
 }

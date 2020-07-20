@@ -44,6 +44,12 @@ nav {
     color: #009999 !important;
 }
 
+#ReviewIncident,
+#UpdateIncident,
+#SearchTool {
+    display: none;
+}
+
 
 /**
     Validation
