@@ -206,6 +206,7 @@
     <Compile Include="searchTool.aspx.designer.cs">
       <DependentUpon>searchTool.aspx</DependentUpon>
     </Compile>
+    <Compile Include="Shared.cs" />
     <Compile Include="signIn.aspx.cs">
       <DependentUpon>signIn.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -243,6 +244,7 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
+    <Folder Include="App_Code\" />
     <Folder Include="App_Data\" />
   </ItemGroup>
   <ItemGroup>
