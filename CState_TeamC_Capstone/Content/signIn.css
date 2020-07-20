@@ -3,7 +3,8 @@
 }
 
 .header {
-   margin-bottom: 70px;
+    margin-bottom: 70px;
+    padding-bottom: 65px;
 }
 
 .btn-primary {
@@ -25,7 +26,11 @@ h5 {
     background-color: #FAFAD2;
     color: #FF0000;
     width: 400px;
-    padding: 15px 15px 0px 15px;
+    padding: 15px;
     border: 1px solid #FF0000;
     display: none;
+}
+
+.signInContainer {
+    margin-top: 15px;
 }

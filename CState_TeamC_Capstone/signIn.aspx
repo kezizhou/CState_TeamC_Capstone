@@ -34,11 +34,11 @@
         <h2>Norwood Safety Near Miss Reporting</h2>
         <h5>Please sign in.</h5>
 
-        <div id="invalidInput">
+        <div id="invalidInput" class="center" runat="server">
             Incorrect username or password entered.
         </div>
 
-        <div class="container center2">
+        <div class="container center2 signInContainer">
             <form name="frmSignIn" id="frmSignIn" method="post" action="#" runat="server">
                 <div class="form-group">
                     <div class="input-group">
@@ -47,7 +47,7 @@
                                 <i class="fas fa-user"></i>
                             </span>
                             <!-- Maxlength is plus 1 so user is alerted through jquery -->
-                            <input id="txtUsername" type="text" name="txtUsername" class="form-control" required="required" placeholder="Username" maxlength="21"/>
+                            <input id="txtUsername" type="text" name="txtUsername" class="form-control" required="required" placeholder="Username" maxlength="21" runat="server"/>
                         </div>
                     </div> 
                     <span class="errorInfo form-text">
@@ -63,7 +63,7 @@
                                 <i class="fas fa-lock"></i>
                             </span>
                             <!-- Maxlength is plus 1 so user is alerted through jquery -->
-                            <input id="txtPassword" type="password" name="txtPassword" class="form-control" required="required" placeholder="Password" maxlength="26"/>
+                            <input id="txtPassword" type="password" name="txtPassword" class="form-control" required="required" placeholder="Password" maxlength="26" runat="server"/>
                         </div>
                     </div>
                     <span class="errorInfo form-text">
@@ -73,13 +73,13 @@
                 </div>
 
                 <div class="container">
-                    <button type="submit" id="btnSubmit" class="btn btn-primary btn-sm center">
+                    <button type="submit" id="btnSubmit" class="btn btn-primary btn-sm center" onserverclick="btnSubmit_Click" runat="server">
                         <i class="fas fa-sign-in-alt"></i> Login
                     </button>
                 </div>
                         
                 <div class="center2">
-                    <a href="#">Forgot Username or Password?</a>
+                    <a href="~/resetCredentials" runat="server">Forgot Username or Password?</a>
                 </div>
             </form>
         </div>
@@ -105,10 +105,3 @@
 </body>
 
 </html>
-
-
-<script>
-    function invalidCredentials() {
-        document.getElementById("incompleteInput").style.display = "block";
-    }
-</script>

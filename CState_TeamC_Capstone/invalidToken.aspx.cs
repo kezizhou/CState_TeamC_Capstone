@@ -1,16 +1,14 @@
-using System;
+﻿using System;
 using System.Collections.Generic;
-using System.Configuration;
-using System.Data.SqlClient;
 using System.Linq;
 using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
 
 namespace CState_TeamC_Capstone {
-	public partial class initiateIncident : System.Web.UI.Page {
-
+	public partial class invalidToken : System.Web.UI.Page {
 		protected void Page_Load(object sender, EventArgs e) {
 
 		}
 	}
+}
