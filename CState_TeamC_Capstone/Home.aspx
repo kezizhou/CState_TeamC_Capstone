@@ -38,40 +38,6 @@
 
 <asp:Content ID="Content3" ContentPlaceHolderID="ScriptContent" Runat="Server">
     <!-- Google Charts -->
-    <!-- Placeholder charts, coding method can be changed later -->
     <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
-    <script type="text/javascript">
-        // Load google charts
-        google.charts.load('current', {'packages':['corechart']});
-        google.charts.setOnLoadCallback(drawChart);
-
-        // Draw the chart and set the chart values
-        function drawChart() {
-            var data = google.visualization.arrayToDataTable([
-                ['Near Miss Type', 'Number of Incidents'],
-                ['Spill', 8],
-                ['Hazardous Waste', 2],
-                ['Damaged Machinery', 4],
-                ['Near Miss Type 1', 2],
-                ['Other', 8]
-            ]);
-
-            var options = {
-                'width': '450',
-                'height': '300',
-                // Use https://learnui.design/tools/data-color-picker.html for more color schemes
-                'colors': ['#009999', '#008bae', '#0077b9', '#575cad', '#883886', '#99004d'],
-                'chartArea': {
-                    'width': '100%',
-                    'height': '100%',
-                    'left': '10',
-                    'top': '10'
-                }
-            };
-
-            // Display the chart inside the <div> element with id="piechart"
-            var chart = new google.visualization.PieChart(document.getElementById('nearMissTypesChart'));
-            chart.draw(data, options);
-        }
-    </script>
+    <script src="Scripts/Home.js"></script>
 </asp:Content>
