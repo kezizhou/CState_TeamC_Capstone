@@ -11,6 +11,13 @@ using System.Web.UI.WebControls;
 namespace CState_TeamC_Capstone {
 	public partial class SiteMaster : MasterPage {
 		protected void Page_Load(object sender, EventArgs e) {
+			try {
+				int.Parse(Session["User_ID"].ToString());
+			} catch (Exception ex) {
+				// User session expired
+				Response.Redirect("signIn.aspx");
+			}
+
 			// Check if user is authorized
 			if (Roles.IsUserInRole(HttpContext.Current.User.Identity.Name, "NearMissEHS")) {
 				ReviewIncident.Style["display"] = "block";
