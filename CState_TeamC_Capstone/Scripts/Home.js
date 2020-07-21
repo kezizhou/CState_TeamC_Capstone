@@ -22,7 +22,7 @@ function drawChart() {
     $.ajax({
         type: "POST",
         // Call the method using ajax
-        url: "Home.aspx/GetNearMissTypesChartData",
+        url: "Home.aspx.cs/GetNearMissTypesChartData",
         data: '{}',
         contentType: "application/json; charset=utf-8",
         dataType: "json",
