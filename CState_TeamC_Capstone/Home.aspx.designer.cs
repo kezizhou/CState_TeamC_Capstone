@@ -11,5 +11,23 @@ namespace CState_TeamC_Capstone {
     
     
     public partial class Home {
+        
+        /// <summary>
+        /// lastIncident control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlGenericControl lastIncident;
+        
+        /// <summary>
+        /// lastIncidentDescription control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlGenericControl lastIncidentDescription;
     }
 }

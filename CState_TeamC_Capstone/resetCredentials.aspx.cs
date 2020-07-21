@@ -145,7 +145,7 @@ namespace CState_TeamC_Capstone {
 
 			// Replace the template placeholder variables
 			strEmailBody = strEmailBody.Replace("[strUsername]", strUsername);
-			strEmailBody = strEmailBody.Replace("[actionURL]", ConfigurationManager.AppSettings["mainURL"] + "resetPassword?username=" + strUsername + "&token=" + Server.UrlEncode(strToken));
+			strEmailBody = strEmailBody.Replace("[actionURL]", ConfigurationManager.AppSettings["mainURL"] + "resetPassword?username=" + strUsername + "&token=" + strToken);
 			strEmailBody = strEmailBody.Replace("[mainURL]", ConfigurationManager.AppSettings["mainURL"] + "signIn");
 
 			mailMessage.IsBodyHtml = true;
@@ -179,6 +179,12 @@ namespace CState_TeamC_Capstone {
 				Byte[] randomToken = new byte[12];
 				rng.GetBytes(randomToken);
 				string strToken = Convert.ToBase64String(randomToken);
+
+				// Remove special characters for query string
+				strToken = strToken.Replace('+', '-');
+				strToken = strToken.Replace('/', '_');
+				strToken = strToken.Replace('%', '-');
+				strToken = strToken.Replace('=', '_');
 
 				return strToken;
 			}

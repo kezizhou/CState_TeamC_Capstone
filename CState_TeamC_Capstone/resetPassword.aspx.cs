@@ -13,7 +13,7 @@ namespace CState_TeamC_Capstone {
 			if (Request.QueryString["username"] != null && Request.QueryString["username"] != string.Empty && Request.QueryString["token"] != null && Request.QueryString["token"] != string.Empty) {
 				txtUsername.Value = Request.QueryString["username"];
 				string strUsername = Request.QueryString["username"];
-				string strToken = Server.UrlDecode(Request.QueryString["token"]);
+				string strToken = Request.QueryString["token"];
 
 				string strHashedTokenDb = "";
 				bool blnHashesEqual = false;
