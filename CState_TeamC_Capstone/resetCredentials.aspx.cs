@@ -114,6 +114,9 @@ namespace CState_TeamC_Capstone {
 			string strToken = generateToken();
 			string strHashedToken = HashSalt.GenerateHashString(strToken);
 
+			// Mark any existing tokens and used
+			markExistingTokens();
+
 			// Store the hashed token in database
 			SqlConnection conn = new SqlConnection(ConfigurationManager.ConnectionStrings["sqlConn"].ToString());
 			conn.Open();
@@ -123,7 +126,7 @@ namespace CState_TeamC_Capstone {
 				idParam.Value = intID;
 				cmd.Parameters.Add(idParam);
 
-				var tokenHashParam = new SqlParameter("@tokenhash", System.Data.SqlDbType.NVarChar);
+				var tokenHashParam = new SqlParameter("@tokenhash", System.Data.SqlDbType.Char);
 				tokenHashParam.Value = strHashedToken;
 				cmd.Parameters.Add(tokenHashParam);
 
@@ -142,7 +145,7 @@ namespace CState_TeamC_Capstone {
 
 			// Replace the template placeholder variables
 			strEmailBody = strEmailBody.Replace("[strUsername]", strUsername);
-			strEmailBody = strEmailBody.Replace("[actionURL]", ConfigurationManager.AppSettings["mainURL"] + "resetPassword?username=" + strUsername + "&token=" + strToken);
+			strEmailBody = strEmailBody.Replace("[actionURL]", ConfigurationManager.AppSettings["mainURL"] + "resetPassword?username=" + strUsername + "&token=" + Server.UrlEncode(strToken));
 			strEmailBody = strEmailBody.Replace("[mainURL]", ConfigurationManager.AppSettings["mainURL"] + "signIn");
 
 			mailMessage.IsBodyHtml = true;
@@ -178,6 +181,17 @@ namespace CState_TeamC_Capstone {
 				string strToken = Convert.ToBase64String(randomToken);
 
 				return strToken;
+			}
+		}
+
+		private void markExistingTokens() {
+			SqlConnection conn = new SqlConnection(ConfigurationManager.ConnectionStrings["sqlConn"].ToString());
+			conn.Open();
+			string qry = "UPDATE Data.ResetTokens SET Token_Used = 1 WHERE Token_Used = 0";
+			using (SqlCommand cmd = new SqlCommand(qry, conn)) {
+				cmd.ExecuteNonQuery();
+				cmd.Dispose();
+				conn.Close();
 			}
 		}
 	}

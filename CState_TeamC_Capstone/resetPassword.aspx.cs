@@ -13,7 +13,7 @@ namespace CState_TeamC_Capstone {
 			if (Request.QueryString["username"] != null && Request.QueryString["username"] != string.Empty && Request.QueryString["token"] != null && Request.QueryString["token"] != string.Empty) {
 				txtUsername.Value = Request.QueryString["username"];
 				string strUsername = Request.QueryString["username"];
-				string strToken = Request.QueryString["token"];
+				string strToken = Server.UrlDecode(Request.QueryString["token"]);
 
 				string strHashedTokenDb = "";
 				bool blnHashesEqual = false;
@@ -21,7 +21,7 @@ namespace CState_TeamC_Capstone {
 				// Get the hashed token in the database
 				SqlConnection conn = new SqlConnection(ConfigurationManager.ConnectionStrings["sqlConn"].ToString());
 				conn.Open();
-				string qry = "SELECT R.Token_Hash FROM Data.ResetTokens AS R JOIN Data.Employee AS E ON R.Person_ID = E.Person_ID WHERE E.Username = @username AND R.Token_Used = 0 AND DATEDIFF(HOUR, R.Expiration_Date, GETDATE()) < 0";
+				string qry = "SELECT R.Token_Hash FROM Data.ResetTokens AS R JOIN Data.Employee AS E ON R.Person_ID = E.Person_ID WHERE E.Username = @username AND R.Token_Used = 0 AND DATEDIFF(millisecond, R.Expiration_Date, GETDATE()) < 0";
 				using (SqlCommand cmd = new SqlCommand(qry, conn)) {
 					var usernameParam = new SqlParameter("@username", System.Data.SqlDbType.VarChar);
 					usernameParam.Value = strUsername;
@@ -29,13 +29,12 @@ namespace CState_TeamC_Capstone {
 
 					SqlDataReader sdr = cmd.ExecuteReader();
 
-					// Loop because a user may have multiple tokens
 					if (sdr.Read()) {
-						strHashedTokenDb = sdr["Token_Hash"].ToString();
+						strHashedTokenDb = sdr["Token_Hash"].ToString().Trim();
 
 						// Compare to query string token hash
 						string strHashedToken = HashSalt.GenerateHashString(strToken);
-						if (HashSalt.CompareHashes(strHashedToken, strHashedTokenDb)) {
+						if (strHashedToken.Equals(strHashedTokenDb)) {
 							blnHashesEqual = true;
 						}
 					} else {
