@@ -261,3 +261,5 @@ __pycache__/
 *.pyc
 
 CState_TeamC_Capstone/Web.config
+
+CState_TeamC_Capstone\Properties\PublishProfiles\CustomProfile.pubxml

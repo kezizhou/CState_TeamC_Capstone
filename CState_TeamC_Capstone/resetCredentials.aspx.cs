@@ -179,8 +179,11 @@ namespace CState_TeamC_Capstone {
 				Byte[] randomToken = new byte[12];
 				rng.GetBytes(randomToken);
 				string strToken = Convert.ToBase64String(randomToken);
+                
+                // Remove special characters for query string
+                strToken = Server.UrlEncode(strToken);
 
-				return strToken;
+                return strToken;
 			}
 		}
 
