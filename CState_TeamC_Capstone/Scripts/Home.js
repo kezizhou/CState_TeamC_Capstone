@@ -3,7 +3,7 @@ google.charts.load('current', { 'packages': ['corechart'] });
 
 // Set a callback to run when the Google Visualization API is loaded
 google.charts.setOnLoadCallback(drawNearMissTypesChart);
-google.charts.setOnLoadCallback(drawInjuryRisksChart);
+google.charts.setOnLoadCallback(drawInjurySeverityChart);
 
 // Draw the chart and set the chart values
 function drawNearMissTypesChart() {
@@ -30,8 +30,12 @@ function drawNearMissTypesChart() {
         success: function (response) {
             // Draw the chart in the specified id div
             var data = google.visualization.arrayToDataTable(response.d);
-            var chart = new google.visualization.PieChart($("#nearMissTypesChart")[0]);
-            chart.draw(data, options);
+            if (data.getNumberOfRows() == 0) {
+                $("#nearMissTypesChart").append("No data available");
+            } else {
+                var chart = new google.visualization.PieChart($("#nearMissTypesChart")[0]);
+                chart.draw(data, options);
+            }
         },
         failure: function (response) {
             alert(response.d);
@@ -42,9 +46,9 @@ function drawNearMissTypesChart() {
     })
 }
 
-function drawInjuryRisksChart() {
+function drawInjurySeverityChart() {
     var options = {
-        'width': '450',
+        'width': '800',
         'height': '300',
         // Use https://learnui.design/tools/data-color-picker.html for more color schemes
         'colors': ['#009999', '#067cd4', '#ca147b'],
@@ -59,15 +63,19 @@ function drawInjuryRisksChart() {
 
     $.ajax({
         type: "POST",
-        url: "Home.aspx/GetInjuryRisksChartData",
+        url: "Home.aspx/GetInjurySeverityChartData",
         data: '{}',
         contentType: "application/json; charset=utf-8",
         dataType: "json",
         success: function (response) {
             // Draw the chart in the specified id div
             var data = google.visualization.arrayToDataTable(response.d);
-            var chart = new google.visualization.BarChart($("#injuryRisksChart")[0]);
-            chart.draw(data, options);
+            if (data.getNumberOfRows() == 0) {
+                $("#injurySeverityChart").append("No data available");
+            } else {
+                var chart = new google.visualization.ColumnChart($("#injurySeverityChart")[0]);
+                chart.draw(data, options);
+            }
         },
         failure: function (response) {
             alert(response.d);

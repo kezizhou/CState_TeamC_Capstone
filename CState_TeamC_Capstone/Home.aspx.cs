@@ -43,13 +43,17 @@ namespace CState_TeamC_Capstone {
 		}
 
 		[WebMethod]
-		public static List<object> GetInjuryRisksChartData() {
-			List<object> lstChartDate = new List<object>();
+		public static List<object> GetInjurySeverityChartData() {
+			List<object> lstChartData = new List<object>();
 			DataTable dt = new DataTable();
 
 			SqlConnection conn = new SqlConnection(ConfigurationManager.ConnectionStrings["sqlConn"].ToString());
 			conn.Open();
-			string qry = "SELECT T.NearMissType, DATEPART(Month, NMR.NearMissDate) AS 'Months' FROM Data.NearMissRecord AS NMR JOIN Reference.Department AS D ON NMR.Department_ID = D.ID JOIN Reference.RiskLevel AS RL ON NMR.Risk_ID = RL.ID GROUP BY Months";
+			string qry = "SELECT D.Department, SL.SeverityType, ISNULL(COUNT(NMRL.ID),0) AS 'TotalIncidents' " +
+						 "FROM Data.NearMiss_ReviewLog AS NMRL JOIN Reference.SeverityofInjury AS SL ON NMRL.Severity_ID = SL.ID " +
+						 "JOIN Data.NearMissRecord AS NMR ON NMRL.NearMiss_ID = NMR.ID " +
+						 "JOIN Reference.Department AS D ON NMR.Department_ID = D.ID " +
+						 "GROUP BY D.Department, SL.SeverityType";
 			using (SqlDataAdapter sda = new SqlDataAdapter(qry, conn)) {
 				sda.Fill(dt);
 
@@ -57,13 +61,35 @@ namespace CState_TeamC_Capstone {
 				conn.Close();
 			}
 
-			// Departments
+			// Severity Types
+			List<string> lstSeverityTypes = (from p in dt.AsEnumerable()
+										  select p.Field<string>("SeverityType")).Distinct().ToList();
+
+			// Label for severity type first position
+			lstSeverityTypes.Insert(0, "SeverityType");
+
+			// Add departments array to chart array
+			lstChartData.Add(lstSeverityTypes.ToArray());
+
+			// Get distinct departments
 			List<string> lstDepartments = (from p in dt.AsEnumerable()
-										  select p.Field<string>("Department")).Distinct().ToList();
+								   select p.Field<string>("Department")).Distinct().ToList();
 
-			// Label for 
+			// Loop through departments
+			foreach (string department in lstDepartments) {
+				// Get the total incidents for each department for the month
+				List<object> lstTotals = (from p in dt.AsEnumerable()
+										  where p.Field<string>("Department") == department
+										  select p.Field<int>("TotalIncidents")).Cast<object>().ToList();
 
-			return lstChartDate;
+				// Insert departments value as label in first position
+				lstTotals.Insert(0, department.ToString());
+
+				// Add departments array to chart array
+				lstChartData.Add(lstTotals.ToArray());
+			}
+
+			return lstChartData;
 		}
 
 
@@ -72,11 +98,15 @@ namespace CState_TeamC_Capstone {
 
 			SqlConnection conn = new SqlConnection(ConfigurationManager.ConnectionStrings["sqlConn"].ToString());
 			conn.Open();
-			string qry = "SELECT MIN( DATEDIFF(day,NearMissDate, GETDATE()) ) AS 'LastIncident' FROM Data.NearMissRecord";
+			string qry = "SELECT MIN( DATEDIFF(day, NearMissDate, GETDATE()) ) AS 'LastIncident' FROM Data.NearMissRecord";
 			using (SqlCommand cmd = new SqlCommand(qry, conn)) {
 				SqlDataReader sdr = cmd.ExecuteReader();
 				if (sdr.Read()) {
-					intDays = int.Parse(sdr["LastIncident"].ToString());
+					try {
+						intDays = int.Parse(sdr["LastIncident"].ToString());
+					} catch (Exception ex) {
+						intDays = 0;
+					}
 				}
 				cmd.Dispose();
 				conn.Close();

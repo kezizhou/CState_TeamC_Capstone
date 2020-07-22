@@ -31,7 +31,7 @@ namespace CState_TeamC_Capstone {
 						string strSalt = sdr["Salt"].ToString();
 
 						// Check if password hashes and salt match
-						bool passwordMatches = HashSalt.VerifySaltedHash(strEnteredPassword, strHash, strSalt);
+						bool passwordMatches = HashSalt.VerifySaltedHash(strEnteredPassword, strHash.Trim(), strSalt.Trim());
 
 						if (passwordMatches) {
 							// Sign-in successful

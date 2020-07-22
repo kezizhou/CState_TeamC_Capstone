@@ -25,8 +25,8 @@
                     </div>
                 </div> 
                 <div class="container-fluid chartContainer col-sm-auto">
-                    <span class="chartHeading">Chart 3</span>
-                    <div id="injuryRisksChart"></div>
+                    <span class="chartHeading">Incident Severity of Injury by Department</span>
+                    <div id="injurySeverityChart"></div>
                 </div>
                 <div class="container-fluid chartContainer col-sm-auto">
                     <span class="chartHeading">Chart 4</span>
