@@ -18,13 +18,15 @@
                 <div class="container-fluid chartContainer col-sm-auto">
                     <span class="chartHeading">Last Reported Incident Occurred</span>
                     <div id="recentIncidentChart">
-                        <h1 class="dataLabel">7</h1>
-                        <div class="centerDescription">days ago</div>
+                        <div class="d-inline align-self-center">
+                            <h1 id="lastIncident" class="dataLabel" runat="server">7</h1>
+                            <div id="lastIncidentDescription" class="centerDescription" runat="server">days ago</div>
+                        </div>
                     </div>
                 </div> 
                 <div class="container-fluid chartContainer col-sm-auto">
                     <span class="chartHeading">Chart 3</span>
-                    <div id="chart3"></div>
+                    <div id="injuryRisksChart"></div>
                 </div>
                 <div class="container-fluid chartContainer col-sm-auto">
                     <span class="chartHeading">Chart 4</span>

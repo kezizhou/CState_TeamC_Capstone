@@ -30,13 +30,16 @@ namespace CState_TeamC_Capstone {
 		}
 
 		public static string GenerateHashString(string strInput) {
+			string strHashString = "";
+
 			// Create a SHA256   
 			using (SHA256 sha256Hash = SHA256.Create()) {
 				// ComputeHash - returns byte array  
 				byte[] bytes = sha256Hash.ComputeHash(Encoding.UTF8.GetBytes(strInput));
-
-				return Convert.ToBase64String(bytes);
+				strHashString = Convert.ToBase64String(bytes);
 			}
+
+			return strHashString;
 		}
 	}
 }
