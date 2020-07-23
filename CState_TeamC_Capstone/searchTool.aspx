@@ -78,15 +78,17 @@
                     </tr>
                 </thead>
                 <tbody>
-                    <tr>
-                        <td>FirstName LastName</td>
-                        <td>SampleDepartment</td>
-                        <td>Spill</td>
-                        <td>FirstName LastName</td>
-                        <td>Medium</td>
-                        <td>Low</td>
-                        <td>This is a paragraph of brief detail describing the incident.</td>
-                    </tr>
+                    <% foreach (var x in results)
+                        {%><tr>
+
+                            <td><%= x.Operator%></td>
+                            <td><%= x.Department%></td>
+                            <td><%= x.NearMissType%></td>
+                            <td><%= x.Assignee%></td>
+                            <td><%= x.SeverityLevel%></td>
+                            <td><%= x.RiskLevel%></td>
+                            <td><%= x.BriefDetail%></td>
+                     </tr><%};%>
                 </tbody>
             </table>
         </div>

@@ -1,10 +1,14 @@
 ﻿
+using CState_TeamC_Capstone.DomainObjects;
+using System.Collections.Generic;
+using System.Data.SqlClient;
+
 namespace CState_TeamC_Capstone
 {
     public class Shared
     {
       //  public const string CONNECTION_STRING = "Data Source=itd2.cincinnatistate.edu;Initial Catalog=CPDM-MccomasV; User ID=CPDM-vlMcComas;Password=0477095; ";
-        public const string CONNECTION_STRING = "Data Source=itd2.cincinnatistate.edu;Initial Catalog=CPDM-MccomasV; User ID=CPDM-Adam;Password=; ";
+        public const string CONNECTION_STRING = "Data Source=itd2.cincinnatistate.edu;Initial Catalog=CPDM-SadowskiA; User ID=CPDM-ajsadowski;Password=0650199; ";
       //  public const string CONNECTION_STRING = "Data Source=itd2.cincinnatistate.edu;Initial Catalog=CPDM-MccomasV; User ID=CPDM-Keziah;Password=; ";
 
         public static string GetTopNearMissRecord()
@@ -344,7 +348,49 @@ namespace CState_TeamC_Capstone
                 _sqlCommand.Parameters.Add(new System.Data.SqlClient.SqlParameter("@DateUpdated", System.Data.SqlDbType.VarChar)).Value = System.DateTime.Now;
                 _sqlConnection.Open();         
                 _sqlCommand.ExecuteNonQuery(); 
-            }                                  
+            }
+        }
+        public static List<SearchToolQueryResult> GetSearchToolQuery()
+        {
+            var searchQueryResults = new List<SearchToolQueryResult>();
+            string queryString = @"SELECT  Data.NearMissRecord.ID,
+
+        data.NearMissRecord.OperatorName,
+		Reference.Department.Department,
+		Reference.NearMissType.NearMissType,
+		data.NearMiss_ReviewLog.AssignedTo,
+		Reference.SeverityofInjury.SeverityType,
+		Reference.RiskLevel.RiskType,
+		data.NearMiss_ReviewLog.Comments
+FROM data.NearMissRecord
+INNER JOIN data.NearMiss_ReviewLog ON data.NearMissRecord.ID = data.NearMiss_ReviewLog.NearMiss_ID
+INNER JOIN Reference.Department ON Reference.Department.ID = data.NearMissRecord.Department_ID
+INNER JOIN Reference.NearMissType ON Reference.NearMissType.ID = data.NearMiss_ReviewLog.NearMiss_ID
+INNER JOIN Reference.SeverityofInjury ON Reference.SeverityofInjury.ID = data.NearMiss_ReviewLog.Severity_ID
+INNER JOIN Reference.RiskLevel ON Reference.RiskLevel.ID = data.NearMiss_ReviewLog.Risk_ID";
+            using (SqlConnection connection = new SqlConnection(CONNECTION_STRING))
+            {
+                SqlCommand command = new SqlCommand(queryString, connection);
+                connection.Open();
+                using (SqlDataReader reader = command.ExecuteReader())
+                {
+                    while (reader.Read())
+                    {
+                        searchQueryResults.Add(new SearchToolQueryResult {
+                            NearMissRecordID = (int)reader[0], 
+                            Operator = reader[1].ToString(),
+                            Department = reader[2].ToString(),
+                            NearMissType = reader[3].ToString(),
+                            Assignee = reader[4].ToString(),
+                            SeverityLevel = reader[5].ToString(),
+                            RiskLevel = reader[6].ToString(),
+                            BriefDetail = reader[7].ToString()
+                        });
+                    }
+                }
+            }
+
+            return searchQueryResults;
         }
     }
 }
