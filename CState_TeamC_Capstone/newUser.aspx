@@ -40,7 +40,7 @@
 
                 <div class="form-group" id="firstNameDiv">
                     <label for="txtFirstName" class="control-label">First Name:</label>
-                    <input id="txtFirstName" name="txtFirstName" class="form-control" type="text" required="required"/>
+                    <input id="txtFirstName" name="txtFirstName" runat="server" class="form-control" type="text" required="required"/>
                 </div>
 
                 <div class="form-group" id="middleNameDiv">
@@ -50,41 +50,44 @@
 
                 <div class="form-group" id="lastNameDiv">
                     <label for="txtLastName" class="control-label">Last Name:</label>
-                    <input id="txtLastName" name="txtLastName" class="form-control" type="text" required="required"/>
+                    <input id="txtLastName" name="txtLastName" runat="server" class="form-control" type="text" required="required"/>
                 </div>
                 
                 <div class="form-group" id="employeeIDDiv">
                     <label for="txtemployeeID" class="control-label">Employee ID (6-digit):</label>
-                    <input id="txtemployeeID" name="txtemployeeID" class="form-control" type="text" required="required"/>
+                    <input id="txtemployeeID" name="txtemployeeID" runat="server" class="form-control" type="text" required="required"/>
                 </div>
 
                 <div class="form-group" id="emailDiv">
                     <label for="txtEmail" class="control-label">Email:</label>
-                    <input id="txtEmail" name="txtEmail" class="form-control" type="text" required="required"/>
+                    <input id="txtEmail" name="txtEmail" runat="server" class="form-control" type="text" required="required"/>
                 </div>
 
                 <div class="form-group" id="departmentDiv">
                     <label for="sltDepartment" class="control-label">Department:</label>
-                    <select id="sltDepartment" name="sltDepartment" class="required form-control">
-                        <option value="" selected="selected" disabled="disabled" hidden="hidden">Select Production Area</option>
-                        <option value="value">These will be populated from database</option>
+                    <select id="sltDepartment" name="sltDepartment" runat="server" class="required form-control">
+                        <option value="none" title="Select Department" selected="selected" disabled="disabled" hidden="hidden" runat="server" >Select Production Area</option>               
                     </select>
-                </div>
+               </div>
 
                 <div class="form-group" id="usernameDiv">
                     <label for="txtUsername" class="control-label">Username:</label>
-                    <input id="txtUsername" name="txtUsername" class="form-control" type="text" required="required"/>
+                    <input id="txtUsername" name="txtUsername" runat="server" class="form-control" type="text" required="required"/>
                 </div>
 
                 <div class="form-group" id="passwordDiv">
                     <label for="txtPassword" class="control-label">Password:</label>
-                    <input id="txtPassword" name="txtPassword" class="form-control" type="password" required="required"/>
+                    <input id="txtPassword" name="txtPassword" runat="server" class="form-control" type="password" required="required"/>
+                </div>
+
+                <div class="form-group" id="EmployeeStatusDiv">
+                    <label for="cbEmployee" class="control-label">Employee Status:</label>
+                    <input id="cbEmployeeStatus" name="cbEmployeeStatus" runat="server" class="form-check" type="checkbox" checked="checked" />
                 </div>
 
                 <div class="container">
                     <button type="submit" id="btnSubmitNewUser" class="btn btn-primary btn-sm center"  runat="server">
-                        <i class="fas fa-sign-in-alt"></i> Submit New User
-                    </button>
+                        <i class="fas fa-sign-in-alt"></i> Submit New User</button>
                 </div>
                         
                 <div class="center2">
