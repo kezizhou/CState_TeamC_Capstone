@@ -353,21 +353,14 @@ namespace CState_TeamC_Capstone
         public static List<SearchToolQueryResult> GetSearchToolQuery()
         {
             var searchQueryResults = new List<SearchToolQueryResult>();
-            string queryString = @"SELECT  Data.NearMissRecord.ID,
-
-        data.NearMissRecord.OperatorName,
-		Reference.Department.Department,
-		Reference.NearMissType.NearMissType,
-		data.NearMiss_ReviewLog.AssignedTo,
-		Reference.SeverityofInjury.SeverityType,
-		Reference.RiskLevel.RiskType,
-		data.NearMiss_ReviewLog.Comments
-FROM data.NearMissRecord
-INNER JOIN data.NearMiss_ReviewLog ON data.NearMissRecord.ID = data.NearMiss_ReviewLog.NearMiss_ID
-INNER JOIN Reference.Department ON Reference.Department.ID = data.NearMissRecord.Department_ID
-INNER JOIN Reference.NearMissType ON Reference.NearMissType.ID = data.NearMiss_ReviewLog.NearMiss_ID
-INNER JOIN Reference.SeverityofInjury ON Reference.SeverityofInjury.ID = data.NearMiss_ReviewLog.Severity_ID
-INNER JOIN Reference.RiskLevel ON Reference.RiskLevel.ID = data.NearMiss_ReviewLog.Risk_ID";
+            string queryString = @"SELECT  Data.NearMissRecord.ID, data.NearMissRecord.OperatorName, Reference.Department.Department, Reference.NearMissType.NearMissType, data.NearMiss_ReviewLog.AssignedTo,
+                                   Reference.SeverityofInjury.SeverityType, Reference.RiskLevel.RiskType, data.NearMiss_ReviewLog.Comments
+                                   FROM data.NearMissRecord
+                                   INNER JOIN data.NearMiss_ReviewLog ON data.NearMissRecord.ID = data.NearMiss_ReviewLog.NearMiss_ID
+                                   INNER JOIN Reference.Department ON Reference.Department.ID = data.NearMissRecord.Department_ID
+                                   INNER JOIN Reference.NearMissType ON Reference.NearMissType.ID = data.NearMiss_ReviewLog.NearMiss_ID
+                                   INNER JOIN Reference.SeverityofInjury ON Reference.SeverityofInjury.ID = data.NearMiss_ReviewLog.Severity_ID
+                                   INNER JOIN Reference.RiskLevel ON Reference.RiskLevel.ID = data.NearMiss_ReviewLog.Risk_ID";
             using (SqlConnection connection = new SqlConnection(CONNECTION_STRING))
             {
                 SqlCommand command = new SqlCommand(queryString, connection);
@@ -385,6 +378,98 @@ INNER JOIN Reference.RiskLevel ON Reference.RiskLevel.ID = data.NearMiss_ReviewL
                             SeverityLevel = reader[5].ToString(),
                             RiskLevel = reader[6].ToString(),
                             BriefDetail = reader[7].ToString()
+                        });
+                    }
+                }
+            }
+
+            return searchQueryResults;
+        }
+        public static List<Filters> GetDepartmentFilter()
+        {
+            var searchQueryResults = new List<Filters>();
+            string queryString = @"SELECT ID,Department FROM Reference.Department WHERE GETDATE() BETWEEN ValidFromDate and ValidToDate";
+            using (SqlConnection connection = new SqlConnection(CONNECTION_STRING))
+            {
+                SqlCommand command = new SqlCommand(queryString, connection);
+                connection.Open();
+                using (SqlDataReader reader = command.ExecuteReader())
+                {
+                    while (reader.Read())
+                    {
+                        searchQueryResults.Add(new Filters
+                        {
+                            ID = (int)reader[0],
+                            Description = reader[1].ToString(),
+                        });
+                    }
+                }
+            }
+
+            return searchQueryResults;
+        }
+        public static List<Filters> GetNearMissTypeFilter()
+        {
+            var searchQueryResults = new List<Filters>();
+            string queryString = @"SELECT ID,NearMissType FROM Reference.NearMissType WHERE GETDATE() BETWEEN ValidFromDate and ValidToDate";
+            using (SqlConnection connection = new SqlConnection(CONNECTION_STRING))
+            {
+                SqlCommand command = new SqlCommand(queryString, connection);
+                connection.Open();
+                using (SqlDataReader reader = command.ExecuteReader())
+                {
+                    while (reader.Read())
+                    {
+                        searchQueryResults.Add(new Filters
+                        {
+                            ID = (int)reader[0],
+                            Description = reader[1].ToString(),
+                        });
+                    }
+                }
+            }
+
+            return searchQueryResults;
+        }
+        public static List<Filters> GetSeverityFilter()
+        {
+            var searchQueryResults = new List<Filters>();
+            string queryString = @"SELECT ID,SeverityType FROM Reference.SeverityofInjury WHERE GETDATE() BETWEEN ValidFromDate and ValidToDate";
+            using (SqlConnection connection = new SqlConnection(CONNECTION_STRING))
+            {
+                SqlCommand command = new SqlCommand(queryString, connection);
+                connection.Open();
+                using (SqlDataReader reader = command.ExecuteReader())
+                {
+                    while (reader.Read())
+                    {
+                        searchQueryResults.Add(new Filters
+                        {
+                            ID = (int)reader[0],
+                            Description = reader[1].ToString(),
+                        });
+                    }
+                }
+            }
+
+            return searchQueryResults;
+        }
+        public static List<Filters> GetRiskFilter()
+        {
+            var searchQueryResults = new List<Filters>();
+            string queryString = @"SELECT ID, RiskType FROM Reference.RiskLevel WHERE GETDATE() BETWEEN ValidFromDate and ValidToDate";
+            using (SqlConnection connection = new SqlConnection(CONNECTION_STRING))
+            {
+                SqlCommand command = new SqlCommand(queryString, connection);
+                connection.Open();
+                using (SqlDataReader reader = command.ExecuteReader())
+                {
+                    while (reader.Read())
+                    {
+                        searchQueryResults.Add(new Filters
+                        {
+                            ID = (int)reader[0],
+                            Description = reader[1].ToString(),
                         });
                     }
                 }
