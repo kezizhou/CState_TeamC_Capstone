@@ -86,7 +86,7 @@
                 </div>
 
                 <div class="container">
-                    <button type="submit" id="btnSubmitNewUser" class="btn btn-primary btn-sm center"  runat="server">
+                    <button type="submit" id="btnSubmitNewUser" class="btn btn-primary btn-sm center"  runat="server" onserverclick="btnSubmitNewUser_Click">
                         <i class="fas fa-sign-in-alt"></i> Submit New User</button>
                 </div>
                         

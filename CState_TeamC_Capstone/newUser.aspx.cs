@@ -20,13 +20,14 @@ namespace CState_TeamC_Capstone
             sda.Fill(dt);
             sltDepartment.DataSource = dt;
             sltDepartment.DataTextField = "Department";
-            sltDepartment.DataValueField = "ID";
+            sltDepartment.DataValueField = "Department";
             sltDepartment.DataBind();
             
             sqlconn.Close();
 
             sltDepartment.Items.Insert(0, "Select Department");
                
+            
         }
 
         protected void btnSubmitNewUser_Click(object sender, EventArgs e)
@@ -38,27 +39,30 @@ namespace CState_TeamC_Capstone
                 string strLastName = Request.Form["txtLastName"];
                 int intEmployeeID = Convert.ToInt32(Request.Form["txtemployeeID"]);
                 string strUsername = Request.Form["txtUsername"];
+                bool blnActive;
                 string strPassword = Request.Form["txtPassword"];
-                string strActive = Request.Form["cbEmployeeStatus"];
                 string strEmail = Request.Form["txtEmail"];
                 string strDepartment = Request.Form["sltDepartment"];
-
+                
                 SqlConnection conn = new SqlConnection(ConfigurationManager.ConnectionStrings["sqlConn"].ToString());
                 conn.Open();
-                               
-                    // Add hash password
-                    HashSalt hashSalt = HashSalt.GenerateSaltedHash(32, strPassword);
+
+                // Add hash password
+                HashSalt hashSalt = HashSalt.GenerateSaltedHash(32, strPassword);
                     string hashParam = hashSalt.Hash;
                    
                     // Add salt
                     string saltParam = hashSalt.Salt;
-                
-                Shared.InsertNewEmployee(strFirstName, strMiddleName, strLastName, strUsername, hashParam, saltParam, strActive, intEmployeeID, strEmail, strDepartment);
+
+                blnActive = cbEmployeeStatus.Checked;
+
+                Shared.InsertNewEmployee(strFirstName, strMiddleName, strLastName, strUsername, hashParam, saltParam, blnActive, intEmployeeID, strEmail, strDepartment);
 
                 conn.Close();
-                              
+
+                Response.Redirect("signIn.aspx");
             }
-            
+                 
             catch (Exception ex)
             {
                 Response.Write(ex.Message);
