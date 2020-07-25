@@ -33,19 +33,23 @@
 }
 
 .chartContainer {
-    margin-bottom: 15px;
-}
-
-
-.dataLabel {
-    color: black;
-    text-align: center;
-    font-size: 75px;
-    padding-top: 10%;
+    margin-bottom: 25px;
+    background-color: white;
+    padding: 10px;
 }
 
 h5 {
     padding-bottom: 15px;
+}
+
+.filter {
+    margin-top: 15px;
+}
+
+.chartHeading {
+    font-family: Roboto;
+    font-size: 16px;
+    color: rgb(117, 117, 117);
 }
 
 /* Google Charts tooltip has a flicking bug

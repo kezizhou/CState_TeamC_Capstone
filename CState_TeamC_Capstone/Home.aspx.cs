@@ -28,7 +28,7 @@ namespace CState_TeamC_Capstone {
 
 			SqlConnection conn = new SqlConnection(ConfigurationManager.ConnectionStrings["sqlConn"].ToString());
 			conn.Open();
-			string qry = "SELECT T.NearMissType, COUNT(T.ID) TotalIncidents FROM Data.NearMissRecord AS R JOIN Reference.NearMissType AS T ON R.NearMissType_ID = T.ID GROUP BY T.NearMissType";
+			string qry = "SELECT T.NearMissType, COUNT(R.ID) TotalIncidents FROM Data.NearMissRecord AS R RIGHT JOIN Reference.NearMissType AS T ON R.NearMissType_ID = T.ID GROUP BY T.NearMissType";
 			using (SqlCommand cmd = new SqlCommand(qry, conn)) {
 				SqlDataReader sdr = cmd.ExecuteReader();
 				while (sdr.Read()) {

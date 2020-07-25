@@ -18,15 +18,14 @@
         <div class="container-fluid">
             <div class="row">
                 <div class="container-fluid chartContainer col-lg-auto">
-                    <span class="chartHeading">Incidents Severity and Risk by Department</span>
                     <div id="riskSeverityChart"></div>
-                    <div id="srByDepartmentFilter"></div>
+                    <div id="srByDepartmentFilter" class="filter"></div>
                 </div>
                 <div class="w-100"></div>
                 <div class="container-fluid chartContainer col-lg-auto">
-                    <span class="chartHeading">Incident Types by Department</span>
                     <div id="departmentNearMissTypesChart"></div>
-                    <div id="typeByDepartmentFilter"></div>
+                    <div id="typeByDepartmentFilter" class="filter"></div>
+                    <div id="nearMissTypeFilter" class="filter"></div>
                 </div>
                 <div class="container-fluid chartContainer col-md-auto">
                     <span class="chartHeading">Frequency of Near Miss Types</span>

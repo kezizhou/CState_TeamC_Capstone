@@ -23,7 +23,7 @@ function drawNearMissTypesChart() {
             left: '10',
             top: '10'
         },
-        sliceVisibilityThreshold: .05,
+        sliceVisibilityThreshold: 0
     };
 
     $.ajax({
@@ -81,15 +81,6 @@ function drawInjurySeverityChart() {
     function ajaxSuccess(data) {
         var colors = ['#009999', '#c15abc']
 
-        // Columns table
-        var columnsTable = new google.visualization.DataTable();
-        columnsTable.addColumn('number', 'colIndex');
-        columnsTable.addColumn('string', 'colLabel');
-
-        for (var i = 0; i < data.getNumberOfRows(); i++) {
-            columnsTable.addRow([i, data.getValue(i, 0)]);
-        }
-
         var options = {
             // Use https://learnui.design/tools/data-color-picker.html for more color schemes
             colors: colors,
@@ -127,6 +118,9 @@ function drawInjurySeverityChart() {
                 5: {
                     targetAxisIndex: 1
                 }
+            },
+            chart: {
+                title: 'Incidents Severity and Risk by Department'
             }
         };
 
@@ -170,6 +164,8 @@ function drawInjurySeverityChart() {
 
 // Near Miss Types Column Chart
 function drawDepartmentNearMissTypesChart() {
+    var colors = ['#c55d86', '#75b74b', '#c15abc', '#009999', '#7768ca', '#c69442', '#6c93d0', '#cb5842', '#6f823b'];
+
     $.ajax({
         type: "POST",
         url: "Home.aspx/GetDepartmentNearMissTypesChartData",
@@ -200,8 +196,10 @@ function drawDepartmentNearMissTypesChart() {
         columnsTable.addColumn('number', 'colIndex');
         columnsTable.addColumn('string', 'colLabel');
 
-        for (var i = 0; i < data.getNumberOfRows(); i++) {
-            columnsTable.addRow([i, data.getValue(i, 0)]);
+        // For near miss type filter
+        var nearMissInitState = { selectedValues: [] };
+        for (var i = 1; i < data.getNumberOfColumns(); i++) {
+            columnsTable.addRow([i, data.getColumnLabel(i)]);
         }
 
         var options = {
@@ -261,6 +259,9 @@ function drawDepartmentNearMissTypesChart() {
                 8: {
                     color: '#6f823b'
                 }
+            },
+            chart: {
+                title: 'Incident Types by Department'
             }
         };
 
@@ -278,7 +279,6 @@ function drawDepartmentNearMissTypesChart() {
             containerId: 'typeByDepartmentFilter',
             options: {
                 filterColumnLabel: 'Departments',
-                //useFormattedValue: true,
                 ui: {
                     label: 'Department: ',
                     allowTyping: false,
@@ -291,14 +291,13 @@ function drawDepartmentNearMissTypesChart() {
             state: initState
         })
 
-        // Near Miss Tpe Control Wrapper
-        var nearMissInitState = { selectedValues: [] };
+        // Near Miss Type Control Wrapper
         var nearMissColumnFilter = new google.visualization.ControlWrapper({
             controlType: 'CategoryFilter',
-            containerId: 'Filter',
-            //dataTable: columnsTable,
+            containerId: 'nearMissTypeFilter',
+            dataTable: columnsTable,
             options: {
-                filterColumnLabel: 'NearMissTypes',
+                filterColumnLabel: 'colLabel',
                 //useFormattedValue: true,
                 ui: {
                     label: 'Near Miss Types: ',
@@ -312,10 +311,46 @@ function drawDepartmentNearMissTypesChart() {
             state: nearMissInitState
         })
 
-        // Dashboard
-        var dashboard = new google.visualization.Dashboard();
-        dashboard.bind(columnFilter, chart);
-        dashboard.draw(data);
-    }
+        function setChartView() {
+            var state = nearMissColumnFilter.getState();
+            var row;
+            var view = {
+                columns: [0]
+            }
 
+            if (state.selectedValues.length == 0) {
+                for (var i = 0; i < columnsTable.getNumberOfRows(); i++) {
+                    value = columnsTable.getValue(i, 0);
+                    view.columns.push(value);
+                }
+            } else {
+                for (var i = 0; i < state.selectedValues.length; i++) {
+                    row = columnsTable.getFilteredRows([{ column: 1, value: state.selectedValues[i] }])[0];
+                    view.columns.push(columnsTable.getValue(row, 0));
+                }
+
+                // Sort the indices into their original order
+                view.columns.sort(function (a, b) {
+                    return (a - b);
+                });
+            }
+
+            // Keep original colors
+            chart.getOptions().series = [];
+            for (var i = 1; i < view.columns.length; i++) {
+                chart.getOptions().series.push({ color: colors[view.columns[i] - 1] });
+            }
+
+            chart.setView(view);
+
+            // Dashboard
+            var dashboard = new google.visualization.Dashboard();
+            dashboard.bind(columnFilter, chart);
+            dashboard.draw(data);
+        }
+
+        google.visualization.events.addListener(nearMissColumnFilter, 'statechange', setChartView);
+        setChartView();
+        nearMissColumnFilter.draw();
+    }
 }
