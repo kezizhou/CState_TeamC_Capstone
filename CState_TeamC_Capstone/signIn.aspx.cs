@@ -8,7 +8,7 @@ namespace CState_TeamC_Capstone {
 		SqlConnection conn = new SqlConnection(ConfigurationManager.ConnectionStrings["sqlConn"].ToString());
 
 		protected void Page_Load(object sender, EventArgs e) {
-			if (this.Context.User.Identity.IsAuthenticated) {
+			if (this.Context.User.Identity.IsAuthenticated && Session["User_ID"] != null) {
 				Response.Redirect("Home.aspx");
 			}
 		}

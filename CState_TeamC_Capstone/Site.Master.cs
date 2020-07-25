@@ -12,7 +12,10 @@ namespace CState_TeamC_Capstone {
 	public partial class SiteMaster : MasterPage {
 		protected void Page_Load(object sender, EventArgs e) {
 			try {
-				int.Parse(Session["User_ID"].ToString());
+				if (Session["User_ID"] == null)
+				{
+					throw new Exception();
+				}
 			} catch (Exception ex) {
 				// User session expired
 				Response.Redirect("signIn.aspx");

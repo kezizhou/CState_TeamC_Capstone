@@ -5,6 +5,7 @@ using System.Data;
 using System.Data.SqlClient;
 using System.Web.Services;
 using System.Linq;
+using System.Runtime.CompilerServices;
 
 namespace CState_TeamC_Capstone {
 	public partial class Home : System.Web.UI.Page {
@@ -49,11 +50,7 @@ namespace CState_TeamC_Capstone {
 
 			SqlConnection conn = new SqlConnection(ConfigurationManager.ConnectionStrings["sqlConn"].ToString());
 			conn.Open();
-			string qry = "SELECT D.Department, SL.SeverityType, ISNULL(COUNT(NMRL.ID),0) AS 'TotalIncidents' " +
-						 "FROM Data.NearMiss_ReviewLog AS NMRL JOIN Reference.SeverityofInjury AS SL ON NMRL.Severity_ID = SL.ID " +
-						 "JOIN Data.NearMissRecord AS NMR ON NMRL.NearMiss_ID = NMR.ID " +
-						 "JOIN Reference.Department AS D ON NMR.Department_ID = D.ID " +
-						 "GROUP BY D.Department, SL.SeverityType";
+			string qry = "SELECT Department, SeverityType_Low, SeverityType_Medium, SeverityType_High, RiskLevel_Low, RiskLevel_Medium, RiskLevel_High, TotalIncidents FROM VW.GetDepartmentChartData ORDER BY TotalIncidents DESC, SeverityType_High DESC, RiskLevel_High DESC, SeverityType_Medium DESC, RiskLevel_Medium DESC, SeverityType_Low DESC, RiskLevel_Low DESC";
 			using (SqlDataAdapter sda = new SqlDataAdapter(qry, conn)) {
 				sda.Fill(dt);
 
@@ -61,15 +58,21 @@ namespace CState_TeamC_Capstone {
 				conn.Close();
 			}
 
-			// Severity Types
-			List<string> lstSeverityTypes = (from p in dt.AsEnumerable()
-										  select p.Field<string>("SeverityType")).Distinct().ToList();
+			// Severity and Risk Types
+			List<string> lstSeverityRiskTypes = new List<string>();
 
-			// Label for severity type first position
-			lstSeverityTypes.Insert(0, "SeverityType");
+			foreach (string strSeverity in GetSeverityTypes()) {
+				lstSeverityRiskTypes.Add(strSeverity);
+			}
+			foreach (string strRisk in GetRiskLevels()) {
+				lstSeverityRiskTypes.Add(strRisk);
+			}
 
-			// Add departments array to chart array
-			lstChartData.Add(lstSeverityTypes.ToArray());
+			// Label for departments first position
+			lstSeverityRiskTypes.Insert(0, "Departments");
+
+			// Add severity risk types array to chart array
+			lstChartData.Add(lstSeverityRiskTypes.ToArray());
 
 			// Get distinct departments
 			List<string> lstDepartments = (from p in dt.AsEnumerable()
@@ -77,22 +80,204 @@ namespace CState_TeamC_Capstone {
 
 			// Loop through departments
 			foreach (string department in lstDepartments) {
-				// Get the total incidents for each department for the month
+				// Get the total incidents for each severity for this department
+				// Severity Low
 				List<object> lstTotals = (from p in dt.AsEnumerable()
 										  where p.Field<string>("Department") == department
-										  select p.Field<int>("TotalIncidents")).Cast<object>().ToList();
+										  select p.Field<int>("SeverityType_Low")).Cast<object>().ToList();
 
 				// Insert departments value as label in first position
 				lstTotals.Insert(0, department.ToString());
 
-				// Add departments array to chart array
-				lstChartData.Add(lstTotals.ToArray());
+				// Severity Medium
+				lstTotals.Add((from p in dt.AsEnumerable()
+							   where p.Field<string>("Department") == department
+							   select p.Field<int>("SeverityType_Medium")).Cast<int>().ToList()[0]);
+
+				// Severity High
+				lstTotals.Add((from p in dt.AsEnumerable()
+							   where p.Field<string>("Department") == department
+							   select p.Field<int>("SeverityType_High")).Cast<int>().ToList()[0]);
+
+				// Risk Low
+				lstTotals.Add((from p in dt.AsEnumerable()
+							   where p.Field<string>("Department") == department
+							   select p.Field<int>("RiskLevel_Low")).Cast<int>().ToList()[0]);
+
+				// Risk Medium
+				lstTotals.Add( (from p in dt.AsEnumerable()
+								where p.Field<string>("Department") == department
+								select p.Field<int>("RiskLevel_Medium")).Cast<int>().ToList()[0] );
+
+				// Risk High
+				lstTotals.Add((from p in dt.AsEnumerable()
+							   where p.Field<string>("Department") == department
+							   select p.Field<int>("RiskLevel_High")).Cast<int>().ToList()[0]);
+
+				// Add totals to chart data array if the department has data
+				if ((int)lstTotals[1] != 0 || (int)lstTotals[2] != 0 || (int)lstTotals[3] != 0 || (int)lstTotals[4] != 0 || (int)lstTotals[5] != 0 || (int)lstTotals[6] != 0) {
+					lstChartData.Add(lstTotals.ToArray());
+				}
 			}
 
 			return lstChartData;
 		}
 
+		public static List<string> GetSeverityTypes() {
+			List<string> lstSeverityTypes = new List<string>();
 
+			SqlConnection conn = new SqlConnection(ConfigurationManager.ConnectionStrings["sqlConn"].ToString());
+			conn.Open();
+			string qry = "SELECT * FROM Reference.SeverityofInjury";
+			using (SqlCommand cmd = new SqlCommand(qry, conn))
+			{
+				SqlDataReader sdr = cmd.ExecuteReader();
+				while (sdr.Read())
+				{
+					lstSeverityTypes.Add("Severity " + sdr["SeverityType"].ToString());
+				}
+				cmd.Dispose();
+				conn.Close();
+			}
+
+			return lstSeverityTypes;
+		}
+
+		public static List<string> GetRiskLevels() {
+			List<string> lstRiskyLevels = new List<string>();
+
+			SqlConnection conn = new SqlConnection(ConfigurationManager.ConnectionStrings["sqlConn"].ToString());
+			conn.Open();
+			string qry = "SELECT * FROM Reference.RiskLevel";
+			using (SqlCommand cmd = new SqlCommand(qry, conn)) {
+				SqlDataReader sdr = cmd.ExecuteReader();
+				while (sdr.Read()) {
+					lstRiskyLevels.Add("Risk " + sdr["RiskType"].ToString());
+				}
+				cmd.Dispose();
+				conn.Close();
+			}
+
+			return lstRiskyLevels;
+		}
+
+		[WebMethod]
+		public static List<object> GetDepartmentNearMissTypesChartData() {
+			List<object> lstChartData = new List<object>();
+			DataTable dt = new DataTable();
+
+			SqlConnection conn = new SqlConnection(ConfigurationManager.ConnectionStrings["sqlConn"].ToString());
+			conn.Open();
+			string qry = "SELECT Department, Slip_Trip_Fall, ElectricalSafety, ChemicalSafety, SafetyMachine_Guarding, SafetyMaterial_Handling, SafetyPPE, SafetyCrane, SafetyHousekeeping, SafetyWeather, TotalIncidents FROM VW.GetDepartmentChartData ORDER BY TotalIncidents DESC";
+			using (SqlDataAdapter sda = new SqlDataAdapter(qry, conn))
+			{
+				sda.Fill(dt);
+
+				sda.Dispose();
+				conn.Close();
+			}
+
+			// Near Miss Types
+			List<string> lstNearMissTypes = GetNearMissTypes();
+
+			// Label for departments first position
+			lstNearMissTypes.Insert(0, "Departments");
+
+			// Add near miss types array to chart array
+			lstChartData.Add(lstNearMissTypes.ToArray());
+
+			// Get distinct departments
+			List<string> lstDepartments = (from p in dt.AsEnumerable()
+										   select p.Field<string>("Department")).Distinct().ToList();
+
+			// Loop through departments
+			foreach (string department in lstDepartments)
+			{
+				// Get the total incidents for each near miss type for this department
+				// Slip, trip, fall
+				List<object> lstTotals = (from p in dt.AsEnumerable()
+										  where p.Field<string>("Department") == department
+										  select p.Field<int>("Slip_Trip_Fall")).Cast<object>().ToList();
+
+				// Insert departments value as label in first position
+				lstTotals.Insert(0, department.ToString());
+
+				// Electrical Safety
+				List<int> lstElectricalSafety = (from p in dt.AsEnumerable()
+											where p.Field<string>("Department") == department
+											select p.Field<int>("ElectricalSafety")).Cast<int>().ToList();
+				lstTotals.Add(lstElectricalSafety[0]);
+
+				// Chemical Safety
+				List<int> lstChemicalSafety = (from p in dt.AsEnumerable()
+										  where p.Field<string>("Department") == department
+										  select p.Field<int>("ChemicalSafety")).Cast<int>().ToList();
+				lstTotals.Add(lstChemicalSafety[0]);
+
+				// Safety Machine Guarding
+				List<int> lstMachineGuarding = (from p in dt.AsEnumerable()
+										  where p.Field<string>("Department") == department
+										  select p.Field<int>("SafetyMachine_Guarding")).Cast<int>().ToList();
+				lstTotals.Add(lstMachineGuarding[0]);
+
+				// Safety Material Handling
+				List<int> lstMaterialHandling = (from p in dt.AsEnumerable()
+										  where p.Field<string>("Department") == department
+										  select p.Field<int>("SafetyMaterial_Handling")).Cast<int>().ToList();
+				lstTotals.Add(lstMaterialHandling[0]);
+
+				// Safety PPE
+				List<int> lstPPE = (from p in dt.AsEnumerable()
+										  where p.Field<string>("Department") == department
+										  select p.Field<int>("SafetyPPE")).Cast<int>().ToList();
+				lstTotals.Add(lstPPE[0]);
+
+				// Safety Crane
+				List<int> lstCrane = (from p in dt.AsEnumerable()
+									where p.Field<string>("Department") == department
+									select p.Field<int>("SafetyCrane")).Cast<int>().ToList();
+				lstTotals.Add(lstCrane[0]);
+
+				// Safety Housekeeping
+				List<int> lstHousekeeping = (from p in dt.AsEnumerable()
+									where p.Field<string>("Department") == department
+									select p.Field<int>("SafetyHousekeeping")).Cast<int>().ToList();
+				lstTotals.Add(lstHousekeeping[0]);
+
+				// Safety Weather
+				List<int> lstWeather = (from p in dt.AsEnumerable()
+									where p.Field<string>("Department") == department
+									select p.Field<int>("SafetyWeather")).Cast<int>().ToList();
+				lstTotals.Add(lstWeather[0]);
+
+				// Add totals to chart data array if there is data
+				if ((int)lstTotals[1] != 0 || (int)lstTotals[2] != 0 || (int)lstTotals[3] != 0 || (int)lstTotals[4] != 0 || (int)lstTotals[5] != 0 || (int)lstTotals[6] != 0 || (int)lstTotals[7] != 0 || (int)lstTotals[8] != 0 || (int)lstTotals[9] != 0) {
+					lstChartData.Add(lstTotals.ToArray());
+				}
+			}
+
+			return lstChartData;
+		}
+		public static List<string> GetNearMissTypes()
+		{
+			List<string> lstNearMissTypes = new List<string>();
+
+			SqlConnection conn = new SqlConnection(ConfigurationManager.ConnectionStrings["sqlConn"].ToString());
+			conn.Open();
+			string qry = "SELECT * FROM Reference.NearMissType";
+			using (SqlCommand cmd = new SqlCommand(qry, conn))
+			{
+				SqlDataReader sdr = cmd.ExecuteReader();
+				while (sdr.Read())
+				{
+					lstNearMissTypes.Add(sdr["NearMissType"].ToString());
+				}
+				cmd.Dispose();
+				conn.Close();
+			}
+
+			return lstNearMissTypes;
+		}
 		public static int DaysSinceLastIncident() {
 			int intDays = 0;
 
