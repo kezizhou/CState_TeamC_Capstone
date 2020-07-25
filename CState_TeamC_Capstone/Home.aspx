@@ -9,30 +9,28 @@
         <h2>Near Miss Incident Dashboard</h2>
         <h5>Welcome: LastName, FirstName</h5>
 
+        <div id="lastIncidentDescription" class="lastIncidentDescription" runat="server">
+            <span class="chartHeading text-center">Last Reported Incident Occurred: </span>
+            <span id="lastIncident" class="lastIncident" runat="server"></span>
+            days ago
+        </div>
+
         <div class="container-fluid">
             <div class="row">
-                <div class="container-fluid chartContainer col-sm-auto">
+                <div class="container-fluid chartContainer col-lg-auto">
+                    <div id="riskSeverityChart"></div>
+                    <div id="srByDepartmentFilter" class="filter"></div>
+                </div>
+                <div class="w-100"></div>
+                <div class="container-fluid chartContainer col-lg-auto">
+                    <div id="departmentNearMissTypesChart"></div>
+                    <div id="typeByDepartmentFilter" class="filter"></div>
+                    <div id="nearMissTypeFilter" class="filter"></div>
+                </div>
+                <div class="container-fluid chartContainer col-md-auto">
                     <span class="chartHeading">Frequency of Near Miss Types</span>
                     <div id="nearMissTypesChart"></div>
                 </div>
-                <div class="container-fluid chartContainer col-sm-auto">
-                    <span class="chartHeading">Last Reported Incident Occurred</span>
-                    <div id="recentIncidentChart">
-                        <div class="d-inline align-self-center">
-                            <h1 id="lastIncident" class="dataLabel" runat="server">7</h1>
-                            <div id="lastIncidentDescription" class="centerDescription" runat="server">days ago</div>
-                        </div>
-                    </div>
-                </div> 
-                <div class="container-fluid chartContainer col-sm-auto">
-                    <span class="chartHeading">Chart 3</span>
-                    <div id="injuryRisksChart"></div>
-                </div>
-                <div class="container-fluid chartContainer col-sm-auto">
-                    <span class="chartHeading">Chart 4</span>
-                    <div id="chart4"></div>
-                </div>
-
             </div>
         </div>
     </main>

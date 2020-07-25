@@ -180,8 +180,9 @@ namespace CState_TeamC_Capstone {
 				rng.GetBytes(randomToken);
 				string strToken = Convert.ToBase64String(randomToken);
 
-                // Remove special characters for query string
-                strToken = Server.UrlEncode(strToken);
+				// Remove special characters for query string
+				strToken = Server.UrlEncode(strToken);
+				strToken = strToken.Replace('%', '-');
 
                 return strToken;
 			}
