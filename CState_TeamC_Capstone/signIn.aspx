@@ -81,6 +81,10 @@
                 <div class="center2">
                     <a href="~/resetCredentials" runat="server">Forgot Username or Password?</a>
                 </div>
+                
+                <div class="center2">
+                    <a href="~/newUser" runat="server">New User?</a>
+                </div>
             </form>
         </div>
     </main>

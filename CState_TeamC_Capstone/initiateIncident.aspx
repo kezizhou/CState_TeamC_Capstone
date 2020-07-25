@@ -25,18 +25,17 @@
                     <label for="txtBadgeNumber" class="control-label">Badge Number:</label>
                     <input id="txtBadgeNumber" type="text" name="txtBadgeNumber" class="form-control" required="required"/>
                 </div>
-                <div class="form-group">
+                <div class="form-group" id="departmentDiv">
                     <label for="sltDepartment" class="control-label">Department:</label>
-                    <select id="sltDepartment" name="sltDepartment" class="required form-control">
-                        <option value="" selected="selected" disabled="disabled" hidden="hidden">Select Production Area</option>
-                        <option value="value">These will be populated from database</option>
+                    <select id="sltDepartment" name="sltDepartment" runat="server" class="required form-control" >
+                        <option value=""  selected="selected" disabled="disabled" hidden="hidden">Select Production Area</option>               
                     </select>
                 </div>
+
                 <div class="form-group">
                     <label for="sltType" class="control-label">Type of Near Miss:</label>
-                    <select id="sltType" name="sltType" class="required form-control">
+                    <select id="sltType" name="sltType" class="required form-control" runat="server">
                         <option value="" selected="selected" disabled="disabled" hidden="hidden">Select Near Miss</option>
-                        <option value="value">These will be populated from database</option>
                     </select>
                 </div>
                 <div class="form-group">

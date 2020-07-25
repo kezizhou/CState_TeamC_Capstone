@@ -184,7 +184,7 @@ namespace CState_TeamC_Capstone {
 				strToken = Server.UrlEncode(strToken);
 				strToken = strToken.Replace('%', '-');
 
-				return strToken;
+                return strToken;
 			}
 		}
 
