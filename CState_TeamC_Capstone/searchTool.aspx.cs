@@ -11,6 +11,8 @@ namespace CState_TeamC_Capstone {
         public List<Filters> nearMissType;
         public List<Filters> severity;
         public List<Filters> risk;
+        public List<Filters> operatorName;
+        public List<Filters> assignedToName;
         public List<SearchToolQueryResult> originalResult;
         protected void Page_Load(object sender, EventArgs e) {
             results = Shared.GetSearchToolQuery();
@@ -19,6 +21,8 @@ namespace CState_TeamC_Capstone {
             nearMissType = Shared.GetNearMissTypeFilter();
             severity = Shared.GetSeverityFilter();
             risk = Shared.GetRiskFilter();
+            operatorName = Shared.GetOperatorNameFilter();
+            assignedToName = Shared.GetAssignedToNameFilter();
         }
         protected void Filter(object sender, EventArgs e)
         {
@@ -27,6 +31,8 @@ namespace CState_TeamC_Capstone {
             var nearMissTypeSElection = Request["sltNearMissType"];
             var severitySelection = Request["sltSeverityLevel"];
             var riskSelection = Request["sltRiskLevel"];
+            var operatorSelection = Request["sltOperatorName"];
+            var assignedToSelection = Request["sltAssignedTo"];
 
             if (!String.IsNullOrEmpty(departmentSelection)) {
                 results = originalResult.Where(x => x.Department == departmentSelection).ToList();
@@ -42,7 +48,14 @@ namespace CState_TeamC_Capstone {
             if (!String.IsNullOrEmpty(riskSelection)) {
                 results = originalResult.Where(x => x.RiskLevel == riskSelection).ToList();
             }
-
+            if (!String.IsNullOrEmpty(operatorSelection))
+            {
+                results = originalResult.Where(x => x.Operator == operatorSelection).ToList();
+            }
+            if (!String.IsNullOrEmpty(assignedToSelection))
+            {
+                results = originalResult.Where(x => x.Assignee == assignedToSelection).ToList();
+            }
         }
         protected void Clear(object sender, EventArgs e)
         {

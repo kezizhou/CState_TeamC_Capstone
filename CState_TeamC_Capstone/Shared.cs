@@ -477,5 +477,53 @@ namespace CState_TeamC_Capstone
 
             return searchQueryResults;
         }
+        public static List<Filters> GetOperatorNameFilter()
+        {
+            var searchQueryResults = new List<Filters>();
+            string queryString = @"SELECT  ID, OperatorName FROM data.NearMissRecord";
+            using (SqlConnection connection = new SqlConnection(CONNECTION_STRING))
+            {
+                SqlCommand command = new SqlCommand(queryString, connection);
+                connection.Open();
+                using (SqlDataReader reader = command.ExecuteReader())
+                {
+                    while (reader.Read())
+                    {
+                        searchQueryResults.Add(new Filters
+                        {
+                            ID = (int)reader[0],
+                            Description = reader[1].ToString(),
+                        });
+                    }
+                }
+            }
+
+            return searchQueryResults;
+        }
+        public static List<Filters> GetAssignedToNameFilter()
+        {
+            var searchQueryResults = new List<Filters>();
+            //string queryString = @"SELECT Data.NearMiss_ReviewLog.NearMiss_ID, data.NearMiss_ReviewLog.AssignedTo FROM data.NearMiss_ReviewLog";
+            string queryString = @"SELECT MIN(Data.NearMiss_ReviewLog.NearMiss_ID) as id, data.NearMiss_ReviewLog.AssignedTo From data.NearMiss_ReviewLog group by AssignedTo";
+            
+            using (SqlConnection connection = new SqlConnection(CONNECTION_STRING))
+            {
+                SqlCommand command = new SqlCommand(queryString, connection);
+                connection.Open();
+                using (SqlDataReader reader = command.ExecuteReader())
+                {
+                    while (reader.Read())
+                    {
+                        searchQueryResults.Add(new Filters
+                        {
+                            ID = (int)reader[0],
+                            Description = reader[1].ToString(),
+                        });
+                    }
+                }
+            }
+
+            return searchQueryResults;
+        }
     }
 }

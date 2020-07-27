@@ -62,21 +62,32 @@
         <!-- Advanced Filters -->
         <div id="filtersCollapse" class="collapse">
             <div class="card card-body center2">
-                                <div name="frmFilters" id="Form1" method="get" action="#" runat="server">
+                <div name="frmFilters" id="Form1" method="get" action="#" runat="server">
 
                     <div class="container-fluid">
                         <i class="fas fa-filter"></i>
+
                         <select id="sltOperatorName" name="sltOperatorName">
-                            <option value="none" selected="selected"></option>
-                            <option value="none" selected="selected" disabled="disabled" hidden="hidden">Operator Name</option>
-                            <option value="value">Populated from database</option>
+                            <option value="none" selected="selected" disabled="disabled">Operator Name</option>
+                            <% foreach (var x in operatorName)
+                                {%><option value="<%= x.Description%>">
+
+                            <%= x.Description%>
+                            
+                        </option>
+                            <%};%>
                         </select>
+                        
                         <select id="sltAssignedTo" name="sltAssignedTo">
-                            <option value="none" selected="selected"></option>
-                            <option value="none" selected="selected" disabled="disabled" hidden="hidden">Assigned To</option>
-                            <option value="value">Populated from database</option>
+                            <option value="none" selected="selected" disabled="disabled">Assigned To</option>
+                            <% foreach (var x in assignedToName)
+                                {%><option value="<%= x.Description%>">
+
+                            <%= x.Description%>
+                            
+                        </option>
+                            <%};%>
                         </select>
-                        <input id="txtCustomFilter" type="text" name="txtCustomFilter" placeholder="Text to search" />
                     </div>
                 </div>
             </div>
