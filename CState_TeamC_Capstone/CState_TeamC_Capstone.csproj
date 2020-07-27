@@ -126,6 +126,7 @@
     <Content Include="resetPassword.aspx" />
     <Content Include="resetPasswordSuccess.aspx" />
     <Content Include="Scripts\Home.js" />
+    <Content Include="Scripts\homeValidation.js" />
     <Content Include="Scripts\newUser.js" />
     <Content Include="Scripts\initiateIncident.js" />
     <Content Include="Scripts\resetCredentials.js" />
@@ -140,7 +141,6 @@
     <None Include="Properties\PublishProfiles\CustomProfile.pubxml" />
     <None Include="Scripts\jquery-3.3.1.intellisense.js" />
     <Content Include="Home.aspx" />
-    <Content Include="initiateIncident_asp.aspx" />
     <Content Include="initiateIncident.aspx" />
     <Content Include="Media\logo.png" />
     <Content Include="reviewIncident.aspx" />
@@ -198,13 +198,6 @@
     </Compile>
     <Compile Include="Home.aspx.designer.cs">
       <DependentUpon>Home.aspx</DependentUpon>
-    </Compile>
-    <Compile Include="initiateIncident_asp.aspx.cs">
-      <DependentUpon>initiateIncident_asp.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="initiateIncident_asp.aspx.designer.cs">
-      <DependentUpon>initiateIncident_asp.aspx</DependentUpon>
     </Compile>
     <Compile Include="initiateIncident.aspx.cs">
       <DependentUpon>initiateIncident.aspx</DependentUpon>

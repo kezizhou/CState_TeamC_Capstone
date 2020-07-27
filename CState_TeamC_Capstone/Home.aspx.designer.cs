@@ -13,15 +13,6 @@ namespace CState_TeamC_Capstone {
 	public partial class Home {
 
 		/// <summary>
-		/// lastIncidentDescription control.
-		/// </summary>
-		/// <remarks>
-		/// Auto-generated field.
-		/// To modify move field declaration from designer file to code-behind file.
-		/// </remarks>
-		protected global::System.Web.UI.HtmlControls.HtmlGenericControl lastIncidentDescription;
-
-		/// <summary>
 		/// lastIncident control.
 		/// </summary>
 		/// <remarks>
@@ -29,5 +20,41 @@ namespace CState_TeamC_Capstone {
 		/// To modify move field declaration from designer file to code-behind file.
 		/// </remarks>
 		protected global::System.Web.UI.HtmlControls.HtmlGenericControl lastIncident;
+
+		/// <summary>
+		/// daysAgo control.
+		/// </summary>
+		/// <remarks>
+		/// Auto-generated field.
+		/// To modify move field declaration from designer file to code-behind file.
+		/// </remarks>
+		protected global::System.Web.UI.HtmlControls.HtmlGenericControl daysAgo;
+
+		/// <summary>
+		/// frmDateRange control.
+		/// </summary>
+		/// <remarks>
+		/// Auto-generated field.
+		/// To modify move field declaration from designer file to code-behind file.
+		/// </remarks>
+		protected global::System.Web.UI.HtmlControls.HtmlForm frmDateRange;
+
+		/// <summary>
+		/// btnClear control.
+		/// </summary>
+		/// <remarks>
+		/// Auto-generated field.
+		/// To modify move field declaration from designer file to code-behind file.
+		/// </remarks>
+		protected global::System.Web.UI.HtmlControls.HtmlButton btnClear;
+
+		/// <summary>
+		/// btnFilterDates control.
+		/// </summary>
+		/// <remarks>
+		/// Auto-generated field.
+		/// To modify move field declaration from designer file to code-behind file.
+		/// </remarks>
+		protected global::System.Web.UI.HtmlControls.HtmlButton btnFilterDates;
 	}
 }
