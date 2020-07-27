@@ -9,13 +9,24 @@ using System.Runtime.CompilerServices;
 
 namespace CState_TeamC_Capstone {
 	public partial class Home : System.Web.UI.Page {
+
+		static string strStartDate;
+		static string strEndDate;
+
+		protected string dteStartInput { get; set; }
+		protected string dteEndInput { get; set; }
+
 		protected void Page_Load(object sender, EventArgs e) {
 			// Days since last incident
 			lastIncident.InnerText = DaysSinceLastIncident().ToString();
 
 			if (int.Parse(lastIncident.InnerText) == 1) {
-				lastIncidentDescription.InnerText = "day ago";
+				daysAgo.InnerText = "day ago";
 			}
+
+			// Reset start end date
+			strStartDate = DateTime.Now.ToString();
+			strEndDate = DateTime.Now.ToString();
 		}
 
 		[WebMethod]
@@ -47,15 +58,37 @@ namespace CState_TeamC_Capstone {
 		public static List<object> GetInjurySeverityChartData() {
 			List<object> lstChartData = new List<object>();
 			DataTable dt = new DataTable();
+			string qry = "";
 
 			SqlConnection conn = new SqlConnection(ConfigurationManager.ConnectionStrings["sqlConn"].ToString());
 			conn.Open();
-			string qry = "SELECT Department, SeverityType_Low, SeverityType_Medium, SeverityType_High, RiskLevel_Low, RiskLevel_Medium, RiskLevel_High, TotalIncidents FROM VW.GetDepartmentChartData ORDER BY TotalIncidents DESC, SeverityType_High DESC, RiskLevel_High DESC, SeverityType_Medium DESC, RiskLevel_Medium DESC, SeverityType_Low DESC, RiskLevel_Low DESC";
-			using (SqlDataAdapter sda = new SqlDataAdapter(qry, conn)) {
-				sda.Fill(dt);
 
-				sda.Dispose();
-				conn.Close();
+			if (DateTime.Parse(strStartDate).Date == DateTime.Now.Date && DateTime.Parse(strEndDate).Date == DateTime.Now.Date) {
+				// Date filter not changed, show all data
+				qry = "SELECT Department, SeverityType_Low, SeverityType_Medium, SeverityType_High, RiskLevel_Low, RiskLevel_Medium, RiskLevel_High, TotalIncidents FROM VW.GetDepartmentChartData ORDER BY TotalIncidents DESC, SeverityType_High DESC, RiskLevel_High DESC, SeverityType_Medium DESC, RiskLevel_Medium DESC, SeverityType_Low DESC, RiskLevel_Low DESC";
+				using (SqlDataAdapter sda = new SqlDataAdapter(qry, conn)) {
+					sda.Fill(dt);
+
+					sda.Dispose();
+					conn.Close();
+				}
+			} else {
+				// Date changed with filters
+				qry = "EXEC SP.GetIncidentsBetweenDates @StartDate = @dteStart, @EndDate = @dteEnd";
+				using (SqlDataAdapter sda = new SqlDataAdapter(qry, conn)) {
+					var startDateParam = new SqlParameter("@dteStart", System.Data.SqlDbType.DateTime);
+					startDateParam.Value = strStartDate;
+					sda.SelectCommand.Parameters.Add(startDateParam);
+
+					var endDateParam = new SqlParameter("@dteEnd", System.Data.SqlDbType.DateTime);
+					endDateParam.Value = strEndDate;
+					sda.SelectCommand.Parameters.Add(endDateParam);
+
+					sda.Fill(dt);
+
+					sda.Dispose();
+					conn.Close();
+				}
 			}
 
 			// Severity and Risk Types
@@ -165,17 +198,40 @@ namespace CState_TeamC_Capstone {
 		public static List<object> GetDepartmentNearMissTypesChartData() {
 			List<object> lstChartData = new List<object>();
 			DataTable dt = new DataTable();
+			string qry = "";
 
 			SqlConnection conn = new SqlConnection(ConfigurationManager.ConnectionStrings["sqlConn"].ToString());
 			conn.Open();
-			string qry = "SELECT Department, Slip_Trip_Fall, ElectricalSafety, ChemicalSafety, SafetyMachine_Guarding, SafetyMaterial_Handling, SafetyPPE, SafetyCrane, SafetyHousekeeping, SafetyWeather, TotalIncidents FROM VW.GetDepartmentChartData ORDER BY TotalIncidents DESC";
-			using (SqlDataAdapter sda = new SqlDataAdapter(qry, conn))
-			{
-				sda.Fill(dt);
+			if (DateTime.Parse(strStartDate).Date == DateTime.Now.Date && DateTime.Parse(strEndDate).Date == DateTime.Now.Date) {
+				// Date filter not changed, show all data
+				qry = "SELECT Department, Slip_Trip_Fall, ElectricalSafety, ChemicalSafety, SafetyMachine_Guarding, SafetyMaterial_Handling, SafetyPPE, SafetyCrane, SafetyHousekeeping, SafetyWeather, TotalIncidents FROM VW.GetDepartmentChartData ORDER BY TotalIncidents DESC";
 
-				sda.Dispose();
-				conn.Close();
+				using (SqlDataAdapter sda = new SqlDataAdapter(qry, conn)) {
+					sda.Fill(dt);
+
+					sda.Dispose();
+					conn.Close();
+				}
+
+			} else {
+				// Date changed with filters
+				qry = "EXEC SP.GetIncidentsBetweenDates @StartDate = @StartDate, @EndDate = @EndDate";
+				using (SqlDataAdapter sda = new SqlDataAdapter(qry, conn)) {
+					var startDateParam = new SqlParameter("@StartDate", System.Data.SqlDbType.DateTime);
+					startDateParam.Value = strStartDate;
+					sda.SelectCommand.Parameters.Add(startDateParam);
+
+					var endDateParam = new SqlParameter("@EndDate", System.Data.SqlDbType.DateTime);
+					endDateParam.Value = strEndDate;
+					sda.SelectCommand.Parameters.Add(endDateParam);
+
+					sda.Fill(dt);
+
+					sda.Dispose();
+					conn.Close();
+				}
 			}
+
 
 			// Near Miss Types
 			List<string> lstNearMissTypes = GetNearMissTypes();
@@ -298,6 +354,18 @@ namespace CState_TeamC_Capstone {
 			}
 
 			return intDays;
+		}
+
+		protected void btnFilterDates_Click(object sender, EventArgs e) {
+			this.dteStartInput = Request["dteStart"];
+			this.dteEndInput = Request["dteEnd"];
+
+			strStartDate = Request["dteStart"] + " 00:00:00.000";
+			strEndDate = Request["dteEnd"] + " 23:59:59.997";
+		}
+
+		protected void btnClear_Click(object sender, EventArgs e) {
+			Page.ClientScript.RegisterStartupScript(this.GetType(), "ResetForm", "resetForm()", true);
 		}
 	}
 }

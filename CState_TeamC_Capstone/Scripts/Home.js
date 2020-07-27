@@ -20,8 +20,6 @@ function drawNearMissTypesChart() {
         chartArea: {
             width: '100%',
             height: '425',
-            left: '10',
-            top: '10'
         },
         sliceVisibilityThreshold: 0
     };
@@ -86,7 +84,7 @@ function drawInjurySeverityChart() {
             colors: colors,
             isStacked: 'true',
             height: '425',
-            width: data.getNumberOfRows() * 200,
+            width: data.getNumberOfRows() * 125 + 300,
             bar: {
                 groupWidth: '75%'
             },
@@ -209,7 +207,7 @@ function drawDepartmentNearMissTypesChart() {
             },
             isStacked: 'true',
             height: '100%',
-            width: data.getNumberOfRows() * 145,
+            width: data.getNumberOfRows() * 100 + 300,
             bar: {
                 groupWidth: '75%'
             },
@@ -353,4 +351,9 @@ function drawDepartmentNearMissTypesChart() {
         setChartView();
         nearMissColumnFilter.draw();
     }
+}
+
+
+function resetForm() {
+    document.getElementById("frmDateRange").reset();
 }
