@@ -8,7 +8,7 @@ namespace CState_TeamC_Capstone {
 		SqlConnection conn = new SqlConnection(ConfigurationManager.ConnectionStrings["sqlConn"].ToString());
 
 		protected void Page_Load(object sender, EventArgs e) {
-			if (this.Context.User.Identity.IsAuthenticated) {
+			if (this.Context.User.Identity.IsAuthenticated && Session["User_ID"] != null) {
 				Response.Redirect("Home.aspx");
 			}
 		}
@@ -31,7 +31,7 @@ namespace CState_TeamC_Capstone {
 						string strSalt = sdr["Salt"].ToString();
 
 						// Check if password hashes and salt match
-						bool passwordMatches = HashSalt.VerifySaltedHash(strEnteredPassword, strHash, strSalt);
+						bool passwordMatches = HashSalt.VerifySaltedHash(strEnteredPassword, strHash.Trim(), strSalt.Trim());
 
 						if (passwordMatches) {
 							// Sign-in successful

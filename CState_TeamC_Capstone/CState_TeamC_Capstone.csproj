@@ -126,6 +126,7 @@
     <Content Include="resetPassword.aspx" />
     <Content Include="resetPasswordSuccess.aspx" />
     <Content Include="Scripts\Home.js" />
+    <Content Include="Scripts\homeValidation.js" />
     <Content Include="Scripts\newUser.js" />
     <Content Include="Scripts\initiateIncident.js" />
     <Content Include="Scripts\resetCredentials.js" />

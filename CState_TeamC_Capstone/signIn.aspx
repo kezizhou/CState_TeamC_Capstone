@@ -47,7 +47,7 @@
                                 <i class="fas fa-user"></i>
                             </span>
                             <!-- Maxlength is plus 1 so user is alerted through jquery -->
-                            <input id="txtUsername" type="text" name="txtUsername" class="form-control" required="required" placeholder="Username" maxlength="21" runat="server"/>
+                            <input id="txtUsername" type="text" name="txtUsername" class="form-control" required="required" placeholder="Username" maxlength="21" runat="server" autofocus="autofocus"/>
                         </div>
                     </div> 
                     <span class="errorInfo form-text">
