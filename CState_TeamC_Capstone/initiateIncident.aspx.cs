@@ -3,10 +3,12 @@ using System.Data;
 using System.Configuration;
 using System.Data.SqlClient;
 
-namespace CState_TeamC_Capstone {
-	public partial class initiateIncident : System.Web.UI.Page {
-
-		protected void Page_Load(object sender, EventArgs e) {
+namespace CState_TeamC_Capstone
+{
+    public partial class initiateIncident : System.Web.UI.Page
+    {
+        protected void Page_Load(object sender, EventArgs e)
+        {
             string conn = ConfigurationManager.ConnectionStrings["sqlconn"].ConnectionString;
             SqlConnection sqlconn = new SqlConnection(conn);
 
@@ -36,7 +38,44 @@ namespace CState_TeamC_Capstone {
 
             sqlconn.Close();
             sltType.Items.Insert(0, "Select Near Miss Type");
-            
+
+        }
+        protected void btnSubmit_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                string dteNearMissDate = Convert.ToString(Request.Form["dteIncident"]);
+                string strOperatorName = Request.Form["txtOperator"];
+                int intBadgeNumber = Convert.ToInt32(Request.Form["txtBadgeNumber"]);
+                //str strDepartment = (Request.Form["sltDepartment"]);
+                //int intNearMissType_ID = Convert.ToInt32(Request.Form["sltType"]);
+                string strDepartment = Request.Form["sltDepartment"];
+                string strNearMissType = Request.Form["sltType"];
+                string strNearMissSolution = Request.Form["txaSolution"];
+                string strNearMiss_ActionTaken = Request.Form["txaActionTaken"];
+
+                SqlConnection conn = new SqlConnection(ConfigurationManager.ConnectionStrings["sqlConn"].ToString());
+                conn.Open();
+
+                int intDepartment_ID;
+                int intNearMissType_ID;
+
+                intDepartment_ID = sltDepartment.SelectedIndex;
+                intNearMissType_ID = sltDepartment.SelectedIndex;
+
+                Shared.InsertNearMissRecord(dteNearMissDate, strOperatorName, intDepartment_ID, intNearMissType_ID, strNearMissSolution, strNearMiss_ActionTaken);
+
+                conn.Close();
+
+                //Redirect to success new user page
+                Response.Redirect("signIn.aspx");
+            }
+
+            catch (Exception ex)
+            {
+                Response.Write(ex.Message);
+            }
         }
     }
 }
+

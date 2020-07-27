@@ -3,7 +3,7 @@ namespace CState_TeamC_Capstone
 {
     public class Shared
     {
-        public const string sqlConn = "Data Source=itd2.cincinnatistate.edu;Initial Catalog=CPDM-MccomasV; User ID=CPDM-vlMcComas;Password=0477095; ";
+          public const string sqlConn = "Data Source=itd2.cincinnatistate.edu;Initial Catalog=CPDM-MccomasV; User ID=CPDM-vlMcComas;Password=0477095; ";
         //  public const string sqlConn = "Data Source=itd2.cincinnatistate.edu;Initial Catalog=CPDM-MccomasV; User ID=CPDM-Adam;Password=; ";
         //  public const string sqlConn = "Data Source=itd2.cincinnatistate.edu;Initial Catalog=CPDM-MccomasV; User ID=CPDM-Keziah;Password=; ";
 
@@ -30,7 +30,7 @@ namespace CState_TeamC_Capstone
             return _returnString;
         }
 
-        public static void InsertNearMissRecord(string dtNearMissDate, string strOperatorName, string strDepartment, string strNearMissType, string strNearMissSolution, string strNearMiss_ActionTaken)
+        public static void InsertNearMissRecord(string dtNearMissDate, string strOperatorName, int intDepartment_ID, int intNearMissType_ID, string strNearMissSolution, string strNearMiss_ActionTaken)
         {
             using (var _sqlConnection = new System.Data.SqlClient.SqlConnection(connectionString: sqlConn))
             {
@@ -43,8 +43,8 @@ namespace CState_TeamC_Capstone
                 _sqlCommand.CommandType = System.Data.CommandType.StoredProcedure;
                 _sqlCommand.Parameters.Add(new System.Data.SqlClient.SqlParameter("@NearMissDate", System.Data.SqlDbType.DateTime)).Value = dtNearMissDate;
                 _sqlCommand.Parameters.Add(new System.Data.SqlClient.SqlParameter("@OperatorName", System.Data.SqlDbType.VarChar)).Value = strOperatorName;
-                _sqlCommand.Parameters.Add(new System.Data.SqlClient.SqlParameter("@Department", System.Data.SqlDbType.VarChar)).Value = strDepartment;
-                _sqlCommand.Parameters.Add(new System.Data.SqlClient.SqlParameter("@NearMissType", System.Data.SqlDbType.VarChar)).Value = strNearMissType;
+                _sqlCommand.Parameters.Add(new System.Data.SqlClient.SqlParameter("@Department_ID", System.Data.SqlDbType.Int)).Value = intDepartment_ID;
+                _sqlCommand.Parameters.Add(new System.Data.SqlClient.SqlParameter("@NearMissType_ID", System.Data.SqlDbType.Int)).Value = intNearMissType_ID;
                 _sqlCommand.Parameters.Add(new System.Data.SqlClient.SqlParameter("@NearMiss_Solution", System.Data.SqlDbType.VarChar)).Value = strNearMissSolution;
                 _sqlCommand.Parameters.Add(new System.Data.SqlClient.SqlParameter("@NearMiss_ActionTaken", System.Data.SqlDbType.VarChar)).Value = strNearMiss_ActionTaken;
                 _sqlCommand.Parameters.Add(new System.Data.SqlClient.SqlParameter("@DateEntered", System.Data.SqlDbType.DateTime2)).Value = System.DateTime.Now;

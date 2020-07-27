@@ -32,8 +32,7 @@ namespace CState_TeamC_Capstone
 
         protected void btnSubmitNewUser_Click(object sender, EventArgs e)
         {
-            try
-            {
+            try {
                 string strFirstName = Request.Form["txtFirstName"];
                 string strMiddleName = Request.Form["txtMiddleName"];
                 string strLastName = Request.Form["txtLastName"];
@@ -60,15 +59,14 @@ namespace CState_TeamC_Capstone
 
                 conn.Close();
 
+                //Redirect to success new user page
                 Response.Redirect("signIn.aspx");
             }
-                 
             catch (Exception ex)
             {
                 Response.Write(ex.Message);
             }
-      
-         }
+        }
     }
 }
 

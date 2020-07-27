@@ -38,16 +38,19 @@
                         <option value="" selected="selected" disabled="disabled" hidden="hidden">Select Near Miss</option>
                     </select>
                 </div>
+
                 <div class="form-group">
                     <label for="txaSolution" class="control-label"> Near Miss Proposed Solution: </label>
                     <textarea name="txaSolution" id="txaSolution" class="form-control" rows="8" required="required"></textarea>
                 </div>
+
                 <div class="form-group">
                     <label for="txaActionTaken" class="control-label"> Action Taken: </label>
                     <textarea name="txaActionTaken" id="txaActionTaken" class="form-control" rows="8" required="required"></textarea>
                 </div>
+                
                 <div class="container">
-                    <button type="submit" id="btnSubmit" class="btn btn-primary btn-sm center" >Submit Near Miss</button>
+                    <button type="submit" id="btnSubmit" class="btn btn-primary btn-sm center">Submit New User</button>
                 </div>
             </form>
         </div>
