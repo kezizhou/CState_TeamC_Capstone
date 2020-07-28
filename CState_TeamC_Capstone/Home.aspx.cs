@@ -18,10 +18,18 @@ namespace CState_TeamC_Capstone {
 
 		protected void Page_Load(object sender, EventArgs e) {
 			// Days since last incident
-			lastIncident.InnerText = DaysSinceLastIncident().ToString();
+			int intDays = DaysSinceLastIncident();
 
-			if (int.Parse(lastIncident.InnerText) == 1) {
-				daysAgo.InnerText = "day ago";
+			if (intDays == -1) {
+				lastIncident.InnerText = "";
+				daysAgo.InnerText = "";
+				lastIncidentHeading.InnerText = "No incidents reported";
+			} else {
+				lastIncident.InnerText = intDays.ToString();
+
+				if (intDays == 1) {
+					daysAgo.InnerText = "day ago";
+				}
 			}
 
 			// Reset start end date
@@ -346,7 +354,8 @@ namespace CState_TeamC_Capstone {
 					try {
 						intDays = int.Parse(sdr["LastIncident"].ToString());
 					} catch (Exception ex) {
-						intDays = 0;
+						// No data
+						intDays = -1;
 					}
 				}
 				cmd.Dispose();
