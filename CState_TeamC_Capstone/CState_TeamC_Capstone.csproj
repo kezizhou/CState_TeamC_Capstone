@@ -105,6 +105,8 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Content Include="adminSettings.aspx" />
+    <Content Include="Content\adminSettings.css" />
     <Content Include="Content\Home.css" />
     <Content Include="Content\initiateIncident.css" />
     <Content Include="Content\newUser.css" />
@@ -116,6 +118,7 @@
     <Content Include="Content\signIn.css" />
     <Content Include="Content\Site.css" />
     <Content Include="Content\unauthorizedUser.css" />
+    <Content Include="Content\userSettings.css" />
     <Content Include="emailForgotUsernameTemplate.html" />
     <Content Include="emailResetTemplate.html" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
@@ -125,6 +128,7 @@
     <Content Include="resetEmailSent.aspx" />
     <Content Include="resetPassword.aspx" />
     <Content Include="resetPasswordSuccess.aspx" />
+    <Content Include="Scripts\adminSettings.js" />
     <Content Include="Scripts\Home.js" />
     <Content Include="Scripts\homeValidation.js" />
     <Content Include="Scripts\newUser.js" />
@@ -175,10 +179,12 @@
     <Content Include="Scripts\WebForms\WebUIValidation.js" />
     <Content Include="searchTool.aspx" />
     <Content Include="signIn.aspx" />
+    <Content Include="signOut.aspx" />
     <Content Include="Site.Master" />
     <Content Include="typeInstructions.aspx" />
     <Content Include="unauthorizedUser.aspx" />
     <Content Include="updateIncident.aspx" />
+    <Content Include="userSettings.aspx" />
     <Content Include="ViewSwitcher.ascx" />
     <Content Include="Web.config">
       <SubType>Designer</SubType>
@@ -186,8 +192,16 @@
     <Content Include="Bundle.config" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="adminSettings.aspx.cs">
+      <DependentUpon>adminSettings.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="adminSettings.aspx.designer.cs">
+      <DependentUpon>adminSettings.aspx</DependentUpon>
+    </Compile>
     <Compile Include="App_Start\BundleConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
+    <Compile Include="Classes\Role.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -256,6 +270,7 @@
     <Compile Include="reviewIncident.aspx.designer.cs">
       <DependentUpon>reviewIncident.aspx</DependentUpon>
     </Compile>
+    <Compile Include="Classes\RoleRequest.cs" />
     <Compile Include="searchTool.aspx.cs">
       <DependentUpon>searchTool.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -270,6 +285,13 @@
     </Compile>
     <Compile Include="signIn.aspx.designer.cs">
       <DependentUpon>signIn.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="signOut.aspx.cs">
+      <DependentUpon>signOut.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="signOut.aspx.designer.cs">
+      <DependentUpon>signOut.aspx</DependentUpon>
     </Compile>
     <Compile Include="Site.Master.cs">
       <DependentUpon>Site.Master</DependentUpon>
@@ -299,7 +321,15 @@
     <Compile Include="updateIncident.aspx.designer.cs">
       <DependentUpon>updateIncident.aspx</DependentUpon>
     </Compile>
+    <Compile Include="Classes\UserRequest.cs" />
     <Compile Include="UserRoleProvider.cs" />
+    <Compile Include="userSettings.aspx.cs">
+      <DependentUpon>userSettings.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="userSettings.aspx.designer.cs">
+      <DependentUpon>userSettings.aspx</DependentUpon>
+    </Compile>
     <Compile Include="ViewSwitcher.ascx.cs">
       <DependentUpon>ViewSwitcher.ascx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>

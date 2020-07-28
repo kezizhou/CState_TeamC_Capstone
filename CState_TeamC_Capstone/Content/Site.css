@@ -14,7 +14,6 @@
     padding: 0;
 }
 
-
 /**
     Top Navigation Bar
 */
@@ -46,8 +45,20 @@ nav {
 
 #ReviewIncident,
 #UpdateIncident,
-#SearchTool {
+#SearchTool,
+#UserSettings,
+#AdminSettings {
     display: none;
+}
+
+.fa-user-cog,
+.fa-users-cog {
+    font-size: 35px;
+    vertical-align: middle;
+}
+
+#signout {
+    cursor: pointer;
 }
 
 

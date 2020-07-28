@@ -47,7 +47,15 @@
                     <a id="SearchTool" class="nav-item nav-link" href="~/searchTool" runat="server">Search Tool</a>
                 </div>
                 <div class="navbar-nav ml-auto">
-                    <a class="nav-item nav-link" id="signout" onserverclick="signout_ServerClick" runat="server">
+                    <a class="nav-item nav-link" id="UserSettings" href="~/userSettings" runat="server">
+                        <i class="fas fa-user-cog"></i>
+                        <span>User Settings</span>
+                    </a>
+                    <a class="nav-item nav-link" id="AdminSettings" href="~/adminSettings" runat="server">
+                        <i class="fas fa-users-cog"></i>
+                        <span>Admin Settings</span>
+                    </a>
+                    <a class="nav-item nav-link" id="signout" onclick="SignOut()">
                         <span id="userinitials" class="navbar-text userInitials rounded-circle" runat="server">
                             <!-- User initials here -->
                             XX
@@ -92,6 +100,27 @@
                 }
             });
         });
+
+        function SignOut() {
+            $.ajax({
+                type: "POST",
+                url: "signOut.aspx/signout_Click",
+                data: '{}',
+                contentType: "application/json; charset=utf-8",
+                dataType: "json",
+                success: OnSuccess,
+                failure: function (response) {
+                    alert(response.d);
+                }
+            });
+        }
+
+
+        function OnSuccess(response) {
+            window.location.href = "signIn.aspx";
+        }
+
+
     </script>
 </body>
 </html>

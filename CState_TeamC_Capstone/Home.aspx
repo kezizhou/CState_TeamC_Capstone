@@ -10,7 +10,7 @@
         <h5>Welcome: LastName, FirstName</h5>
 
         <div id="lastIncidentDescription" class="lastIncidentDescription">
-            <div class="lastIncidentHeading text-center d-inline">Last Reported Incident Occurred: </div>
+            <div id="lastIncidentHeading" class="lastIncidentHeading text-center d-inline" runat="server">Last Reported Incident Occurred: </div>
             <div id="lastIncident" class="lastIncident d-inline" runat="server"></div>
             <div id="daysAgo" runat="server" class="d-inline">days ago</div>
         </div>

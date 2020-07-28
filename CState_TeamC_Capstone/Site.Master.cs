@@ -5,6 +5,7 @@ using System.Data.SqlClient;
 using System.Linq;
 using System.Web;
 using System.Web.Security;
+using System.Web.Services;
 using System.Web.UI;
 using System.Web.UI.WebControls;
 
@@ -30,6 +31,11 @@ namespace CState_TeamC_Capstone {
 			if (Roles.IsUserInRole(HttpContext.Current.User.Identity.Name, "NearMissAssignee")) {
 				ReviewIncident.Style["display"] = "block";
 				UpdateIncident.Style["display"] = "block";
+			}
+			if (Roles.IsUserInRole(HttpContext.Current.User.Identity.Name, "NearMissAdmin")) {
+				AdminSettings.Style["display"] = "block";
+			} else {
+				UserSettings.Style["display"] = "block";
 			}
 
 			// Change signout to user initials
@@ -59,11 +65,6 @@ namespace CState_TeamC_Capstone {
 			}
 
 			return strInitials;
-		}
-
-		protected void signout_ServerClick(object sender, EventArgs e) {
-			FormsAuthentication.SignOut();
-			Response.Redirect("~/signIn.aspx");
 		}
 	}
 }
