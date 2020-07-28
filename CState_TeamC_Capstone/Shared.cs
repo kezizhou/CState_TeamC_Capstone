@@ -7,9 +7,10 @@ namespace CState_TeamC_Capstone
 {
     public class Shared
     {
-      //  public const string CONNECTION_STRING = "Data Source=itd2.cincinnatistate.edu;Initial Catalog=CPDM-MccomasV; User ID=CPDM-vlMcComas;Password=0477095; ";
-        public const string CONNECTION_STRING = "Data Source=itd2.cincinnatistate.edu;Initial Catalog=CPDM-SadowskiA; User ID=CPDM-ajsadowski;Password=0650199; ";
-      //  public const string CONNECTION_STRING = "Data Source=itd2.cincinnatistate.edu;Initial Catalog=CPDM-MccomasV; User ID=CPDM-Keziah;Password=; ";
+        //public const string CONNECTION_STRING = "Data Source=itd2.cincinnatistate.edu;Initial Catalog=CPDM-MccomasV; User ID=CPDM-vlMcComas;Password=0477095; ";
+        //public const string CONNECTION_STRING = "Data Source=itd2.cincinnatistate.edu;Initial Catalog=CPDM-SadowskiA; User ID=CPDM-ajsadowski;Password=0650199; ";
+        //public const string CONNECTION_STRING = "Data Source=itd2.cincinnatistate.edu;Initial Catalog=CPDM-MccomasV; User ID=CPDM-Keziah;Password=; ";
+        public const string CONNECTION_STRING = "Data Source=itd2.cincinnatistate.edu;Initial Catalog=CPDM-TeamE; User ID=CPDM_ajsadowski;Password=0650199; ";
 
         public static string GetTopNearMissRecord()
         {
@@ -388,7 +389,7 @@ namespace CState_TeamC_Capstone
         public static List<Filters> GetDepartmentFilter()
         {
             var searchQueryResults = new List<Filters>();
-            string queryString = @"SELECT ID,Department FROM Reference.Department WHERE GETDATE() BETWEEN ValidFromDate and ValidToDate";
+            string queryString = @"SELECT ID,Department FROM Reference.Department WHERE GETDATE() BETWEEN ValidFromDate and ValidToDate ORDER BY Department ASC";
             using (SqlConnection connection = new SqlConnection(CONNECTION_STRING))
             {
                 SqlCommand command = new SqlCommand(queryString, connection);
@@ -411,7 +412,7 @@ namespace CState_TeamC_Capstone
         public static List<Filters> GetNearMissTypeFilter()
         {
             var searchQueryResults = new List<Filters>();
-            string queryString = @"SELECT ID,NearMissType FROM Reference.NearMissType WHERE GETDATE() BETWEEN ValidFromDate and ValidToDate";
+            string queryString = @"SELECT ID,NearMissType FROM Reference.NearMissType WHERE GETDATE() BETWEEN ValidFromDate and ValidToDate ORDER BY NearMissType ASC";
             using (SqlConnection connection = new SqlConnection(CONNECTION_STRING))
             {
                 SqlCommand command = new SqlCommand(queryString, connection);
@@ -480,7 +481,7 @@ namespace CState_TeamC_Capstone
         public static List<Filters> GetOperatorNameFilter()
         {
             var searchQueryResults = new List<Filters>();
-            string queryString = @"SELECT  ID, OperatorName FROM data.NearMissRecord";
+            string queryString = @"SELECT  ID, OperatorName FROM data.NearMissRecord ORDER BY OperatorName ASC";
             using (SqlConnection connection = new SqlConnection(CONNECTION_STRING))
             {
                 SqlCommand command = new SqlCommand(queryString, connection);
@@ -504,7 +505,7 @@ namespace CState_TeamC_Capstone
         {
             var searchQueryResults = new List<Filters>();
             //string queryString = @"SELECT Data.NearMiss_ReviewLog.NearMiss_ID, data.NearMiss_ReviewLog.AssignedTo FROM data.NearMiss_ReviewLog";
-            string queryString = @"SELECT MIN(Data.NearMiss_ReviewLog.NearMiss_ID) as id, data.NearMiss_ReviewLog.AssignedTo From data.NearMiss_ReviewLog group by AssignedTo";
+            string queryString = @"SELECT MIN(Data.NearMiss_ReviewLog.NearMiss_ID) as id, data.NearMiss_ReviewLog.AssignedTo From data.NearMiss_ReviewLog group by AssignedTo ORDER BY AssignedTo ASC";
             
             using (SqlConnection connection = new SqlConnection(CONNECTION_STRING))
             {

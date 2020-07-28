@@ -8,9 +8,11 @@ using System.Web.UI.WebControls;
 
 namespace CState_TeamC_Capstone {
     public partial class reviewIncident : System.Web.UI.Page {
+        public List<Filters> assignTo;
         public List<Filters> severity;
         public List<Filters> risk;
         protected void Page_Load(object sender, EventArgs e) {
+            assignTo = Shared.GetAssignedToNameFilter();
             severity = Shared.GetSeverityFilter();
             risk = Shared.GetRiskFilter();
         }

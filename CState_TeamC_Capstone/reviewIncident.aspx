@@ -41,10 +41,16 @@
             <form id="frmReviewIncident" name="frmReviewIncident" method="post" action="#" runat="server">
                 <div class="form-group">
                     <label for="sltAssignIncident" class="control-label">Assign Near Miss Incident:</label>
-                    <select id="sltAssignIncident" name="sltAssignIncident" class="required form-control">
-                        <option value="" selected="selected" disabled="disabled" hidden="hidden">Assign Near Miss to..</option>
-                        <option value="value">These will be populated from database</option>
-                    </select>
+                    <select id="sltAssignIncident" name="sltAssignIncident"  class="required form-control">
+                                <option value="none" selected="selected" disabled="disabled">Assign Near Miss to..</option>
+                                <% foreach (var x in assignTo)
+                                    {%><option value="<%= x.Description%>">
+
+                                    <%= x.Description%>
+                            
+                                </option>
+                                <%};%>
+                            </select>
                 </div>
                 <div class="form-group">
                     <label for="sltInjurySeverity" class="control-label">Severity of Injury:</label>
