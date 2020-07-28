@@ -63,7 +63,7 @@ function drawInjurySeverityChart() {
             var data = google.visualization.arrayToDataTable(response.d);
 
             if (data.getNumberOfRows() == 0) {
-                $("#injurySeverityChart").append("No data available");
+                $("#riskSeverityChart").append("No data available");
             } else {
                 ajaxSuccess(data);
             }
