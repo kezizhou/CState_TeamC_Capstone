@@ -3,9 +3,7 @@ namespace CState_TeamC_Capstone
 {
     public class Shared
     {
-          public const string sqlConn = "Data Source=itd2.cincinnatistate.edu;Initial Catalog=CPDM-MccomasV; User ID=CPDM-vlMcComas;Password=0477095; ";
-        //  public const string sqlConn = "Data Source=itd2.cincinnatistate.edu;Initial Catalog=CPDM-MccomasV; User ID=CPDM-Adam;Password=; ";
-        //  public const string sqlConn = "Data Source=itd2.cincinnatistate.edu;Initial Catalog=CPDM-MccomasV; User ID=CPDM-Keziah;Password=; ";
+         public const string sqlConn = "Data Source=itd2.cincinnatistate.edu;Initial Catalog=CPDM-MccomasV; User ID=CPDM-vlMcComas;Password=0477095; ";
 
         public static string GetTopNearMissRecord()
         {

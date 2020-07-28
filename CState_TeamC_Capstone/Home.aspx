@@ -7,7 +7,11 @@
 <asp:Content ID="Content2" ContentPlaceHolderID="MainContent" Runat="Server">
     <main role="main" class="container-fluid">
         <h2>Near Miss Incident Dashboard</h2>
-        <h5>Welcome: LastName, FirstName</h5>
+        <h5>Welcome:  <span id="firstnamelastname" class="control-label" runat="server">
+             <!-- User initials here -->
+             XX
+            </span>
+        </h5>
 
         <div id="lastIncidentDescription" class="lastIncidentDescription">
             <div class="lastIncidentHeading text-center d-inline">Last Reported Incident Occurred: </div>

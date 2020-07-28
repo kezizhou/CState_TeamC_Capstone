@@ -7,8 +7,11 @@
 <asp:Content ID="Content2" ContentPlaceHolderID="MainContent" Runat="Server">
     <main role="main" class="container-fluid">
         <h2>Report a New Incident</h2>
-        <h5>Welcome: LastName, FirstName</h5>
-
+        <h5>Welcome:  <span id="firstnamelastname" class="control-label" runat="server">
+             <!-- User initials here -->
+             XX
+            </span>
+        </h5>
         <!-- Form -->
         <div class="container">
             <form name="frmNewIncident" id="frmNewIncident" method="post" action="#" runat="server">
@@ -30,14 +33,14 @@
                     <select id="sltDepartment" name="sltDepartment" runat="server" class="required form-control" >
                         <option value=""  selected="selected" disabled="disabled" hidden="hidden">Select Production Area</option>               
                     </select>
-                </div>
+                       </div>
 
                 <div class="form-group">
                     <label for="sltType" class="control-label">Type of Near Miss:</label>
-                    <select id="sltType" name="sltType" class="required form-control" runat="server">
+                    <select id="sltType" name="sltType" class="required form-control" runat="server" >
                         <option value="" selected="selected" disabled="disabled" hidden="hidden">Select Near Miss</option>
                     </select>
-                </div>
+                 </div>
 
                 <div class="form-group">
                     <label for="txaSolution" class="control-label"> Near Miss Proposed Solution: </label>
@@ -50,7 +53,7 @@
                 </div>
                 
                 <div class="container">
-                    <button type="submit" id="btnSubmit" class="btn btn-primary btn-sm center">Submit New User</button>
+                    <button type="submit" id="btnSubmit" class="btn btn-primary btn-sm center" runat="server" onserverclick="btnSubmit_Click">Submit New User</button>
                 </div>
             </form>
         </div>

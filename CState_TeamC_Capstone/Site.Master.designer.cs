@@ -83,7 +83,7 @@ namespace CState_TeamC_Capstone {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.HtmlControls.HtmlGenericControl userinitials;
-        
+
         /// <summary>
         /// MainContent control.
         /// </summary>
@@ -91,6 +91,18 @@ namespace CState_TeamC_Capstone {
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
+        /// 
+
+        protected global::System.Web.UI.HtmlControls.HtmlGenericControl firstnamelastname;
+
+        /// <summary>
+        /// MainContent control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        /// 
         protected global::System.Web.UI.WebControls.ContentPlaceHolder MainContent;
         
         /// <summary>

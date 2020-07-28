@@ -69,10 +69,3 @@ $(function () {
         },
     });
 });
-
-//function GetSelectedDepartmentValue() {
-//    var e = document.getElementById("sltDepartment");
-//    var result = e.options[e.selectedIndex].value;
-
-//    document.getElementById("result").innerHTML = result;
-//}
