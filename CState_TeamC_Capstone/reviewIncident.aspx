@@ -41,24 +41,42 @@
             <form id="frmReviewIncident" name="frmReviewIncident" method="post" action="#" runat="server">
                 <div class="form-group">
                     <label for="sltAssignIncident" class="control-label">Assign Near Miss Incident:</label>
-                    <select id="sltAssignIncident" name="sltAssignIncident" class="required form-control">
-                        <option value="" selected="selected" disabled="disabled" hidden="hidden">Assign Near Miss to..</option>
-                        <option value="value">These will be populated from database</option>
-                    </select>
+                    <select id="sltAssignIncident" name="sltAssignIncident"  class="required form-control">
+                                <option value="none" selected="selected" disabled="disabled">Assign Near Miss to..</option>
+                                <% foreach (var x in assignTo)
+                                    {%><option value="<%= x.Description%>">
+
+                                    <%= x.Description%>
+                            
+                                </option>
+                                <%};%>
+                            </select>
                 </div>
                 <div class="form-group">
                     <label for="sltInjurySeverity" class="control-label">Severity of Injury:</label>
-                    <select id="sltInjurySeverity" name="sltInjurySeverity" class="required form-control">
-                        <option value="" selected="selected" disabled="disabled" hidden="hidden">Select Severity of Injury</option>
-                        <option value="value">These will be populated from database</option>
+                    <select id="sltSeverityLevel" name="sltSeverityLevel" class="required form-control">
+                        <option value="none" selected="selected" disabled="disabled">Severity Level</option>
+                            <% foreach (var x in severity)
+                                {%><option value="<%= x.Description%>">
+
+                                    <%= x.Description%>
+                            
+                        </option>
+                                <%};%>
                     </select>
                 </div>
                 <div class="form-group">
                     <label for="sltRiskLevel" class="control-label">Risk Level:</label>
                     <select id="sltRiskLevel" name="sltRiskLevel" class="required form-control">
-                        <option value="" selected="selected" disabled="disabled" hidden="hidden">Select Risk Level</option>
-                        <option value="value">These will be populated from database</option>
-                    </select>
+                        <option value="none" selected="selected" disabled="disabled">Risk Level</option>
+                            <% foreach (var x in risk)
+                                {%><option value="<%= x.Description%>">
+
+                                    <%= x.Description%>
+                            
+                        </option>
+                                <%};%>
+            </select>
                 </div>
                 <div class="container">
                     <button type="submit" id="btnSubmit" class="btn btn-primary btn-sm center">Submit</button>
