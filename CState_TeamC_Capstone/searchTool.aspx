@@ -17,7 +17,7 @@
 
 
                     <% foreach (var x in departments)
-                        {%><option value="<%= x.Description%>">
+                        {%><option value="<%= x.ID%>">
 
                         <%= x.Description%>
                             
@@ -27,7 +27,7 @@
                 <select id="sltNearMissType" name="sltNearMissType">
                     <option value="none" selected="selected" disabled="disabled">Near Miss Type</option>
                     <% foreach (var x in nearMissType)
-                        {%><option value="<%= x.Description%>">
+                        {%><option value="<%= x.ID%>">
 
                         <%= x.Description%>
                             
@@ -37,7 +37,7 @@
                 <select id="sltSeverityLevel" name="sltSeverityLevel">
                     <option value="none" selected="selected" disabled="disabled">Severity Level</option>
                     <% foreach (var x in severity)
-                        {%><option value="<%= x.Description%>">
+                        {%><option value="<%= x.ID%>">
 
                         <%= x.Description%>
                             
@@ -47,7 +47,7 @@
                 <select id="sltRiskLevel" name="sltRiskLevel">
                     <option value="none" selected="selected" disabled="disabled">Risk Level</option>
                     <% foreach (var x in risk)
-                        {%><option value="<%= x.Description%>">
+                        {%><option value="<%= x.ID%>">
 
                         <%= x.Description%>
                             
@@ -118,34 +118,23 @@
                         <% foreach (var x in results)
                             {%><tr>
 
-                            <td><%= x.NearMissRecordID%></td>
-                            <td><%= x.Operator%></td>
+                            <td><%= x.ID%></td>
+                            <td><%= x.OperatorName%></td>
                             <td><%= x.Department%></td>
                             <td><%= x.NearMissType%></td>
-                            <td><%= x.Assignee%></td>
-                            <td><%= x.SeverityLevel%></td>
-                            <td><%= x.RiskLevel%></td>
-                            <td><%= x.BriefDetail%></td>
+                            <td><%= x.AssignedTo%></td>
+                            <td><%= x.SeverityType%></td>
+                            <td><%= x.RiskType%></td>
+                            <td><%= x.Comments%></td>
                         </tr>
                         <%};%>
                     </tbody>
                 </table>
             </div>
+            <div>
+                <asp:PlaceHolder ID="PlaceHolder1" runat="server"></asp:PlaceHolder>
+            </div>
         </form>
     </main>
-
-
-    <!-- Page numbers -->
-    <!-- To be programmed with scripting -->
-    <div class="pagination center">
-        <a href="#">&laquo;</a>
-        <a href="#" class="active">1</a>
-        <a href="#">2</a>
-        <a href="#">3</a>
-        <a href="#">4</a>
-        <a href="#">5</a>
-        <a href="#">6</a>
-        <a href="#">&raquo;</a>
-    </div>
 
 </asp:Content>

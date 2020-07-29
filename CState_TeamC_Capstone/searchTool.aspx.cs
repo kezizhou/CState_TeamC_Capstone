@@ -2,21 +2,45 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Web.Services;
+using System.Web.UI.WebControls;
 
-namespace CState_TeamC_Capstone {
-	public partial class searchTool : System.Web.UI.Page {
+namespace CState_TeamC_Capstone
+{
+    public partial class searchTool : System.Web.UI.Page
+    {
         public List<SearchToolQueryResult> results;
+        public int pageCount;
+
         public List<Filters> departments;
         public List<Filters> nearMissType;
         public List<Filters> severity;
         public List<Filters> risk;
         public List<Filters> operatorName;
         public List<Filters> assignedToName;
-        public List<SearchToolQueryResult> originalResult;
-        protected void Page_Load(object sender, EventArgs e) {
-            results = Shared.GetSearchToolQuery();
-            originalResult = results;
+
+
+        protected void Page_Load(object sender, EventArgs e)
+        {
+            SetPage(1);
+            SetFilterOptions();
+        }
+
+        private void SetPageCountFromResults()
+        {
+            var recordIntoPages = (results.FirstOrDefault()?.TotalRows / 5.0);
+            if (recordIntoPages != null)
+            {
+                pageCount = (int)Math.Ceiling((double)recordIntoPages);
+
+            }
+            else
+            {
+                pageCount = 1;
+            }
+        }
+
+        private void SetFilterOptions()
+        {
             departments = Shared.GetDepartmentFilter();
             nearMissType = Shared.GetNearMissTypeFilter();
             severity = Shared.GetSeverityFilter();
@@ -24,9 +48,44 @@ namespace CState_TeamC_Capstone {
             operatorName = Shared.GetOperatorNameFilter();
             assignedToName = Shared.GetAssignedToNameFilter();
         }
+
+        private void SetPage(int pageNumber,
+                             string departmentFilter = null,
+                             string nearMissTypeFilter = null,
+                             string severityTypeFilter = null,
+                             string riskTypeFilter = null,
+                             string operatorFilter = null,
+                             string assigneeFilter = null)
+        {
+            results = Shared.GetSearchToolQuery(pageNumber, departmentFilter, nearMissTypeFilter, severityTypeFilter, riskTypeFilter, operatorFilter, assigneeFilter);
+            SetPageCountFromResults();
+            CreateControl();
+        }
+
+
+        private void CreateControl()
+        {
+            PlaceHolder1.Controls.Clear();
+            for (var i = 1; i < pageCount + 1; i++)
+            {
+                LinkButton lb = new LinkButton();
+                lb = new LinkButton();
+                lb.Text = Convert.ToString(i) + " ";
+                lb.ID = Convert.ToString(i);
+                lb.CommandArgument = Convert.ToString(i);
+                lb.CommandName = Convert.ToString(i);
+                lb.Command += lb_Command;
+                PlaceHolder1.Controls.Add(lb);
+            }
+        }
+
+        void lb_Command(object sender, CommandEventArgs e)
+        {
+            SetPage(int.Parse(e.CommandArgument.ToString()));
+        }
+
         protected void Filter(object sender, EventArgs e)
         {
-
             var departmentSelection = Request["sltDepartment"];
             var nearMissTypeSElection = Request["sltNearMissType"];
             var severitySelection = Request["sltSeverityLevel"];
@@ -34,33 +93,12 @@ namespace CState_TeamC_Capstone {
             var operatorSelection = Request["sltOperatorName"];
             var assignedToSelection = Request["sltAssignedTo"];
 
-            if (!String.IsNullOrEmpty(departmentSelection)) {
-                results = originalResult.Where(x => x.Department == departmentSelection).ToList();
-            }
-            if (!String.IsNullOrEmpty(nearMissTypeSElection))
-            {
-                results = originalResult.Where(x => x.NearMissType == nearMissTypeSElection).ToList();
-            }
-            if (!String.IsNullOrEmpty(severitySelection))
-            {
-                results = originalResult.Where(x => x.SeverityLevel == severitySelection).ToList();
-            }
-            if (!String.IsNullOrEmpty(riskSelection)) {
-                results = originalResult.Where(x => x.RiskLevel == riskSelection).ToList();
-            }
-            if (!String.IsNullOrEmpty(operatorSelection))
-            {
-                results = originalResult.Where(x => x.Operator == operatorSelection).ToList();
-            }
-            if (!String.IsNullOrEmpty(assignedToSelection))
-            {
-                results = originalResult.Where(x => x.Assignee == assignedToSelection).ToList();
-            }
+            SetPage(1, departmentSelection, nearMissTypeSElection, severitySelection, riskSelection, operatorSelection, assignedToSelection);
         }
+
         protected void Clear(object sender, EventArgs e)
         {
-            results = originalResult;
-
+            SetPage(1);
         }
     }
 }

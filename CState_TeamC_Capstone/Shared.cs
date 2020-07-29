@@ -1,7 +1,10 @@
 ﻿
 using CState_TeamC_Capstone.DomainObjects;
 using System.Collections.Generic;
+using System.Data;
 using System.Data.SqlClient;
+using System.Linq;
+using Dapper;
 
 namespace CState_TeamC_Capstone
 {
@@ -26,8 +29,8 @@ namespace CState_TeamC_Capstone
                 var _sqlCommand = new System.Data.SqlClient.SqlCommand(_sqlCommandText, _sqlConnection);
                 _sqlCommand.CommandType = System.Data.CommandType.Text;
                 var _sqlDataAdapter = new System.Data.SqlClient.SqlDataAdapter(_sqlCommand);
-                _sqlDataAdapter.Fill(_dataTable); 
-                        // "SELECT MAX(ID) FROM [Data].[NearMissRecord]"
+                _sqlDataAdapter.Fill(_dataTable);
+                // "SELECT MAX(ID) FROM [Data].[NearMissRecord]"
                 if (_dataTable.Rows.Count > 0)
                     _returnString = _dataTable.Rows[0][0].ToString();
             }
@@ -60,26 +63,26 @@ namespace CState_TeamC_Capstone
         }
         public static string GetEHSEmailNearMiss()
         {
-                string _returnString = string.Empty;
-                var _dataTable = new System.Data.DataTable();
-                using (var _sqlConnection = new System.Data.SqlClient.SqlConnection(connectionString: CONNECTION_STRING))
-                {
-                    string _sqlCommandText;
+            string _returnString = string.Empty;
+            var _dataTable = new System.Data.DataTable();
+            using (var _sqlConnection = new System.Data.SqlClient.SqlConnection(connectionString: CONNECTION_STRING))
+            {
+                string _sqlCommandText;
 
-                    // ---------------------------------------------------------------------------------------------------------------------------------------------------
-                    _sqlCommandText = "SELECT Username FROM [VW].[EmployeeApplicationRights] WHERE [Role_ID] LIKE '%1%' ";
-                    // ---------------------------------------------------------------------------------------------------------------------------------------------------
-                    var _sqlCommand = new System.Data.SqlClient.SqlCommand(_sqlCommandText, _sqlConnection);
-                    _sqlCommand.CommandType = System.Data.CommandType.Text;
-                    var _sqlDataAdapter = new System.Data.SqlClient.SqlDataAdapter(_sqlCommand);
-                    _sqlDataAdapter.Fill(_dataTable);
+                // ---------------------------------------------------------------------------------------------------------------------------------------------------
+                _sqlCommandText = "SELECT Username FROM [VW].[EmployeeApplicationRights] WHERE [Role_ID] LIKE '%1%' ";
+                // ---------------------------------------------------------------------------------------------------------------------------------------------------
+                var _sqlCommand = new System.Data.SqlClient.SqlCommand(_sqlCommandText, _sqlConnection);
+                _sqlCommand.CommandType = System.Data.CommandType.Text;
+                var _sqlDataAdapter = new System.Data.SqlClient.SqlDataAdapter(_sqlCommand);
+                _sqlDataAdapter.Fill(_dataTable);
 
-                    // If _dataTable.Rows.Count > 0 Then _returnString = _dataTable.Rows(0).Item(0).ToString
-                    foreach (System.Data.DataRow _row in _dataTable.Rows)
-                        _returnString += _row["Username"];
-                }
-                return _returnString;
+                // If _dataTable.Rows.Count > 0 Then _returnString = _dataTable.Rows(0).Item(0).ToString
+                foreach (System.Data.DataRow _row in _dataTable.Rows)
+                    _returnString += _row["Username"];
             }
+            return _returnString;
+        }
         public static string GetAssigneeEmailNearMiss(string Username)
         {
             string _returnString = string.Empty;
@@ -347,45 +350,65 @@ namespace CState_TeamC_Capstone
                 _sqlCommand.Parameters.Add(new System.Data.SqlClient.SqlParameter("@NearMiss_ActionTaken", System.Data.SqlDbType.VarChar)).Value = strNearMiss_ActionTaken;
                 _sqlCommand.Parameters.Add(new System.Data.SqlClient.SqlParameter("@UpdatedBy", System.Data.SqlDbType.VarChar)).Value = strUpdatedBy;
                 _sqlCommand.Parameters.Add(new System.Data.SqlClient.SqlParameter("@DateUpdated", System.Data.SqlDbType.VarChar)).Value = System.DateTime.Now;
-                _sqlConnection.Open();         
-                _sqlCommand.ExecuteNonQuery(); 
+                _sqlConnection.Open();
+                _sqlCommand.ExecuteNonQuery();
             }
         }
-        public static List<SearchToolQueryResult> GetSearchToolQuery()
+
+        public static List<SearchToolQueryResult> GetSearchToolQuery(int pageNumber,
+                                                                     string departmentFilter = null,
+                                                                     string nearMissTypeFilter = null,
+                                                                     string severityTypeFilter = null,
+                                                                     string riskTypeFilter = null,
+                                                                     string operatorFilter = null,
+                                                                     string assigneeFilter = null)
         {
-            var searchQueryResults = new List<SearchToolQueryResult>();
-            string queryString = @"SELECT  Data.NearMissRecord.ID, data.NearMissRecord.OperatorName, Reference.Department.Department, Reference.NearMissType.NearMissType, data.NearMiss_ReviewLog.AssignedTo,
-                                   Reference.SeverityofInjury.SeverityType, Reference.RiskLevel.RiskType, data.NearMiss_ReviewLog.Comments
-                                   FROM data.NearMissRecord
-                                   INNER JOIN data.NearMiss_ReviewLog ON data.NearMissRecord.ID = data.NearMiss_ReviewLog.NearMiss_ID
-                                   INNER JOIN Reference.Department ON Reference.Department.ID = data.NearMissRecord.Department_ID
-                                   INNER JOIN Reference.NearMissType ON Reference.NearMissType.ID = data.NearMiss_ReviewLog.NearMiss_ID
-                                   INNER JOIN Reference.SeverityofInjury ON Reference.SeverityofInjury.ID = data.NearMiss_ReviewLog.Severity_ID
-                                   INNER JOIN Reference.RiskLevel ON Reference.RiskLevel.ID = data.NearMiss_ReviewLog.Risk_ID";
-            using (SqlConnection connection = new SqlConnection(CONNECTION_STRING))
+            var sqlOffset = 0;
+            if (pageNumber != 1)
             {
-                SqlCommand command = new SqlCommand(queryString, connection);
-                connection.Open();
-                using (SqlDataReader reader = command.ExecuteReader())
-                {
-                    while (reader.Read())
-                    {
-                        searchQueryResults.Add(new SearchToolQueryResult {
-                            NearMissRecordID = (int)reader[0], 
-                            Operator = reader[1].ToString(),
-                            Department = reader[2].ToString(),
-                            NearMissType = reader[3].ToString(),
-                            Assignee = reader[4].ToString(),
-                            SeverityLevel = reader[5].ToString(),
-                            RiskLevel = reader[6].ToString(),
-                            BriefDetail = reader[7].ToString()
-                        });
-                    }
-                }
+                sqlOffset = (pageNumber - 1) * 5;
             }
 
-            return searchQueryResults;
+            List<SearchToolQueryResult> resultList = new List<SearchToolQueryResult>();
+
+            string sql = $@"SELECT Data.NearMissRecord.ID, data.NearMissRecord.OperatorName, Reference.Department.Department, Reference.NearMissType.NearMissType, data.NearMiss_ReviewLog.AssignedTo,
+                                   Reference.SeverityofInjury.SeverityType, Reference.RiskLevel.RiskType, data.NearMiss_ReviewLog.Comments, TotalRows = COUNT(*) OVER()
+                                    FROM data.NearMissRecord
+                                    INNER JOIN data.NearMiss_ReviewLog ON data.NearMissRecord.ID = data.NearMiss_ReviewLog.NearMiss_ID
+                                    INNER JOIN Reference.Department ON Reference.Department.ID = data.NearMissRecord.Department_ID
+                                    INNER JOIN Reference.NearMissType ON Reference.NearMissType.ID = data.NearMissRecord.NearMissType_ID
+                                    INNER JOIN Reference.SeverityofInjury ON Reference.SeverityofInjury.ID = data.NearMiss_ReviewLog.Severity_ID
+                                    INNER JOIN Reference.RiskLevel ON Reference.RiskLevel.ID = data.NearMiss_ReviewLog.Risk_ID
+                                      where Reference.Department.ID = COALESCE({departmentFilter ?? "null"}, Reference.Department.ID)
+                                        AND Reference.NearMissType.ID = COALESCE({nearMissTypeFilter ?? "null"}, Reference.NearMissType.ID)
+                                        AND Reference.SeverityofInjury.ID = COALESCE({severityTypeFilter ?? "null"}, SeverityofInjury.ID)
+                                        AND Reference.RiskLevel.ID = COALESCE({riskTypeFilter ?? "null"}, Reference.RiskLevel.ID)
+                                        AND data.NearMissRecord.OperatorName = COALESCE({GetNameFormattedForSQL(operatorFilter)}, data.NearMissRecord.OperatorName)
+                                        AND data.NearMiss_ReviewLog.AssignedTo = COALESCE({GetNameFormattedForSQL(assigneeFilter)}, data.NearMiss_ReviewLog.AssignedTo)
+                                    ORDER BY DATA.NearMissRecord.ID
+                                    OFFSET {sqlOffset} ROWS
+                                    FETCH NEXT 5 ROWS ONLY";
+
+            using (IDbConnection connection = new SqlConnection(CONNECTION_STRING))
+            {
+                resultList.AddRange(connection.Query<SearchToolQueryResult>(sql, commandType: CommandType.Text).ToList());
+            }
+
+            return resultList;
         }
+
+        private static string GetNameFormattedForSQL(string name)
+        {
+            if (name == null)
+            {
+                return "null";
+            }
+            else
+            {
+                return $@"'{name}'";
+            }
+        }
+
         public static List<Filters> GetDepartmentFilter()
         {
             var searchQueryResults = new List<Filters>();
@@ -481,7 +504,7 @@ namespace CState_TeamC_Capstone
         public static List<Filters> GetOperatorNameFilter()
         {
             var searchQueryResults = new List<Filters>();
-            string queryString = @"SELECT  ID, OperatorName FROM data.NearMissRecord ORDER BY OperatorName ASC";
+            string queryString = @"SELECT ID, OperatorName FROM data.NearMissRecord ORDER BY OperatorName ASC";
             using (SqlConnection connection = new SqlConnection(CONNECTION_STRING))
             {
                 SqlCommand command = new SqlCommand(queryString, connection);
@@ -506,7 +529,7 @@ namespace CState_TeamC_Capstone
             var searchQueryResults = new List<Filters>();
             //string queryString = @"SELECT Data.NearMiss_ReviewLog.NearMiss_ID, data.NearMiss_ReviewLog.AssignedTo FROM data.NearMiss_ReviewLog";
             string queryString = @"SELECT MIN(Data.NearMiss_ReviewLog.NearMiss_ID) as id, data.NearMiss_ReviewLog.AssignedTo From data.NearMiss_ReviewLog group by AssignedTo ORDER BY AssignedTo ASC";
-            
+
             using (SqlConnection connection = new SqlConnection(CONNECTION_STRING))
             {
                 SqlCommand command = new SqlCommand(queryString, connection);
