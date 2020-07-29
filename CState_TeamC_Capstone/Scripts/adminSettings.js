@@ -1,4 +1,21 @@
-﻿function CallBtnAcceptClick() {
+﻿$(document).ready(function () {
+    $('#pendingRequests').DataTable({
+        "columnDefs": [
+            {
+                "orderable": false,
+                "targets": [6, 8]
+            }
+        ],
+        "language": {
+            "paginate": {
+                "previous": '<i class="fas fa-angle-double-left"></i>',
+                "next": '<i class="fas fa-angle-double-right"></i>'
+            }
+        }
+    });
+});
+
+function CallBtnAcceptClick() {
     var buttonVal = $(this).val();
 
     $.ajax({
@@ -32,6 +49,6 @@ function CallBtnRejectClick() {
 
 
 function OnSuccess(response) {
-        location.reload();
+    location.reload();
 }
 

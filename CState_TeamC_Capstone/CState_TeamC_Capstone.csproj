@@ -120,6 +120,7 @@
     <Content Include="Content\searchTool.css" />
     <Content Include="Content\signIn.css" />
     <Content Include="Content\Site.css" />
+    <Content Include="Content\table.css" />
     <Content Include="Content\userSettings.css" />
     <Content Include="emailForgotUsernameTemplate.html" />
     <Content Include="emailResetTemplate.html" />
