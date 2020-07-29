@@ -103,7 +103,7 @@ namespace CState_TeamC_Capstone {
 
 				// Redirect to email sent page
 				// This displays for invalid credentials as well so malicious users are not able to find valid usernames to attack
-				Response.Redirect("resetEmailSent.aspx");
+				Response.Redirect("reset.aspx?type=resetEmailSent");
 			}
 			catch (Exception ex) {
 				Response.Write(ex.Message);

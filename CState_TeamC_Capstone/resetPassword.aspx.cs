@@ -40,7 +40,7 @@ namespace CState_TeamC_Capstone {
 					} else {
 						// Token is already used or expired
 						// Or user does not have an tokens
-						Response.Redirect("invalidToken.aspx");
+						Response.Redirect("reset.aspx?type=invalidToken");
 					}
 
 					cmd.Dispose();
@@ -49,11 +49,11 @@ namespace CState_TeamC_Capstone {
 
 				if (blnHashesEqual == false) {
 					// Invalid token
-					Response.Redirect("invalidToken.aspx");
+					Response.Redirect("reset.aspx?type=invalidToken");
 				}
 			} else {
 				// No username or token provided
-				Response.Redirect("invalidToken.aspx");
+				Response.Redirect("reset.aspx?type=invalidToken");
 			}
 		}
 
@@ -99,7 +99,7 @@ namespace CState_TeamC_Capstone {
 				conn.Close();
 
 				// Redirect to succesful reset page
-				Response.Redirect("resetPasswordSuccess.aspx");
+				Response.Redirect("reset.aspx?type=resetPasswordSuccess");
 			}
 			catch (Exception ex) {
 				Response.Write(ex.Message);

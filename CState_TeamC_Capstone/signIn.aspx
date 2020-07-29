@@ -34,7 +34,7 @@
         <h2>Norwood Safety Near Miss Reporting</h2>
         <h5>Please sign in.</h5>
 
-        <div id="invalidInput" class="center" runat="server">
+        <div id="message" class="invalidInput center2" runat="server">
             Incorrect username or password entered.
         </div>
 

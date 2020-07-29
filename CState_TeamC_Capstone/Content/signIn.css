@@ -22,13 +22,23 @@ h5 {
     display: none;
 }
 
-#invalidInput {
+.invalidInput {
     background-color: #FAFAD2;
     color: #FF0000;
-    width: 400px;
     padding: 15px;
     border: 1px solid #FF0000;
-    display: none;
+    /*display: none;*/
+}
+
+.message {
+    border: 1px solid #009999;
+    padding: 10px;
+    background: #CDD5C6;
+    margin: 15px;
+}
+
+#message {
+    margin-bottom: 0;
 }
 
 .signInContainer {

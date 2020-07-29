@@ -60,7 +60,7 @@ namespace CState_TeamC_Capstone
 
                 conn.Close();
 
-                Response.Redirect("signIn.aspx");
+                Response.Redirect("signIn.aspx?type=newUser");
             }
                  
             catch (Exception ex)

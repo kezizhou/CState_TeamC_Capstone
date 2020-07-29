@@ -34,8 +34,6 @@ namespace CState_TeamC_Capstone {
 			}
 			if (Roles.IsUserInRole(HttpContext.Current.User.Identity.Name, "NearMissAdmin")) {
 				AdminSettings.Style["display"] = "block";
-			} else {
-				UserSettings.Style["display"] = "block";
 			}
 
 			// Change signout to user initials
