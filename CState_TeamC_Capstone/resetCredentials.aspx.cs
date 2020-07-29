@@ -181,12 +181,10 @@ namespace CState_TeamC_Capstone {
 				string strToken = Convert.ToBase64String(randomToken);
 
 				// Remove special characters for query string
-				strToken = strToken.Replace('+', '-');
-				strToken = strToken.Replace('/', '_');
+				strToken = Server.UrlEncode(strToken);
 				strToken = strToken.Replace('%', '-');
-				strToken = strToken.Replace('=', '_');
 
-				return strToken;
+                return strToken;
 			}
 		}
 

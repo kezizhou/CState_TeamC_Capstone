@@ -10,105 +10,96 @@
 namespace CState_TeamC_Capstone {
 
 
-	public partial class SiteMaster {
+	public partial class newUser {
 
 		/// <summary>
-		/// HeadContent control.
+		/// frmNewUser control.
 		/// </summary>
 		/// <remarks>
 		/// Auto-generated field.
 		/// To modify move field declaration from designer file to code-behind file.
 		/// </remarks>
-		protected global::System.Web.UI.WebControls.ContentPlaceHolder HeadContent;
+		protected global::System.Web.UI.HtmlControls.HtmlForm frmNewUser;
 
 		/// <summary>
-		/// Home control.
+		/// txtFirstName control.
 		/// </summary>
 		/// <remarks>
 		/// Auto-generated field.
 		/// To modify move field declaration from designer file to code-behind file.
 		/// </remarks>
-		protected global::System.Web.UI.HtmlControls.HtmlAnchor Home;
+		protected global::System.Web.UI.HtmlControls.HtmlInputText txtFirstName;
 
 		/// <summary>
-		/// InitiateIncident control.
+		/// txtLastName control.
 		/// </summary>
 		/// <remarks>
 		/// Auto-generated field.
 		/// To modify move field declaration from designer file to code-behind file.
 		/// </remarks>
-		protected global::System.Web.UI.HtmlControls.HtmlAnchor InitiateIncident;
+		protected global::System.Web.UI.HtmlControls.HtmlInputText txtLastName;
 
 		/// <summary>
-		/// ReviewIncident control.
+		/// txtemployeeID control.
 		/// </summary>
 		/// <remarks>
 		/// Auto-generated field.
 		/// To modify move field declaration from designer file to code-behind file.
 		/// </remarks>
-		protected global::System.Web.UI.HtmlControls.HtmlAnchor ReviewIncident;
+		protected global::System.Web.UI.HtmlControls.HtmlInputText txtemployeeID;
 
 		/// <summary>
-		/// UpdateIncident control.
+		/// txtEmail control.
 		/// </summary>
 		/// <remarks>
 		/// Auto-generated field.
 		/// To modify move field declaration from designer file to code-behind file.
 		/// </remarks>
-		protected global::System.Web.UI.HtmlControls.HtmlAnchor UpdateIncident;
+		protected global::System.Web.UI.HtmlControls.HtmlInputText txtEmail;
 
 		/// <summary>
-		/// SearchTool control.
+		/// sltDepartment control.
 		/// </summary>
 		/// <remarks>
 		/// Auto-generated field.
 		/// To modify move field declaration from designer file to code-behind file.
 		/// </remarks>
-		protected global::System.Web.UI.HtmlControls.HtmlAnchor SearchTool;
+		protected global::System.Web.UI.HtmlControls.HtmlSelect sltDepartment;
 
 		/// <summary>
-		/// UserSettings control.
+		/// txtUsername control.
 		/// </summary>
 		/// <remarks>
 		/// Auto-generated field.
 		/// To modify move field declaration from designer file to code-behind file.
 		/// </remarks>
-		protected global::System.Web.UI.HtmlControls.HtmlAnchor UserSettings;
+		protected global::System.Web.UI.HtmlControls.HtmlInputText txtUsername;
 
 		/// <summary>
-		/// AdminSettings control.
+		/// txtPassword control.
 		/// </summary>
 		/// <remarks>
 		/// Auto-generated field.
 		/// To modify move field declaration from designer file to code-behind file.
 		/// </remarks>
-		protected global::System.Web.UI.HtmlControls.HtmlAnchor AdminSettings;
+		protected global::System.Web.UI.HtmlControls.HtmlInputPassword txtPassword;
 
 		/// <summary>
-		/// userinitials control.
+		/// cbEmployeeStatus control.
 		/// </summary>
 		/// <remarks>
 		/// Auto-generated field.
 		/// To modify move field declaration from designer file to code-behind file.
 		/// </remarks>
-		protected global::System.Web.UI.HtmlControls.HtmlGenericControl userinitials;
+		protected global::System.Web.UI.HtmlControls.HtmlInputCheckBox cbEmployeeStatus;
 
 		/// <summary>
-		/// MainContent control.
+		/// btnSubmitNewUser control.
 		/// </summary>
 		/// <remarks>
 		/// Auto-generated field.
 		/// To modify move field declaration from designer file to code-behind file.
 		/// </remarks>
-		protected global::System.Web.UI.WebControls.ContentPlaceHolder MainContent;
-
-		/// <summary>
-		/// ScriptContent control.
-		/// </summary>
-		/// <remarks>
-		/// Auto-generated field.
-		/// To modify move field declaration from designer file to code-behind file.
-		/// </remarks>
-		protected global::System.Web.UI.WebControls.ContentPlaceHolder ScriptContent;
+		protected global::System.Web.UI.HtmlControls.HtmlButton btnSubmitNewUser;
 	}
 }

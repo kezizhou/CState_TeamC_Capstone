@@ -6,20 +6,19 @@ using System.Data.SqlClient;
 using System.Linq;
 using Dapper;
 
+using System.Configuration;
+
 namespace CState_TeamC_Capstone
 {
     public class Shared
     {
-        //public const string CONNECTION_STRING = "Data Source=itd2.cincinnatistate.edu;Initial Catalog=CPDM-MccomasV; User ID=CPDM-vlMcComas;Password=0477095; ";
-        //public const string CONNECTION_STRING = "Data Source=itd2.cincinnatistate.edu;Initial Catalog=CPDM-SadowskiA; User ID=CPDM-ajsadowski;Password=0650199; ";
-        //public const string CONNECTION_STRING = "Data Source=itd2.cincinnatistate.edu;Initial Catalog=CPDM-MccomasV; User ID=CPDM-Keziah;Password=; ";
-        public const string CONNECTION_STRING = "Data Source=itd2.cincinnatistate.edu;Initial Catalog=CPDM-TeamE; User ID=CPDM_ajsadowski;Password=0650199; ";
+        public static string sqlConn = ConfigurationManager.ConnectionStrings["sqlconn"].ConnectionString;
 
         public static string GetTopNearMissRecord()
         {
             string _returnString = string.Empty;
             var _dataTable = new System.Data.DataTable();
-            using (var _sqlConnection = new System.Data.SqlClient.SqlConnection(connectionString: CONNECTION_STRING))
+            using (var _sqlConnection = new System.Data.SqlClient.SqlConnection(connectionString: sqlConn))
             {
                 string _sqlCommandText;
 
@@ -40,7 +39,7 @@ namespace CState_TeamC_Capstone
 
         public static void InsertNearMissRecord(string dtNearMissDate, string strOperatorName, string strDepartment, string strNearMissType, string strNearMissSolution, string strNearMiss_ActionTaken)
         {
-            using (var _sqlConnection = new System.Data.SqlClient.SqlConnection(connectionString: CONNECTION_STRING))
+            using (var _sqlConnection = new System.Data.SqlClient.SqlConnection(connectionString: sqlConn))
             {
                 string _sqlCommandText;
 
@@ -63,11 +62,11 @@ namespace CState_TeamC_Capstone
         }
         public static string GetEHSEmailNearMiss()
         {
-            string _returnString = string.Empty;
-            var _dataTable = new System.Data.DataTable();
-            using (var _sqlConnection = new System.Data.SqlClient.SqlConnection(connectionString: CONNECTION_STRING))
-            {
-                string _sqlCommandText;
+                string _returnString = string.Empty;
+                var _dataTable = new System.Data.DataTable();
+                using (var _sqlConnection = new System.Data.SqlClient.SqlConnection(connectionString: sqlConn))
+                {
+                    string _sqlCommandText;
 
                 // ---------------------------------------------------------------------------------------------------------------------------------------------------
                 _sqlCommandText = "SELECT Username FROM [VW].[EmployeeApplicationRights] WHERE [Role_ID] LIKE '%1%' ";
@@ -87,7 +86,7 @@ namespace CState_TeamC_Capstone
         {
             string _returnString = string.Empty;
             var _dataTable = new System.Data.DataTable();
-            using (var _sqlConnection = new System.Data.SqlClient.SqlConnection(connectionString: CONNECTION_STRING))
+            using (var _sqlConnection = new System.Data.SqlClient.SqlConnection(connectionString: sqlConn))
             {
                 string _sqlCommandText;
 
@@ -111,7 +110,7 @@ namespace CState_TeamC_Capstone
         {
             string _returnString = string.Empty;
             var _dataTable = new System.Data.DataTable();
-            using (var _sqlConnection = new System.Data.SqlClient.SqlConnection(connectionString: CONNECTION_STRING))
+            using (var _sqlConnection = new System.Data.SqlClient.SqlConnection(connectionString: sqlConn))
             {
                 string _sqlCommandText;
 
@@ -136,7 +135,7 @@ namespace CState_TeamC_Capstone
         {
             string _returnString = string.Empty;
             var _dataTable = new System.Data.DataTable();
-            using (var _sqlConnection = new System.Data.SqlClient.SqlConnection(connectionString: CONNECTION_STRING))
+            using (var _sqlConnection = new System.Data.SqlClient.SqlConnection(connectionString: sqlConn))
             {
                 string _sqlCommandText;
 
@@ -159,7 +158,7 @@ namespace CState_TeamC_Capstone
         {
             string _returnString = string.Empty;
             var _dataTable = new System.Data.DataTable();
-            using (var _sqlConnection = new System.Data.SqlClient.SqlConnection(connectionString: CONNECTION_STRING))
+            using (var _sqlConnection = new System.Data.SqlClient.SqlConnection(connectionString: sqlConn))
             {
                 string _sqlCommandText;
 
@@ -182,7 +181,7 @@ namespace CState_TeamC_Capstone
         {
             string _returnString = string.Empty;
             var _dataTable = new System.Data.DataTable();
-            using (var _sqlConnection = new System.Data.SqlClient.SqlConnection(connectionString: CONNECTION_STRING))
+            using (var _sqlConnection = new System.Data.SqlClient.SqlConnection(connectionString: sqlConn))
             {
                 string _sqlCommandText;
 
@@ -205,7 +204,7 @@ namespace CState_TeamC_Capstone
         {
             string _returnString = string.Empty;
             var _dataTable = new System.Data.DataTable();
-            using (var _sqlConnection = new System.Data.SqlClient.SqlConnection(connectionString: CONNECTION_STRING))
+            using (var _sqlConnection = new System.Data.SqlClient.SqlConnection(connectionString: sqlConn))
             {
                 string _sqlCommandText;
 
@@ -228,7 +227,7 @@ namespace CState_TeamC_Capstone
         {
             string _returnString = string.Empty;
             var _dataTable = new System.Data.DataTable();
-            using (var _sqlConnection = new System.Data.SqlClient.SqlConnection(connectionString: CONNECTION_STRING))
+            using (var _sqlConnection = new System.Data.SqlClient.SqlConnection(connectionString: sqlConn))
             {
                 string _sqlCommandText;
 
@@ -251,7 +250,7 @@ namespace CState_TeamC_Capstone
         {
             string _returnString = string.Empty;
             var _dataTable = new System.Data.DataTable();
-            using (var _sqlConnection = new System.Data.SqlClient.SqlConnection(connectionString: CONNECTION_STRING))
+            using (var _sqlConnection = new System.Data.SqlClient.SqlConnection(connectionString: sqlConn))
             {
                 string _sqlCommandText;
 
@@ -271,7 +270,7 @@ namespace CState_TeamC_Capstone
         }
         public static void InsertNearMissReviewRecord(string strID, string strAssignee, string strSeverity, string strRisk, string strReviewComments, string strReviewedBy)
         {
-            using (var _sqlConnection = new System.Data.SqlClient.SqlConnection(connectionString: CONNECTION_STRING))
+            using (var _sqlConnection = new System.Data.SqlClient.SqlConnection(connectionString: sqlConn))
             {
                 string _sqlCommandText;
 
@@ -293,7 +292,7 @@ namespace CState_TeamC_Capstone
         }
         public static void UpdateNearMissReviewRecord(string strID, string strAssigneeUsername, string strSeverity, string strRisk, string strReviewComments, string strReviewedBy)
         {
-            using (var _sqlConnection = new System.Data.SqlClient.SqlConnection(connectionString: CONNECTION_STRING))
+            using (var _sqlConnection = new System.Data.SqlClient.SqlConnection(connectionString: sqlConn))
             {
                 string _sqlCommandText;
 
@@ -317,7 +316,7 @@ namespace CState_TeamC_Capstone
         {
             bool _returnBoolean = false;
             var _dataTable = new System.Data.DataTable();
-            using (var _sqlConnection = new System.Data.SqlClient.SqlConnection(connectionString: CONNECTION_STRING))
+            using (var _sqlConnection = new System.Data.SqlClient.SqlConnection(connectionString: sqlConn))
             {
                 string _sqlCommandText;
 
@@ -337,7 +336,7 @@ namespace CState_TeamC_Capstone
         }
         public static void InsertNearMissActionTakenUpdate(string strID, string strNearMiss_ActionTaken, string strUpdatedBy)
         {
-            using (var _sqlConnection = new System.Data.SqlClient.SqlConnection(connectionString: CONNECTION_STRING))
+            using (var _sqlConnection = new System.Data.SqlClient.SqlConnection(connectionString: sqlConn))
             {
                 string _sqlCommandText;
 
@@ -389,7 +388,7 @@ namespace CState_TeamC_Capstone
                                     OFFSET {sqlOffset} ROWS
                                     FETCH NEXT 5 ROWS ONLY";
 
-            using (IDbConnection connection = new SqlConnection(CONNECTION_STRING))
+            using (IDbConnection connection = new SqlConnection(sqlConn))
             {
                 resultList.AddRange(connection.Query<SearchToolQueryResult>(sql, commandType: CommandType.Text).ToList());
             }
@@ -413,7 +412,7 @@ namespace CState_TeamC_Capstone
         {
             var searchQueryResults = new List<Filters>();
             string queryString = @"SELECT ID,Department FROM Reference.Department WHERE GETDATE() BETWEEN ValidFromDate and ValidToDate ORDER BY Department ASC";
-            using (SqlConnection connection = new SqlConnection(CONNECTION_STRING))
+            using (SqlConnection connection = new SqlConnection(sqlConn))
             {
                 SqlCommand command = new SqlCommand(queryString, connection);
                 connection.Open();
@@ -436,7 +435,7 @@ namespace CState_TeamC_Capstone
         {
             var searchQueryResults = new List<Filters>();
             string queryString = @"SELECT ID,NearMissType FROM Reference.NearMissType WHERE GETDATE() BETWEEN ValidFromDate and ValidToDate ORDER BY NearMissType ASC";
-            using (SqlConnection connection = new SqlConnection(CONNECTION_STRING))
+            using (SqlConnection connection = new SqlConnection(sqlConn))
             {
                 SqlCommand command = new SqlCommand(queryString, connection);
                 connection.Open();
@@ -459,7 +458,7 @@ namespace CState_TeamC_Capstone
         {
             var searchQueryResults = new List<Filters>();
             string queryString = @"SELECT ID,SeverityType FROM Reference.SeverityofInjury WHERE GETDATE() BETWEEN ValidFromDate and ValidToDate";
-            using (SqlConnection connection = new SqlConnection(CONNECTION_STRING))
+            using (SqlConnection connection = new SqlConnection(sqlConn))
             {
                 SqlCommand command = new SqlCommand(queryString, connection);
                 connection.Open();
@@ -482,7 +481,7 @@ namespace CState_TeamC_Capstone
         {
             var searchQueryResults = new List<Filters>();
             string queryString = @"SELECT ID, RiskType FROM Reference.RiskLevel WHERE GETDATE() BETWEEN ValidFromDate and ValidToDate";
-            using (SqlConnection connection = new SqlConnection(CONNECTION_STRING))
+            using (SqlConnection connection = new SqlConnection(sqlConn))
             {
                 SqlCommand command = new SqlCommand(queryString, connection);
                 connection.Open();
@@ -505,7 +504,7 @@ namespace CState_TeamC_Capstone
         {
             var searchQueryResults = new List<Filters>();
             string queryString = @"SELECT ID, OperatorName FROM data.NearMissRecord ORDER BY OperatorName ASC";
-            using (SqlConnection connection = new SqlConnection(CONNECTION_STRING))
+            using (SqlConnection connection = new SqlConnection(sqlConn))
             {
                 SqlCommand command = new SqlCommand(queryString, connection);
                 connection.Open();
@@ -530,7 +529,7 @@ namespace CState_TeamC_Capstone
             //string queryString = @"SELECT Data.NearMiss_ReviewLog.NearMiss_ID, data.NearMiss_ReviewLog.AssignedTo FROM data.NearMiss_ReviewLog";
             string queryString = @"SELECT MIN(Data.NearMiss_ReviewLog.NearMiss_ID) as id, data.NearMiss_ReviewLog.AssignedTo From data.NearMiss_ReviewLog group by AssignedTo ORDER BY AssignedTo ASC";
 
-            using (SqlConnection connection = new SqlConnection(CONNECTION_STRING))
+            using (SqlConnection connection = new SqlConnection(sqlConn))
             {
                 SqlCommand command = new SqlCommand(queryString, connection);
                 connection.Open();
@@ -548,6 +547,33 @@ namespace CState_TeamC_Capstone
             }
 
             return searchQueryResults;
+        }
+        public static void InsertNewEmployee(string strFirstName, string strMiddleName, string strLastName, string strUsername, string hashParam, string saltParam, bool blnActive, int intEmployeeID, string strEmail, string strDepartment)
+        {
+            using (var _sqlConnection = new System.Data.SqlClient.SqlConnection(connectionString: sqlConn))
+            {
+                string _sqlCommandText;
+
+                // ---------------------------------------------------------------------------------------------------------------------------------------------------
+                _sqlCommandText = "[SP].[InsertNewEmployee]";
+                // ---------------------------------------------------------------------------------------------------------------------------------------------------
+                var _sqlCommand = new System.Data.SqlClient.SqlCommand(_sqlCommandText, _sqlConnection);
+                _sqlCommand.CommandType = System.Data.CommandType.StoredProcedure;
+                _sqlCommand.Parameters.Add(new System.Data.SqlClient.SqlParameter("@First_Name", System.Data.SqlDbType.VarChar)).Value = strFirstName;
+                _sqlCommand.Parameters.Add(new System.Data.SqlClient.SqlParameter("@Middle_Name", System.Data.SqlDbType.VarChar)).Value = strMiddleName;
+                _sqlCommand.Parameters.Add(new System.Data.SqlClient.SqlParameter("@Last_Name", System.Data.SqlDbType.VarChar)).Value = strLastName;
+                _sqlCommand.Parameters.Add(new System.Data.SqlClient.SqlParameter("@Username", System.Data.SqlDbType.VarChar)).Value = strUsername;
+                _sqlCommand.Parameters.Add(new System.Data.SqlClient.SqlParameter("@Password", System.Data.SqlDbType.Char)).Value = hashParam;
+                _sqlCommand.Parameters.Add(new System.Data.SqlClient.SqlParameter("@Salt", System.Data.SqlDbType.Char)).Value = saltParam;
+                _sqlCommand.Parameters.Add(new System.Data.SqlClient.SqlParameter("@Active", System.Data.SqlDbType.Bit)).Value = blnActive;
+                _sqlCommand.Parameters.Add(new System.Data.SqlClient.SqlParameter("@Employee_ID", System.Data.SqlDbType.Int)).Value = intEmployeeID;
+                _sqlCommand.Parameters.Add(new System.Data.SqlClient.SqlParameter("@Email", System.Data.SqlDbType.VarChar)).Value = strEmail;
+                _sqlCommand.Parameters.Add(new System.Data.SqlClient.SqlParameter("@Department", System.Data.SqlDbType.VarChar)).Value = strDepartment;
+
+                _sqlConnection.Open();
+
+                _sqlCommand.ExecuteNonQuery();
+            }
         }
     }
 }
