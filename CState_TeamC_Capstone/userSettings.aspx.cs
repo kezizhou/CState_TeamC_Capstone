@@ -16,9 +16,13 @@ namespace CState_TeamC_Capstone {
 		protected List<RoleRequest> lstAllRoleRequests { get; set; }
 
 		protected void Page_Load(object sender, EventArgs e) {
-			lstCurrentRoles = LoadCurrentRoles();
-			lstRoles = LoadRequestRoles();
-			lstAllRoleRequests = LoadAllRoleRequests();
+			try {
+				lstCurrentRoles = LoadCurrentRoles();
+				lstRoles = LoadRequestRoles();
+				lstAllRoleRequests = LoadAllRoleRequests();
+			} catch (Exception ex) {
+				Response.Write(ex.Message);
+			}
 		}
 
 		private List<string> LoadCurrentRoles() {
@@ -79,31 +83,35 @@ namespace CState_TeamC_Capstone {
 		}
 
 		protected void btnRequest_Click(object sender, EventArgs e) {
-			int intRoleID = int.Parse(Request.Form["sltRole"].ToString());
+			try {
+				int intRoleID = int.Parse(Request.Form["sltRole"].ToString());
 
-			if ( lstAllRoleRequests.Any(n=>n.strStatus == "Pending") && lstAllRoleRequests.Any(n=>n.strRole == stringOfIDRole(intRoleID)) ) {
-				// Role already requested
-				Page.ClientScript.RegisterStartupScript(this.GetType(), "ResetForm", "invalidInput.style.display = 'block'", true);
-			} else {
-				SqlConnection conn = new SqlConnection(ConfigurationManager.ConnectionStrings["sqlConn"].ToString());
-				conn.Open();
-				string qry = "INSERT INTO Config.RoleRequests VALUES (@uid, @roleID, 2)";
-				using (SqlCommand cmd = new SqlCommand(qry, conn)) {
+				if ( lstAllRoleRequests.Any(n=>n.strStatus == "Pending") && lstAllRoleRequests.Any(n=>n.strRole == stringOfIDRole(intRoleID)) ) {
+					// Role already requested
+					Page.ClientScript.RegisterStartupScript(this.GetType(), "ResetForm", "invalidInput.style.display = 'block'", true);
+				} else {
+					SqlConnection conn = new SqlConnection(ConfigurationManager.ConnectionStrings["sqlConn"].ToString());
+					conn.Open();
+					string qry = "INSERT INTO Config.RoleRequests VALUES (@uid, @roleID, 2)";
+					using (SqlCommand cmd = new SqlCommand(qry, conn)) {
 
-					var uidParam = new SqlParameter("@uid", System.Data.SqlDbType.Int);
-					uidParam.Value = Session["User_ID"];
-					cmd.Parameters.Add(uidParam);
+						var uidParam = new SqlParameter("@uid", System.Data.SqlDbType.Int);
+						uidParam.Value = Session["User_ID"];
+						cmd.Parameters.Add(uidParam);
 
-					var roleIDParam = new SqlParameter("@roleID", System.Data.SqlDbType.Int);
-					roleIDParam.Value = intRoleID;
-					cmd.Parameters.Add(roleIDParam);
+						var roleIDParam = new SqlParameter("@roleID", System.Data.SqlDbType.Int);
+						roleIDParam.Value = intRoleID;
+						cmd.Parameters.Add(roleIDParam);
 
-					cmd.ExecuteNonQuery();
+						cmd.ExecuteNonQuery();
 
-					cmd.Dispose();
-					conn.Close();
+						cmd.Dispose();
+						conn.Close();
+					}
+					Response.Redirect(Request.RawUrl);
 				}
-				Response.Redirect(Request.RawUrl);
+			} catch (Exception ex) {
+				Response.Write(ex.Message);
 			}
 		}
 

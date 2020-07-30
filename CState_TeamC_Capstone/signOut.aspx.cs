@@ -15,7 +15,11 @@ namespace CState_TeamC_Capstone {
 
 		[WebMethod]
 		public static void signout_Click() {
-			FormsAuthentication.SignOut();
+			try {
+				FormsAuthentication.SignOut();
+			} catch (Exception ex) {
+				HttpContext.Current.Response.Write(ex.Message);
+			}
 		}
 	}
 }
