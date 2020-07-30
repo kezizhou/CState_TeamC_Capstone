@@ -15,7 +15,11 @@ namespace CState_TeamC_Capstone {
 		protected List<UserRequest> lstUsersWithRequests;
 
 		protected void Page_Load(object sender, EventArgs e) {
-			lstUsersWithRequests = LoadRequests();
+			try {
+				lstUsersWithRequests = LoadRequests();
+			} catch (Exception ex) {
+				Response.Write(ex.Message);
+			}
 		}
 
 		private List<UserRequest> LoadRequests() {
@@ -65,21 +69,25 @@ namespace CState_TeamC_Capstone {
 
 		[WebMethod]
 		public static void btnAccept_Click(string strRequestID) {
-			AddRoleForUser(strRequestID);
+			try {
+				AddRoleForUser(strRequestID);
 
-			SqlConnection conn = new SqlConnection(ConfigurationManager.ConnectionStrings["sqlConn"].ToString());
-			conn.Open();
-			string qry = "UPDATE Config.RoleRequests SET Status_ID = 1 WHERE ID = @requestID";
-			using (SqlCommand cmd = new SqlCommand(qry, conn)) {
+				SqlConnection conn = new SqlConnection(ConfigurationManager.ConnectionStrings["sqlConn"].ToString());
+				conn.Open();
+				string qry = "UPDATE Config.RoleRequests SET Status_ID = 1 WHERE ID = @requestID";
+				using (SqlCommand cmd = new SqlCommand(qry, conn)) {
 
-				var requestIDParam = new SqlParameter("@requestID", System.Data.SqlDbType.Int);
-				requestIDParam.Value = strRequestID;
-				cmd.Parameters.Add(requestIDParam);
+					var requestIDParam = new SqlParameter("@requestID", System.Data.SqlDbType.Int);
+					requestIDParam.Value = strRequestID;
+					cmd.Parameters.Add(requestIDParam);
 
-				cmd.ExecuteNonQuery();
+					cmd.ExecuteNonQuery();
 
-				cmd.Dispose();
-				conn.Close();
+					cmd.Dispose();
+					conn.Close();
+				}
+			} catch (Exception ex) {
+				HttpContext.Current.Response.Write(ex.Message);
 			}
 		}
 
@@ -102,19 +110,23 @@ namespace CState_TeamC_Capstone {
 
 		[WebMethod]
 		public static void btnReject_Click(string strRequestID) {
-			SqlConnection conn = new SqlConnection(ConfigurationManager.ConnectionStrings["sqlConn"].ToString());
-			conn.Open();
-			string qry = "UPDATE Config.RoleRequests SET Status_ID = 3 WHERE ID = @requestID";
-			using (SqlCommand cmd = new SqlCommand(qry, conn)) {
+			try {
+				SqlConnection conn = new SqlConnection(ConfigurationManager.ConnectionStrings["sqlConn"].ToString());
+				conn.Open();
+				string qry = "UPDATE Config.RoleRequests SET Status_ID = 3 WHERE ID = @requestID";
+				using (SqlCommand cmd = new SqlCommand(qry, conn)) {
 
-				var requestIDParam = new SqlParameter("@requestID", System.Data.SqlDbType.Int);
-				requestIDParam.Value = strRequestID;
-				cmd.Parameters.Add(requestIDParam);
+					var requestIDParam = new SqlParameter("@requestID", System.Data.SqlDbType.Int);
+					requestIDParam.Value = strRequestID;
+					cmd.Parameters.Add(requestIDParam);
 
-				cmd.ExecuteNonQuery();
+					cmd.ExecuteNonQuery();
 
-				cmd.Dispose();
-				conn.Close();
+					cmd.Dispose();
+					conn.Close();
+				}
+			} catch (Exception ex) {
+				HttpContext.Current.Response.Write(ex.Message);
 			}
 		}
 	}
