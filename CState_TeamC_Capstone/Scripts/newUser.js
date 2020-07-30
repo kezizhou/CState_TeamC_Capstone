@@ -7,12 +7,12 @@ $(function () {
     }, "No special characters allowed");
 
     $.validator.addMethod("lettersonly", function (value, element) {
-        return this.optional(element) || /^[a-zA-Z0-9]*$/i.test(value);
+        return this.optional(element) || /^[a-zA-Z]*$/i.test(value);
     }, "Letters only");
 
     // Initialize form validation on the registration form.
     // It has the name attribute "registration"
-    $("#frmNewIncident").validate({
+    $("#frmNewUser").validate({
         // Specify validation rules
         rules: {
 
@@ -21,21 +21,21 @@ $(function () {
             // on the right side
             txtFirstName: {
                 required: true,
-                minlength: 3,
-                maxlength: 20
+                minlength: 1,
+                maxlength: 50,
+                lettersonly: true
             },
             txtMiddleName: {
-                required: true,
-                minlength: 3,
-                maxlength: 15,
-                number: true
+                maxlength: 50,
+                lettersonly: true
             },
             txtLastName: {
                 required: true,
-                minlength: 3,
-                maxlength: 20
+                minlength: 1,
+                maxlength: 50,
+                lettersonly: true
             },
-            txtemployeeID: {
+            txtEmployeeID: {
                 required: true,
                 minlength: 6,
                 maxlength: 6,
@@ -43,7 +43,21 @@ $(function () {
             },
             txtEmail: {
                 required: true,
-                email: true
+                email: true,
+                remote: function () {
+                    var r = {
+                        url: "newUser.aspx/CheckDuplicateEmail",
+                        type: "post",
+                        contentType: "application/json; charset=utf-8",
+                        dataType: "json",
+                        data: "{'strEmail': '" + $('#txtEmail').val() + "'}",
+                        dataFilter: function (data) {
+                            return (JSON.parse(data)).d;
+                        }
+                    }
+                    return r;
+                }
+
             },
             sltDepartment: {
                 required: true,
@@ -52,7 +66,20 @@ $(function () {
                 required: true,
                 minlength: 3,
                 maxlength: 20,
-                nosymbols: true
+                nosymbols: true,
+                remote: function () {
+                    var r = {
+                        url: "newUser.aspx/CheckDuplicateUsername",
+                        type: "post",
+                        contentType: "application/json; charset=utf-8",
+                        dataType: "json",
+                        data: "{'strUsername': '" + $('#txtUsername').val() + "'}",
+                        dataFilter: function (data) {
+                            return (JSON.parse(data)).d;
+                        }
+                    }
+                    return r;
+                }
             },
             txtPassword: {
                 required: true,
@@ -64,24 +91,48 @@ $(function () {
 
         // Specify validation error messages
         messages: {
-            dteIncident: {
-                required: "Select date",
+            txtFirstName: {
+                required: "Enter first name",
+                minlength: "Minimum length is 1 character",
+                maxlength: "Maximum length is 50 characters",
+                letteronly: "Enter letters only"
             },
-            txtBadgeNumber: {
-                required: "Enter badge number",
-                minlength: "Minimum badge number is 4 characters",
-                maxlength: "Maximum badge number is 10 characters",
-                number: "Enter numbers only for badge number"
+            txtMiddleName: {
+                maxlength: "Maximum length is 50 characters",
+                letteronly: "Letters only"
             },
-            sltDepartment: "Select department",
-            sltType: "Select near miss type",
-            txaSolution: {
-                minlength: "Minimum description is 5 characters",
+            txtLastName: {
+                required: "Enter last name",
+                minlength: "Minimum length is 1 character",
+                maxlength: "Maximum length is 50 characters",
+                letteronly: "Enter letters only"
             },
-            txaActionTaken: {
-                required: "Provide description for action taken",
-                minlength: "Minimum description is 5 characters",
+            txtEmployeeID: {
+                required: "Enter employee ID",
+                minlength: "Must be 6 digits",
+                maxlength: "Must be 6 digits",
+                number: "Enter numbers only"
             },
+            txtEmail: {
+                required: "Enter email",
+                email: "Invalid email entered",
+                remote: "Email already in use"
+            },
+            sltDepartment: {
+                required: "Select department"
+            },
+            txtUsername: {
+                required: "Enter username",
+                minlength: "Minimum length is 3 characters",
+                maxlength: "Maximum length is 20 characters",
+                nosymbols: "No special characters allowed",
+                remote: "Username already in use"
+            },
+            txtPassword: {
+                required: "Enter password",
+                minlength: "Minimum length is 3 characters",
+                maxlength: "Maximum length is 25 characters",
+            }
         },
 
         // Uncomment for eager validation - Validate when focus leaves

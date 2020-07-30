@@ -22,15 +22,6 @@ namespace CState_TeamC_Capstone {
 		protected global::System.Web.UI.HtmlControls.HtmlForm frmNewUser;
 
 		/// <summary>
-		/// txtFirstName control.
-		/// </summary>
-		/// <remarks>
-		/// Auto-generated field.
-		/// To modify move field declaration from designer file to code-behind file.
-		/// </remarks>
-		protected global::System.Web.UI.HtmlControls.HtmlInputText txtFirstName;
-
-		/// <summary>
 		/// txtLastName control.
 		/// </summary>
 		/// <remarks>
@@ -40,13 +31,13 @@ namespace CState_TeamC_Capstone {
 		protected global::System.Web.UI.HtmlControls.HtmlInputText txtLastName;
 
 		/// <summary>
-		/// txtemployeeID control.
+		/// txtEmployeeID control.
 		/// </summary>
 		/// <remarks>
 		/// Auto-generated field.
 		/// To modify move field declaration from designer file to code-behind file.
 		/// </remarks>
-		protected global::System.Web.UI.HtmlControls.HtmlInputText txtemployeeID;
+		protected global::System.Web.UI.HtmlControls.HtmlInputText txtEmployeeID;
 
 		/// <summary>
 		/// txtEmail control.

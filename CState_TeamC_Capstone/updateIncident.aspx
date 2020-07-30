@@ -9,30 +9,32 @@
         <h5>Welcome: LastName, FirstName</h5>
 
         <div class="center2">
-            <table class="resultTable">
-                <thead class="thead-light">
-                    <tr>
-                        <th scope="col">Operator Name</th>
-                        <th scope="col">Department</th>
-                        <th scope="col">Near Miss Type</th>
-                        <th scope="col">Assigned To</th>
-                        <th scope="col">Severity Level</th>
-                        <th scope="col">Risk Level</th>
-                        <th scope="col">Brief Detail</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr>
-                        <td>FirstName LastName</td>
-                        <td>SampleDepartment</td>
-                        <td>Spill</td>
-                        <td>FirstName LastName</td>
-                        <td>Medium</td>
-                        <td>Low</td>
-                        <td>This is a paragraph of brief detail describing the incident.</td>
-                    </tr>
-                </tbody>
-            </table>
+            <div class="table-responsive">
+                <table id="incidentTable" class="table table-hover">
+                    <thead class="thead-light">
+                        <tr>
+                            <th scope="col">Operator Name</th>
+                            <th scope="col">Department</th>
+                            <th scope="col">Near Miss Type</th>
+                            <th scope="col">Assigned To</th>
+                            <th scope="col">Severity Level</th>
+                            <th scope="col">Risk Level</th>
+                            <th scope="col">Brief Detail</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>FirstName LastName</td>
+                            <td>SampleDepartment</td>
+                            <td>Spill</td>
+                            <td>FirstName LastName</td>
+                            <td>Medium</td>
+                            <td>Low</td>
+                            <td>This is a paragraph of brief detail describing the incident.</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
         </div>
 
         <div class="container">

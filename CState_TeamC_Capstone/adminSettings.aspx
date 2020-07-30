@@ -28,7 +28,7 @@
                     <tbody>
                         <% foreach (var userRequest in lstUsersWithRequests) { %>
                             <tr>
-                                <th scope="row" class="align-middle"><%= userRequest.strID %></th>
+                                <th scope="row" id="row" class="align-middle"><%= userRequest.strID %></th>
                                 <td class="align-middle"><%= userRequest.strRole %></td>
                                 <td class="align-middle"><%= userRequest.strFirstName %></td>
                                 <td class="align-middle"><%= userRequest.strMiddleName %></td>
