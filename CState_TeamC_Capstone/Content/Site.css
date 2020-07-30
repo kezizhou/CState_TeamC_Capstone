@@ -229,6 +229,18 @@ th {
 }
 
 /**
+    JQuery DataTable
+*/
+div.dataTables_length select {
+    border: 1px solid #ced4da;
+}
+
+div.dataTables_filter input {
+    border: 1px solid #ced4da;
+}
+
+
+/**
     Footer
 */
 .footer {
