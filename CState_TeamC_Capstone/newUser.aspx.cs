@@ -2,6 +2,7 @@
 using System.Data;
 using System.Configuration;
 using System.Data.SqlClient;
+using System.Web.Services;
 
 namespace CState_TeamC_Capstone
 {
@@ -37,7 +38,7 @@ namespace CState_TeamC_Capstone
                 string strFirstName = Request.Form["txtFirstName"];
                 string strMiddleName = Request.Form["txtMiddleName"];
                 string strLastName = Request.Form["txtLastName"];
-                int intEmployeeID = Convert.ToInt32(Request.Form["txtemployeeID"]);
+                int intEmployeeID = Convert.ToInt32(Request.Form["txtEmployeeID"]);
                 string strUsername = Request.Form["txtUsername"];
                 bool blnActive;
                 string strPassword = Request.Form["txtPassword"];
@@ -49,10 +50,10 @@ namespace CState_TeamC_Capstone
 
                 // Add hash password
                 HashSalt hashSalt = HashSalt.GenerateSaltedHash(32, strPassword);
-                    string hashParam = hashSalt.Hash;
+                string hashParam = hashSalt.Hash;
                    
-                    // Add salt
-                    string saltParam = hashSalt.Salt;
+                // Add salt
+                string saltParam = hashSalt.Salt;
 
                 blnActive = cbEmployeeStatus.Checked;
 
@@ -60,7 +61,7 @@ namespace CState_TeamC_Capstone
 
                 conn.Close();
 
-                Response.Redirect("signIn.aspx");
+                Response.Redirect("signIn.aspx?type=newUser");
             }
                  
             catch (Exception ex)
@@ -69,6 +70,44 @@ namespace CState_TeamC_Capstone
             }
       
          }
+
+        [WebMethod]
+        public static bool CheckDuplicateUsername(string strUsername) {
+            bool blnDuplicate = true;
+
+            SqlConnection conn = new SqlConnection(ConfigurationManager.ConnectionStrings["sqlConn"].ToString());
+            conn.Open();
+            string qry = "SELECT * FROM Data.Employee WHERE Username = '" + strUsername + "'";
+            using (SqlCommand cmd = new SqlCommand(qry, conn)) {
+                SqlDataReader sdr = cmd.ExecuteReader();
+                if (sdr.Read()) {
+                    blnDuplicate = false;
+                }
+                cmd.Dispose();
+                conn.Close();
+            }
+
+            return blnDuplicate;
+		}
+
+        [WebMethod]
+        public static bool CheckDuplicateEmail(string strEmail) {
+            bool blnDuplicate = true;
+
+            SqlConnection conn = new SqlConnection(ConfigurationManager.ConnectionStrings["sqlConn"].ToString());
+            conn.Open();
+            string qry = "SELECT * FROM Data.Employee WHERE Email = '" + strEmail + "'";
+            using (SqlCommand cmd = new SqlCommand(qry, conn)) {
+                SqlDataReader sdr = cmd.ExecuteReader();
+                if (sdr.Read()) {
+                    blnDuplicate = false;
+                }
+                cmd.Dispose();
+                conn.Close();
+            }
+
+            return blnDuplicate;
+        }
     }
 }
 

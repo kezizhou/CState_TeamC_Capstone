@@ -34,8 +34,12 @@
         <h2>Norwood Safety Near Miss Reporting</h2>
         <h5>Please sign in.</h5>
 
-        <div id="invalidInput" class="center" runat="server">
-            Incorrect username or password entered.
+        <div class="d-flex">
+            <div class="w-auto mx-auto">
+                <div id="message" class="invalidInput text-center" runat="server">
+                    Incorrect username or password entered.
+                </div>
+            </div>
         </div>
 
         <div class="container center2 signInContainer">

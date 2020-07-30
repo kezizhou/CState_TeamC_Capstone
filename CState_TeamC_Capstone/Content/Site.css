@@ -46,7 +46,6 @@ nav {
 #ReviewIncident,
 #UpdateIncident,
 #SearchTool,
-#UserSettings,
 #AdminSettings {
     display: none;
 }
@@ -189,23 +188,11 @@ h6 {
 
 table {
     margin-top: 15px;
+    background-color: white;
 }
 
-.buttonsubmit {
-    font-weight: bold;
-    font-family: Verdana;
-    font-size: large;
-    height: 46px;
-    width: 240px;
-    color: white;
-    background-color: #007575;
-}
-
-.validationerrormessage {
-    font-family: 'Siemens Sans';
-    font-size: small;
-    color: red;
-    font-weight: bold;
+th {
+    background-color: #BECDD7 !important;
 }
 
 /** 

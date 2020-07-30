@@ -6,7 +6,7 @@ $(document).ready(function () {
     }, "No special characters allowed");
 
     $.validator.addMethod("lettersonly", function (value, element) {
-        return this.optional(element) || /^[a-zA-Z0-9]*$/i.test(value);
+        return this.optional(element) || /^[a-zA-Z]*$/i.test(value);
     }, "Letters only");
 
     // Initialize form validation on the registration form.
