@@ -503,7 +503,8 @@ namespace CState_TeamC_Capstone
         public static List<Filters> GetOperatorNameFilter()
         {
             var searchQueryResults = new List<Filters>();
-            string queryString = @"SELECT ID, OperatorName FROM data.NearMissRecord ORDER BY OperatorName ASC";
+            //string queryString = @"SELECT ID, OperatorName FROM data.NearMissRecord ORDER BY OperatorName ASC";
+            string queryString = @"SELECT MIN(Data.NearMissRecord.ID) as ID, data.NearMissRecord.OperatorName From data.NearMissRecord group by OperatorName ORDER BY OperatorName ASC";
             using (SqlConnection connection = new SqlConnection(sqlConn))
             {
                 SqlCommand command = new SqlCommand(queryString, connection);
