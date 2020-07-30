@@ -137,6 +137,7 @@
     <Content Include="Scripts\resetCredentials.js" />
     <Content Include="Scripts\resetPassword.js" />
     <Content Include="Scripts\reviewIncident.js" />
+    <Content Include="Scripts\searchTool.js" />
     <Content Include="Scripts\signIn.js" />
     <Content Include="Global.asax" />
     <Content Include="fonts\glyphicons-halflings-regular.woff2" />
@@ -155,6 +156,7 @@
     <Content Include="Scripts\jquery-3.3.1.min.js" />
     <Content Include="Scripts\modernizr-2.8.3.js" />
     <Content Include="Scripts\updateIncident.js" />
+    <Content Include="Scripts\userSettings.js" />
     <Content Include="Scripts\WebForms\DetailsView.js" />
     <Content Include="Scripts\WebForms\Focus.js" />
     <Content Include="Scripts\WebForms\GridView.js" />
