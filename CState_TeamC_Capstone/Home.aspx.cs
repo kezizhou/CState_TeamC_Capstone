@@ -5,7 +5,6 @@ using System.Data;
 using System.Data.SqlClient;
 using System.Web.Services;
 using System.Linq;
-using System.Runtime.CompilerServices;
 using System.Web;
 
 namespace CState_TeamC_Capstone {
@@ -20,10 +19,10 @@ namespace CState_TeamC_Capstone {
 		protected void Page_Load(object sender, EventArgs e) {
     
 			try {
-        // Welcome name
-        firstnamelastname.InnerText = GetFirstNameLastName();
+				// Welcome name
+				firstnamelastname.InnerText = GetFirstNameLastName();
 				
-        // Days since last incident
+				// Days since last incident
 				int intDays = DaysSinceLastIncident();
 
 				if (intDays == -1) {
