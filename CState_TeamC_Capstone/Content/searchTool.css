@@ -1,24 +1,6 @@
-﻿resultTable {
-    border: 1px solid black;
-    border-collapse: collapse;
+﻿th {
+    background-color: #e9ecef !important;
 }
-
-.resultTable td,
-.resultTable tr,
-.resultTable th {
-    border: 1px solid black;
-    border-collapse: collapse;
-    padding: 5px;
-}
-
-.thead-light {
-    background-color: #BECDD7;
-}
-
-.resultTable td {
-    background-color: white;
-}
-
 
 /** 
     Filters
@@ -27,8 +9,9 @@
     padding: 15px 0px;
 }
 
-#btnToggleFilters {
-    margin: 0px 0px 10px 5px;
+.card {
+    width: 500px;
+    background-color: #e9ecef;
 }
 
 .card-body {
@@ -40,27 +23,4 @@ select,
 input,
 button {
     margin: 0px 0px 7px 5px;
-}
-
-
-/**
-    Pagination
-*/
-.pagination a {
-    color: black;
-    float: left;
-    margin-top: 10px;
-    padding: 8px 16px;
-    text-decoration: none;
-}
-
-.pagination a.active {
-    background-color: #009999;
-    color: white;
-    border-radius: 7px;
-}
-
-.pagination a:hover:not(.active) {
-    background-color: #ddd;
-    border-radius: 7px;
 }

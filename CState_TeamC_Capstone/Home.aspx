@@ -72,5 +72,5 @@
     <script src="Scripts/homeValidation.js"> </script>
     <!-- Google Charts -->
     <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
-    <script src="Scripts/Home.js"></script>--%>
+    <script src="Scripts/Home.js"></script>
 </asp:Content>

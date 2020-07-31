@@ -40,12 +40,12 @@
 
                 <div class="form-group" id="firstNameDiv">
                     <label for="txtFirstName" class="control-label">First Name:</label>
-                    <input id="txtFirstName" name="txtFirstName" runat="server" class="form-control" type="text" required="required"/>
+                    <input id="txtFirstName" name="txtFirstName" class="form-control" type="text" required="required"/>
                 </div>
 
                 <div class="form-group" id="middleNameDiv">
                     <label for="txtMiddleName" class="control-label">Middle Name:</label>
-                    <input id="txtMiddleName" name="txtMiddleName" class="form-control" type="text" required="required"/>
+                    <input id="txtMiddleName" name="txtMiddleName" class="form-control" type="text"/>
                 </div>
 
                 <div class="form-group" id="lastNameDiv">
@@ -54,8 +54,8 @@
                 </div>
                 
                 <div class="form-group" id="employeeIDDiv">
-                    <label for="txtemployeeID" class="control-label">Employee ID (6-digit):</label>
-                    <input id="txtemployeeID" name="txtemployeeID" runat="server" class="form-control" type="text" required="required"/>
+                    <label for="txtEmployeeID" class="control-label">Employee ID (6-digit):</label>
+                    <input id="txtEmployeeID" name="txtEmployeeID" runat="server" class="form-control" type="text" required="required"/>
                 </div>
 
                 <div class="form-group" id="emailDiv">
@@ -106,12 +106,13 @@
 
     <!-- JavaScript for Bootstrap -->
     <!-- jQuery first, then Popper.js, then Bootstrap JS -->
-    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
+    <script src="https://code.jquery.com/jquery-3.5.1.min.js" integrity="sha256-9/aliU8dGd2tb6OSsuzixeV4y/faTqgFtohetphbbj0=" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js" integrity="sha384-OgVRvuATP1z7JjHLkuOU7Xw704+h835Lr+6QL9UvYjZE3Ipu6Tp75j7Bh/kR0JKI" crossorigin="anonymous"></script>
 
     <!-- Validation JQuery -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.19.2/jquery.validate.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.19.2/jquery.validate.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.19.2/additional-methods.js"></script>
     <script src="Scripts/newUser.js"></script>
 </body>
 

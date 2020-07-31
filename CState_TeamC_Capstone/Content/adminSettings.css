@@ -1,6 +1,6 @@
-﻿table {
-    background-color: white;
-}
+﻿/*.table-hover > tbody > tr:hover {
+    background-color: #fefaeb;
+}*/
 
 button.btn {
     margin: 5px;
@@ -8,4 +8,8 @@ button.btn {
 
 .form-label {
     font-size: 16px;
+}
+
+th {
+    background-color: #e9ecef !important;
 }

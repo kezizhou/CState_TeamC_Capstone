@@ -84,7 +84,7 @@ function drawInjurySeverityChart() {
             colors: colors,
             isStacked: 'true',
             height: '425',
-            width: data.getNumberOfRows() * 125 + 300,
+            width: data.getNumberOfRows() * 150 + 300,
             bar: {
                 groupWidth: '75%'
             },
@@ -207,7 +207,7 @@ function drawDepartmentNearMissTypesChart() {
             },
             isStacked: 'true',
             height: '100%',
-            width: data.getNumberOfRows() * 100 + 300,
+            width: data.getNumberOfRows() * 160 + 300,
             bar: {
                 groupWidth: '75%'
             },

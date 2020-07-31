@@ -46,7 +46,6 @@ nav {
 #ReviewIncident,
 #UpdateIncident,
 #SearchTool,
-#UserSettings,
 #AdminSettings {
     display: none;
 }
@@ -55,6 +54,18 @@ nav {
 .fa-users-cog {
     font-size: 35px;
     vertical-align: middle;
+}
+
+.notification {
+    display: inline-block;
+}
+
+.badge-count {
+    position: relative;
+    top: -10px;
+    right: 0px;
+    background: #CC0000;
+    color: white;
 }
 
 #signout {
@@ -189,23 +200,11 @@ h6 {
 
 table {
     margin-top: 15px;
+    background-color: white;
 }
 
-.buttonsubmit {
-    font-weight: bold;
-    font-family: Verdana;
-    font-size: large;
-    height: 46px;
-    width: 240px;
-    color: white;
-    background-color: #007575;
-}
-
-.validationerrormessage {
-    font-family: 'Siemens Sans';
-    font-size: small;
-    color: red;
-    font-weight: bold;
+th {
+    background-color: #BECDD7 !important;
 }
 
 /** 
@@ -240,6 +239,18 @@ table {
 .container-fluid {
     padding: 0px 30px;
 }
+
+/**
+    JQuery DataTable
+*/
+div.dataTables_length select {
+    border: 1px solid #ced4da;
+}
+
+div.dataTables_filter input {
+    border: 1px solid #ced4da;
+}
+
 
 /**
     Footer

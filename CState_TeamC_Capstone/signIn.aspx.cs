@@ -5,16 +5,41 @@ using System.Web.Security;
 
 namespace CState_TeamC_Capstone {
 	public partial class signIn : System.Web.UI.Page {
+		string strType = "";
 		SqlConnection conn = new SqlConnection(ConfigurationManager.ConnectionStrings["sqlConn"].ToString());
 
 		protected void Page_Load(object sender, EventArgs e) {
-			if (this.Context.User.Identity.IsAuthenticated && Session["User_ID"] != null) {
-				Response.Redirect("Home.aspx");
+			try {
+				if (this.Context.User.Identity.IsAuthenticated && Session["User_ID"] != null) {
+					Response.Redirect("Home.aspx");
+				}
+
+				if (Request.QueryString["type"] != null) {
+					strType = Request.QueryString["type"];
+					switch (strType) {
+						case "newUser":
+							message.InnerText = "New user successfully created.";
+							message.Attributes.Add("class", message.Attributes["class"].ToString().Replace("invalidInput", "message"));
+							message.Style["display"] = "block";
+							break;
+						default:
+							break;
+					}
+				}
+			} catch (Exception ex) {
+				Response.Write(ex.Message);
 			}
 		}
 
 		protected void btnSubmit_Click(object sender, EventArgs e) {
 			try {
+				// Hide new user message if showing
+				if (strType != "") {
+					message.InnerText = "Incorrect username or password entered.";
+					message.Attributes.Add("class", message.Attributes["class"].ToString().Replace("message", "invalidInput"));
+					message.Style["display"] = "none";
+				}
+
 				string strUsername = Request.Form["txtUsername"];
 				string strEnteredPassword = Request.Form["txtPassword"];
 				conn.Open();
@@ -44,13 +69,13 @@ namespace CState_TeamC_Capstone {
 							// Incorrect password
 							cmd.Dispose();
 							conn.Close();
-							invalidInput.Style["display"] = "block";
+							message.Style["display"] = "block";
 						}
 					} else {
 						// Username not found
 						cmd.Dispose();
 						conn.Close();
-						invalidInput.Style["display"] = "block";
+						message.Style["display"] = "block";
 					}
 					
 				}

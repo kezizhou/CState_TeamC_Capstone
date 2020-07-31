@@ -1,4 +1,4 @@
-﻿<%@ Page Language="C#" AutoEventWireup="true" CodeBehind="resetEmailSent.aspx.cs" Inherits="CState_TeamC_Capstone.resetEmailSent" %>
+﻿<%@ Page Language="C#" AutoEventWireup="true" CodeBehind="reset.aspx.cs" Inherits="CState_TeamC_Capstone.reset" %>
 
 <!DOCTYPE html>
 
@@ -17,9 +17,9 @@
     
     <!-- Custom CSS -->
     <link rel="stylesheet" type="text/css" href="Content/Site.css" media="screen"/>
-    <link rel="stylesheet" type="text/css" href="Content/resetSuccess.css" media="screen"/>
+    <link rel="stylesheet" type="text/css" href="Content/reset.css" media="screen"/>
 
-    <title>Near Miss Reporting - Forgot Credentials Email Sent</title>
+    <title>Near Miss Reporting - Confirm</title>
 </head>
 
 <body>
@@ -33,7 +33,7 @@
 
         <h2>Norwood Safety Near Miss Reporting</h2>
 
-        <div id="confirmReset" class="center2"><h5>Thank you! An email has been sent to you with further instructions.</h5></div>
+        <div id="messageDiv" class="message center2" runat="server"><h5 id="confirmMessage" runat="server">Thank you! An email has been sent to you with further instructions.</h5></div>
                         
         <div class="center2">
             <a href="~/signIn.aspx" runat="server">Return to Sign In</a>
@@ -58,4 +58,5 @@
 </body>
 
 </html>
+
 

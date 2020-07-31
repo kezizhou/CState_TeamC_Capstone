@@ -44,6 +44,9 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="Dapper, Version=2.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\Dapper.2.0.35\lib\net461\Dapper.dll</HintPath>
+    </Reference>
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="System.ComponentModel.DataAnnotations" />
     <Reference Include="System" />
@@ -111,25 +114,23 @@
     <Content Include="Content\initiateIncident.css" />
     <Content Include="Content\newUser.css" />
     <Content Include="Content\resetCredentials.css" />
-    <Content Include="Content\resetSuccess.css" />
+    <Content Include="Content\reset.css" />
     <Content Include="Content\resetPassword.css" />
     <Content Include="Content\reviewIncident.css" />
     <Content Include="Content\searchTool.css" />
     <Content Include="Content\signIn.css" />
     <Content Include="Content\Site.css" />
-    <Content Include="Content\unauthorizedUser.css" />
+    <Content Include="Content\table.css" />
     <Content Include="Content\userSettings.css" />
     <Content Include="emailForgotUsernameTemplate.html" />
     <Content Include="emailEHSNotificationTemplate.html" />
     <Content Include="emailResetTemplate.html" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="initiateIncident.aspx" />
-    <Content Include="invalidToken.aspx" />
     <Content Include="newUser.aspx" />
+    <Content Include="reset.aspx" />
     <Content Include="resetCredentials.aspx" />
-    <Content Include="resetEmailSent.aspx" />
     <Content Include="resetPassword.aspx" />
-    <Content Include="resetPasswordSuccess.aspx" />
     <Content Include="Scripts\adminSettings.js" />
     <Content Include="Scripts\Home.js" />
     <Content Include="Scripts\homeValidation.js" />
@@ -138,6 +139,7 @@
     <Content Include="Scripts\resetCredentials.js" />
     <Content Include="Scripts\resetPassword.js" />
     <Content Include="Scripts\reviewIncident.js" />
+    <Content Include="Scripts\searchTool.js" />
     <Content Include="Scripts\signIn.js" />
     <Content Include="Global.asax" />
     <Content Include="fonts\glyphicons-halflings-regular.woff2" />
@@ -153,10 +155,9 @@
     <Content Include="Scripts\bootstrap.min.js" />
     <Content Include="Scripts\jquery-3.3.1.js" />
     <Content Include="Scripts\jquery-3.3.1.min.js" />
-    <Content Include="Scripts\jquery-3.3.1.slim.js" />
-    <Content Include="Scripts\jquery-3.3.1.slim.min.js" />
     <Content Include="Scripts\modernizr-2.8.3.js" />
     <Content Include="Scripts\updateIncident.js" />
+    <Content Include="Scripts\userSettings.js" />
     <Content Include="Scripts\WebForms\DetailsView.js" />
     <Content Include="Scripts\WebForms\Focus.js" />
     <Content Include="Scripts\WebForms\GridView.js" />
@@ -183,7 +184,6 @@
     <Content Include="signOut.aspx" />
     <Content Include="Site.Master" />
     <Content Include="typeInstructions.aspx" />
-    <Content Include="unauthorizedUser.aspx" />
     <Content Include="updateIncident.aspx" />
     <Content Include="userSettings.aspx" />
     <Content Include="ViewSwitcher.ascx" />
@@ -205,6 +205,8 @@
     <Compile Include="Classes\NearMissType.cs" />
     <Compile Include="Classes\Department.cs" />
     <Compile Include="Classes\Role.cs" />
+    <Compile Include="DomainObjects\Filters.cs" />
+    <Compile Include="DomainObjects\SearchToolQueryResult.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -223,13 +225,6 @@
     <Compile Include="initiateIncident.aspx.designer.cs">
       <DependentUpon>initiateIncident.aspx</DependentUpon>
     </Compile>
-    <Compile Include="invalidToken.aspx.cs">
-      <DependentUpon>invalidToken.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="invalidToken.aspx.designer.cs">
-      <DependentUpon>invalidToken.aspx</DependentUpon>
-    </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="newUser.aspx.cs">
       <DependentUpon>newUser.aspx</DependentUpon>
@@ -238,6 +233,13 @@
     <Compile Include="newUser.aspx.designer.cs">
       <DependentUpon>newUser.aspx</DependentUpon>
     </Compile>
+    <Compile Include="reset.aspx.cs">
+      <DependentUpon>reset.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="reset.aspx.designer.cs">
+      <DependentUpon>reset.aspx</DependentUpon>
+    </Compile>
     <Compile Include="resetCredentials.aspx.cs">
       <DependentUpon>resetCredentials.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -245,26 +247,12 @@
     <Compile Include="resetCredentials.aspx.designer.cs">
       <DependentUpon>resetCredentials.aspx</DependentUpon>
     </Compile>
-    <Compile Include="resetEmailSent.aspx.cs">
-      <DependentUpon>resetEmailSent.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="resetEmailSent.aspx.designer.cs">
-      <DependentUpon>resetEmailSent.aspx</DependentUpon>
-    </Compile>
     <Compile Include="resetPassword.aspx.cs">
       <DependentUpon>resetPassword.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="resetPassword.aspx.designer.cs">
       <DependentUpon>resetPassword.aspx</DependentUpon>
-    </Compile>
-    <Compile Include="resetPasswordSuccess.aspx.cs">
-      <DependentUpon>resetPasswordSuccess.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="resetPasswordSuccess.aspx.designer.cs">
-      <DependentUpon>resetPasswordSuccess.aspx</DependentUpon>
     </Compile>
     <Compile Include="reviewIncident.aspx.cs">
       <DependentUpon>reviewIncident.aspx</DependentUpon>
@@ -310,13 +298,6 @@
     <Compile Include="typeInstructions.aspx.designer.cs">
       <DependentUpon>typeInstructions.aspx</DependentUpon>
     </Compile>
-    <Compile Include="unauthorizedUser.aspx.cs">
-      <DependentUpon>unauthorizedUser.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="unauthorizedUser.aspx.designer.cs">
-      <DependentUpon>unauthorizedUser.aspx</DependentUpon>
-    </Compile>
     <Compile Include="updateIncident.aspx.cs">
       <DependentUpon>updateIncident.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -347,7 +328,6 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
-    <Content Include="Scripts\jquery-3.3.1.slim.min.map" />
     <Content Include="Scripts\jquery-3.3.1.min.map" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>

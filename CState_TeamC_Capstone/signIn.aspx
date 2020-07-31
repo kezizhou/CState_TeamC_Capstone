@@ -34,12 +34,16 @@
         <h2>Norwood Safety Near Miss Reporting</h2>
         <h5>Please sign in.</h5>
 
-        <div id="invalidInput" class="center" runat="server">
-            Incorrect username or password entered.
+        <div class="d-flex">
+            <div class="w-auto mx-auto">
+                <div id="message" class="invalidInput text-center" runat="server">
+                    Incorrect username or password entered.
+                </div>
+            </div>
         </div>
 
         <div class="container center2 signInContainer">
-            <form name="frmSignIn" id="frmSignIn" method="post" action="#" runat="server">
+            <form name="frmSignIn" id="frmSignIn" method="post" action="#" onsubmit="return $('#frmSignIn').valid()" runat="server">
                 <div class="form-group">
                     <div class="input-group">
                         <div class="input-group-prepend">
@@ -47,7 +51,7 @@
                                 <i class="fas fa-user"></i>
                             </span>
                             <!-- Maxlength is plus 1 so user is alerted through jquery -->
-                            <input id="txtUsername" type="text" name="txtUsername" class="form-control" required="required" placeholder="Username" maxlength="21" runat="server" autofocus="autofocus"/>
+                            <input id="txtUsername" type="text" name="txtUsername" class="form-control" required="required" placeholder="Username" maxlength="21" autofocus="autofocus"/>
                         </div>
                     </div> 
                     <span class="errorInfo form-text">
@@ -63,7 +67,7 @@
                                 <i class="fas fa-lock"></i>
                             </span>
                             <!-- Maxlength is plus 1 so user is alerted through jquery -->
-                            <input id="txtPassword" type="password" name="txtPassword" class="form-control" required="required" placeholder="Password" maxlength="26" runat="server"/>
+                            <input id="txtPassword" type="password" name="txtPassword" class="form-control" required="required" placeholder="Password" maxlength="26"/>
                         </div>
                     </div>
                     <span class="errorInfo form-text">
@@ -78,13 +82,16 @@
                     </button>
                 </div>
                         
-                <div class="center2">
-                    <a href="~/resetCredentials" runat="server">Forgot Username or Password?</a>
-                </div>
+                <div class="otherLinks">
+                    <div class="center2">
+                        <a href="~/resetCredentials" runat="server">Forgot Username or Password?</a>
+                    </div>
                 
-                <div class="center2">
-                    <a href="~/newUser" runat="server">New User?</a>
+                    <div class="center2">
+                        <a href="~/newUser" runat="server">New User</a>
+                    </div>
                 </div>
+
             </form>
         </div>
     </main>

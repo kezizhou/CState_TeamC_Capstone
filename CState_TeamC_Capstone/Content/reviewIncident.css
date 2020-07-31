@@ -1,25 +1,6 @@
-﻿.resultTable {
-    border: 1px solid black;
-    border-collapse: collapse;
+﻿#incidentTable {
     margin-bottom: 30px;
 }
-
-.resultTable td,
-.resultTable tr,
-.resultTable th {
-    border: 1px solid black;
-    border-collapse: collapse;
-    padding: 5px;
-}
-
-.thead-light {
-    background-color: #BECDD7;
-}
-
-.resultTable td {
-    background-color: white;
-}
-
 
 /**
     Form Table

@@ -2,6 +2,8 @@
 
 <asp:Content ID="Content1" ContentPlaceHolderID="HeadContent" runat="server">
     <link rel="stylesheet" type="text/css" href="Content/userSettings.css" media="screen"/>
+    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.21/css/jquery.dataTables.css"/>
+    <link rel="stylesheet" type="text/css" href="Content/table.css" media="screen"/>
 </asp:Content>
 
 <asp:Content ID="Content2" ContentPlaceHolderID="MainContent" runat="server">
@@ -39,24 +41,27 @@
         </div>
         <div class="container">
             Total requests: 
-            <table class="table table-hover">
-                <thead class="thead-light">
-                    <tr>
-                        <th scope="col">Request ID</th>
-                        <th scope="col">Role Name</th>
-                        <th scope="col">Status</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <% foreach (var request in lstAllRoleRequests) { %>
+            <div class="table-responsive">
+                <table id="totalRequests" class="table table-hover">
+                    <thead class="thead-light">
                         <tr>
-                            <th scope="row" class="align-middle"><%= request.strID %></th>
-                            <td class="align-middle"><%= request.strRole %></td>
-                            <td class="align-middle"><%= request.strStatus %></td>
-                        </tr> 
-                    <% } %>
-                </tbody>
-            </table>
+                            <th scope="col">Request ID</th>
+                            <th scope="col">Role Name</th>
+                            <th scope="col">Status</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <% foreach (var request in lstAllRoleRequests) { %>
+                            <tr>
+                                <th scope="row" class="align-middle"><%= request.strID %></th>
+                                <td class="align-middle"><%= request.strRole %></td>
+                                <td class="align-middle"><%= request.strStatus %></td>
+                            </tr> 
+                        <% } %>
+                    </tbody>
+                </table>
+            </div>
+
         </div>
     </main>
 </asp:Content>
@@ -64,5 +69,9 @@
 <asp:Content ID="Content3" ContentPlaceHolderID="ScriptContent" runat="server">
     <!-- Validation JQuery -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.19.2/jquery.validate.min.js"></script>
+
+    <!-- DataTable JQuery -->
+    <script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.10.21/js/jquery.dataTables.js"></script>
+
     <script src="Scripts/userSettings.js"></script>
 </asp:Content>
