@@ -5,6 +5,8 @@ using System.Linq;
 using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
+using System.Data.SqlClient;
+using System.Configuration;
 
 namespace CState_TeamC_Capstone {
     public partial class reviewIncident : System.Web.UI.Page {
@@ -15,6 +17,7 @@ namespace CState_TeamC_Capstone {
             assignTo = Shared.GetAssignedToNameFilter();
             severity = Shared.GetSeverityFilter();
             risk = Shared.GetRiskFilter();
+            userFullName.InnerText = GetUserName();
         }
         protected void Filter(object sender, EventArgs e)
         {
@@ -41,6 +44,32 @@ namespace CState_TeamC_Capstone {
             //    results = originalResult.Where(x => x.RiskLevel == riskSelection).ToList();
             //}
 
+        }
+
+        private string GetUserName()
+        {
+            int intUserID = int.Parse(Session["User_ID"].ToString());
+            string strUserName = "";
+
+            SqlConnection conn = new SqlConnection(ConfigurationManager.ConnectionStrings["sqlConn"].ToString());
+            conn.Open();
+            string qry = "SELECT * FROM Data.Employee WHERE Person_ID = @id";
+            using (SqlCommand cmd = new SqlCommand(qry, conn))
+            {
+                var idParam = new SqlParameter("@id", System.Data.SqlDbType.VarChar);
+                idParam.Value = intUserID;
+                cmd.Parameters.Add(idParam);
+
+                SqlDataReader sdr = cmd.ExecuteReader();
+                sdr.Read();
+
+                strUserName = "Welcome: " + sdr["First_Name"].ToString() + " " + sdr["Last_Name"].ToString();
+
+                cmd.Dispose();
+                conn.Close();
+            }
+
+            return strUserName;
         }
     }
 }

@@ -549,6 +549,30 @@ namespace CState_TeamC_Capstone
 
             return searchQueryResults;
         }
+        public static List<Filters> GetNearMissRecordIDLookUp()
+        {
+            var searchQueryResults = new List<Filters>();
+            string queryString = @"SELECT ID FROM[Data].[NearMissRecord]";
+
+            using (SqlConnection connection = new SqlConnection(sqlConn))
+            {
+                SqlCommand command = new SqlCommand(queryString, connection);
+                connection.Open();
+                using (SqlDataReader reader = command.ExecuteReader())
+                {
+                    while (reader.Read())
+                    {
+                        searchQueryResults.Add(new Filters
+                        {
+                            ID = (int)reader[0],
+                            Description = reader[0].ToString(),
+                        });
+                    }
+                }
+            }
+
+            return searchQueryResults;
+        }
         public static void InsertNewEmployee(string strFirstName, string strMiddleName, string strLastName, string strUsername, string hashParam, string saltParam, bool blnActive, int intEmployeeID, string strEmail, string strDepartment)
         {
             using (var _sqlConnection = new System.Data.SqlClient.SqlConnection(connectionString: sqlConn))

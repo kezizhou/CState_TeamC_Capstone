@@ -7,7 +7,8 @@
 <asp:Content ID="Content2" ContentPlaceHolderID="MainContent" runat="server">
     <main role="main" class="container-fluid">
         <h2>Review Incident</h2>
-        <h5>Welcome: LastName, FirstName</h5>
+        <h5><span id="userFullName" runat="server"></span></h5>
+        
 
         <div class="center2">
             <div class="table-responsive">

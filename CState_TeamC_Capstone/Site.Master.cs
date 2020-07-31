@@ -12,34 +12,40 @@ using System.Web.UI.WebControls;
 namespace CState_TeamC_Capstone {
 	public partial class SiteMaster : MasterPage {
 		protected void Page_Load(object sender, EventArgs e) {
-			try {
-				if (Session["User_ID"] == null)
-				{
-					throw new Exception();
-				}
-			} catch (Exception ex) {
-				// User session expired
-				Response.Redirect("signIn.aspx");
-			}
+            try
+            {
+                if (Session["User_ID"] == null)
+                {
+                    throw new Exception();
+                }
+            }
+            catch (Exception ex)
+            {
+                // User session expired
+                Response.Redirect("signIn.aspx");
+            }
 
-			// Check if user is authorized
-			if (Roles.IsUserInRole(HttpContext.Current.User.Identity.Name, "NearMissEHS")) {
-				ReviewIncident.Style["display"] = "block";
-				UpdateIncident.Style["display"] = "block";
-				SearchTool.Style["display"] = "block";
-			}
-			if (Roles.IsUserInRole(HttpContext.Current.User.Identity.Name, "NearMissAssignee")) {
-				ReviewIncident.Style["display"] = "block";
-				UpdateIncident.Style["display"] = "block";
-			}
-			if (Roles.IsUserInRole(HttpContext.Current.User.Identity.Name, "NearMissAdmin")) {
-				AdminSettings.Style["display"] = "block";
-			}
+            // Check if user is authorized
+            if (Roles.IsUserInRole(HttpContext.Current.User.Identity.Name, "NearMissEHS"))
+            {
+                ReviewIncident.Style["display"] = "block";
+                UpdateIncident.Style["display"] = "block";
+                SearchTool.Style["display"] = "block";
+            }
+            if (Roles.IsUserInRole(HttpContext.Current.User.Identity.Name, "NearMissAssignee"))
+            {
+                ReviewIncident.Style["display"] = "block";
+                UpdateIncident.Style["display"] = "block";
+            }
+            if (Roles.IsUserInRole(HttpContext.Current.User.Identity.Name, "NearMissAdmin"))
+            {
+                AdminSettings.Style["display"] = "block";
+            }
 
-			// Change signout to user initials
-			userinitials.InnerText = GetInitials();
+            // Change signout to user initials
+            userinitials.InnerText = GetInitials();
 
-		}
+        }
 
 		private string GetInitials() {
 			int intUserID = int.Parse(Session["User_ID"].ToString());
