@@ -18,8 +18,12 @@ namespace CState_TeamC_Capstone {
 		protected string dteEndInput { get; set; }
 
 		protected void Page_Load(object sender, EventArgs e) {
+    
 			try {
-				// Days since last incident
+        // Welcome name
+        firstnamelastname.InnerText = GetFirstNameLastName();
+				
+        // Days since last incident
 				int intDays = DaysSinceLastIncident();
 
 				if (intDays == -1) {
@@ -393,6 +397,31 @@ namespace CState_TeamC_Capstone {
 				Response.Write(ex.Message);
 			}
 		}
+    
+    private string GetFirstNameLastName() {
+        int intUserID = int.Parse(Session["User_ID"].ToString());
+        string strfirstnamelastname = "";
+
+        SqlConnection conn = new SqlConnection(ConfigurationManager.ConnectionStrings["sqlConn"].ToString());
+        conn.Open();
+        string qry = "SELECT * FROM Data.Employee WHERE Person_ID = @id";
+        using (SqlCommand cmd = new SqlCommand(qry, conn))
+        {
+            var idParam = new SqlParameter("@id", System.Data.SqlDbType.VarChar);
+            idParam.Value = intUserID;
+            cmd.Parameters.Add(idParam);
+
+            SqlDataReader sdr = cmd.ExecuteReader();
+            sdr.Read();
+
+            strfirstnamelastname = sdr["Last_Name"].ToString() + ", " + sdr["First_Name"].ToString();
+
+            cmd.Dispose();
+            conn.Close();
+        }
+
+        return strfirstnamelastname;
+    }
 
 		protected void btnClear_Click(object sender, EventArgs e) {
 			try {
@@ -401,5 +430,6 @@ namespace CState_TeamC_Capstone {
 				Response.Write(ex.Message);
 			}
 		}
-	}
+    
+  }
 }
