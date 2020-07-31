@@ -120,8 +120,10 @@
     <Content Include="Content\unauthorizedUser.css" />
     <Content Include="Content\userSettings.css" />
     <Content Include="emailForgotUsernameTemplate.html" />
+    <Content Include="emailEHSNotificationTemplate.html" />
     <Content Include="emailResetTemplate.html" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
+    <Content Include="initiateIncident.aspx" />
     <Content Include="invalidToken.aspx" />
     <Content Include="newUser.aspx" />
     <Content Include="resetCredentials.aspx" />
@@ -145,7 +147,6 @@
     <None Include="Properties\PublishProfiles\CustomProfile.pubxml" />
     <None Include="Scripts\jquery-3.3.1.intellisense.js" />
     <Content Include="Home.aspx" />
-    <Content Include="initiateIncident.aspx" />
     <Content Include="Media\logo.png" />
     <Content Include="reviewIncident.aspx" />
     <Content Include="Scripts\bootstrap.js" />
@@ -201,6 +202,8 @@
     </Compile>
     <Compile Include="App_Start\BundleConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
+    <Compile Include="Classes\NearMissType.cs" />
+    <Compile Include="Classes\Department.cs" />
     <Compile Include="Classes\Role.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>

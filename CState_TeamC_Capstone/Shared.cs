@@ -30,7 +30,7 @@ namespace CState_TeamC_Capstone
             return _returnString;
         }
 
-        public static void InsertNearMissRecord(string dtNearMissDate, string strOperatorName, string strDepartment, string strNearMissType, string strNearMissSolution, string strNearMiss_ActionTaken)
+        public static void InsertNearMissRecord(string dtNearMissDate, string strOperatorName, int intDepartment_ID, int intNearMissType_ID, string strNearMissSolution, string strNearMiss_ActionTaken)
         {
             using (var _sqlConnection = new System.Data.SqlClient.SqlConnection(connectionString: sqlConn))
             {
@@ -43,15 +43,17 @@ namespace CState_TeamC_Capstone
                 _sqlCommand.CommandType = System.Data.CommandType.StoredProcedure;
                 _sqlCommand.Parameters.Add(new System.Data.SqlClient.SqlParameter("@NearMissDate", System.Data.SqlDbType.DateTime)).Value = dtNearMissDate;
                 _sqlCommand.Parameters.Add(new System.Data.SqlClient.SqlParameter("@OperatorName", System.Data.SqlDbType.VarChar)).Value = strOperatorName;
-                _sqlCommand.Parameters.Add(new System.Data.SqlClient.SqlParameter("@Department", System.Data.SqlDbType.VarChar)).Value = strDepartment;
-                _sqlCommand.Parameters.Add(new System.Data.SqlClient.SqlParameter("@NearMissType", System.Data.SqlDbType.VarChar)).Value = strNearMissType;
+                _sqlCommand.Parameters.Add(new System.Data.SqlClient.SqlParameter("@Department_ID", System.Data.SqlDbType.Int)).Value = intDepartment_ID;
+                _sqlCommand.Parameters.Add(new System.Data.SqlClient.SqlParameter("@NearMissType_ID", System.Data.SqlDbType.Int)).Value = intNearMissType_ID;
                 _sqlCommand.Parameters.Add(new System.Data.SqlClient.SqlParameter("@NearMiss_Solution", System.Data.SqlDbType.VarChar)).Value = strNearMissSolution;
                 _sqlCommand.Parameters.Add(new System.Data.SqlClient.SqlParameter("@NearMiss_ActionTaken", System.Data.SqlDbType.VarChar)).Value = strNearMiss_ActionTaken;
                 _sqlCommand.Parameters.Add(new System.Data.SqlClient.SqlParameter("@DateEntered", System.Data.SqlDbType.DateTime2)).Value = System.DateTime.Now;
+
                 _sqlConnection.Open();
 
                 _sqlCommand.ExecuteNonQuery();
-            }
+               
+                }
         }
         public static string GetEHSEmailNearMiss()
         {
@@ -261,7 +263,7 @@ namespace CState_TeamC_Capstone
 
             return _returnString;
         }
-        public static void InsertNearMissReviewRecord(string strID, string strAssignee, string strSeverity, string strRisk, string strReviewComments, string strReviewedBy)
+        public static void InsertNearMissReviewRecord(string strID, string strAssignee, int strSeverity_ID, int strRisk_ID, string strReviewComments, string strReviewedBy)
         {
             using (var _sqlConnection = new System.Data.SqlClient.SqlConnection(connectionString: sqlConn))
             {
@@ -274,8 +276,8 @@ namespace CState_TeamC_Capstone
                 _sqlCommand.CommandType = System.Data.CommandType.StoredProcedure;
                 _sqlCommand.Parameters.Add(new System.Data.SqlClient.SqlParameter("@NearMiss_ID", System.Data.SqlDbType.VarChar)).Value = strID;
                 _sqlCommand.Parameters.Add(new System.Data.SqlClient.SqlParameter("@Assignee", System.Data.SqlDbType.VarChar)).Value = strAssignee;
-                _sqlCommand.Parameters.Add(new System.Data.SqlClient.SqlParameter("@Severity", System.Data.SqlDbType.VarChar)).Value = strSeverity;
-                _sqlCommand.Parameters.Add(new System.Data.SqlClient.SqlParameter("@Risk", System.Data.SqlDbType.VarChar)).Value = strRisk;
+                _sqlCommand.Parameters.Add(new System.Data.SqlClient.SqlParameter("@Severity_ID", System.Data.SqlDbType.Int)).Value = strSeverity_ID;
+                _sqlCommand.Parameters.Add(new System.Data.SqlClient.SqlParameter("@Risk_ID", System.Data.SqlDbType.Int)).Value = strRisk_ID;
                 _sqlCommand.Parameters.Add(new System.Data.SqlClient.SqlParameter("@ReviewComments", System.Data.SqlDbType.VarChar)).Value = strReviewComments;
                 _sqlCommand.Parameters.Add(new System.Data.SqlClient.SqlParameter("@ReviewedBy", System.Data.SqlDbType.VarChar)).Value = strReviewedBy;
                 _sqlCommand.Parameters.Add(new System.Data.SqlClient.SqlParameter("@ReviewDate", System.Data.SqlDbType.DateTime)).Value = System.DateTime.Now;
@@ -283,7 +285,7 @@ namespace CState_TeamC_Capstone
                 _sqlCommand.ExecuteNonQuery();
             }
         }
-        public static void UpdateNearMissReviewRecord(string strID, string strAssigneeUsername, string strSeverity, string strRisk, string strReviewComments, string strReviewedBy)
+        public static void UpdateNearMissReviewRecord(string strID, string strAssigneeUsername, int intSeverity_ID, int intRisk_ID, string strReviewComments, string strReviewedBy)
         {
             using (var _sqlConnection = new System.Data.SqlClient.SqlConnection(connectionString: sqlConn))
             {
@@ -296,8 +298,8 @@ namespace CState_TeamC_Capstone
                 _sqlCommand.CommandType = System.Data.CommandType.StoredProcedure;
                 _sqlCommand.Parameters.Add(new System.Data.SqlClient.SqlParameter("@NearMiss_ID", System.Data.SqlDbType.VarChar)).Value = strID;
                 _sqlCommand.Parameters.Add(new System.Data.SqlClient.SqlParameter("@Assignee", System.Data.SqlDbType.VarChar)).Value = strAssigneeUsername;
-                _sqlCommand.Parameters.Add(new System.Data.SqlClient.SqlParameter("@Severity", System.Data.SqlDbType.VarChar)).Value = strSeverity;
-                _sqlCommand.Parameters.Add(new System.Data.SqlClient.SqlParameter("@Risk", System.Data.SqlDbType.VarChar)).Value = strRisk;
+                _sqlCommand.Parameters.Add(new System.Data.SqlClient.SqlParameter("@Severity_ID", System.Data.SqlDbType.Int)).Value = intSeverity_ID;
+                _sqlCommand.Parameters.Add(new System.Data.SqlClient.SqlParameter("@Risk_ID", System.Data.SqlDbType.Int)).Value = intRisk_ID;
                 _sqlCommand.Parameters.Add(new System.Data.SqlClient.SqlParameter("@ReviewComments", System.Data.SqlDbType.VarChar)).Value = strReviewComments;
                 _sqlCommand.Parameters.Add(new System.Data.SqlClient.SqlParameter("@ReviewedBy", System.Data.SqlDbType.VarChar)).Value = strReviewedBy;
                 _sqlCommand.Parameters.Add(new System.Data.SqlClient.SqlParameter("@ReviewDate", System.Data.SqlDbType.DateTime)).Value = System.DateTime.Now;

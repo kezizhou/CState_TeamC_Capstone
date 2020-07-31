@@ -20,28 +20,33 @@
                     <input id="dteIncident" name="dteIncident" class="form-control" type="date" required="required"/>
                 </div>
                 <div class="form-group">
-                    <label for="txtOperator" class="control-label">Operator Name:</label>
+                    <label for="txtOperator" class="control-label" hidden="hidden">Operator Name:</label>
                     <!-- Populated from account info in database -->              
-                  <input id="txtOperator" type="text" name="txtOperator" class="form-control populated" value="FirstName LastName" readonly="readonly"/>
+                  <input id="txtOperator" type="text" name="txtOperator" class="form-control populated" readonly="readonly" hidden="hidden"/>
                 </div>
                 <div class="form-group">
-                    <label for="txtBadgeNumber" class="control-label">Badge Number:</label>
-                    <input id="txtBadgeNumber" type="text" name="txtBadgeNumber" class="form-control" required="required"/>
+                    <label for="txtBadgeNumber" class="control-label">Employee Badge Number (6 digit):</label>
+                    <input id="txtBadgeNumber" type="text" name="txtBadgeNumber" class="form-control" required="required" />
                 </div>
-                <div class="form-group" id="departmentDiv">
+
+                 <div class="form-group">
                     <label for="sltDepartment" class="control-label">Department:</label>
-                    <select id="sltDepartment" name="sltDepartment" runat="server" class="required form-control" >
-                        <option value=""  selected="selected" disabled="disabled" hidden="hidden">Select Production Area</option>               
+                    <select id="sltDepartment" name="sltDepartment" class="required form-control">
+                        <option value="" selected="selected" disabled="disabled" hidden="hidden">Select Department</option>
+                        <% foreach (var department in lstDepartments) { %>
+                            <option value="<%= department.strID %>"><%= department.strDepartment %></option>
+                        <% } %>
                     </select>
-                       </div>
-
-                <div class="form-group">
-                    <label for="sltType" class="control-label">Type of Near Miss:</label>
-                    <select id="sltType" name="sltType" class="required form-control" runat="server" >
-                        <option value="" selected="selected" disabled="disabled" hidden="hidden">Select Near Miss</option>
+                </div>
+                 <div class="form-group">
+                    <label for="sltNMType" class="control-label">Near Miss Type:</label>
+                    <select id="sltNMType" name="sltNMType" class="required form-control">
+                        <option value="" selected="selected" disabled="disabled" hidden="hidden">Select Near Miss Type</option>
+                        <% foreach (var nearmisstype in lstNMType) { %>
+                            <option value="<%= nearmisstype.strID %>"><%= nearmisstype.strNearMissType %></option>
+                        <% } %>
                     </select>
-                 </div>
-
+                </div>
                 <div class="form-group">
                     <label for="txaSolution" class="control-label"> Near Miss Proposed Solution: </label>
                     <textarea name="txaSolution" id="txaSolution" class="form-control" rows="8" required="required"></textarea>

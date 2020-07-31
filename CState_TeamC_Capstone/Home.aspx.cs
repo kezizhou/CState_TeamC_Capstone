@@ -17,8 +17,10 @@ namespace CState_TeamC_Capstone {
 		protected string dteEndInput { get; set; }
 
 		protected void Page_Load(object sender, EventArgs e) {
-			// Days since last incident
-			int intDays = DaysSinceLastIncident();
+            firstnamelastname.InnerText = GetFirstNameLastName();
+
+            // Days since last incident
+            int intDays = DaysSinceLastIncident();
 
 			if (intDays == -1) {
 				lastIncident.InnerText = "";
@@ -373,8 +375,35 @@ namespace CState_TeamC_Capstone {
 			strEndDate = Request["dteEnd"] + " 23:59:59.997";
 		}
 
-		protected void btnClear_Click(object sender, EventArgs e) {
-			Page.ClientScript.RegisterStartupScript(this.GetType(), "ResetForm", "resetForm()", true);
-		}
-	}
+        protected void btnClear_Click(object sender, EventArgs e)
+        {
+            Page.ClientScript.RegisterStartupScript(this.GetType(), "ResetForm", "resetForm()", true);
+        }
+
+        private string GetFirstNameLastName()
+        {
+            int intUserID = int.Parse(Session["User_ID"].ToString());
+            string strfirstnamelastname = "";
+
+            SqlConnection conn = new SqlConnection(ConfigurationManager.ConnectionStrings["sqlConn"].ToString());
+            conn.Open();
+            string qry = "SELECT * FROM Data.Employee WHERE Person_ID = @id";
+            using (SqlCommand cmd = new SqlCommand(qry, conn))
+            {
+                var idParam = new SqlParameter("@id", System.Data.SqlDbType.VarChar);
+                idParam.Value = intUserID;
+                cmd.Parameters.Add(idParam);
+
+                SqlDataReader sdr = cmd.ExecuteReader();
+                sdr.Read();
+
+                strfirstnamelastname = sdr["Last_Name"].ToString() + ", " + sdr["First_Name"].ToString();
+
+                cmd.Dispose();
+                conn.Close();
+            }
+
+            return strfirstnamelastname;
+        }
+    }
 }
