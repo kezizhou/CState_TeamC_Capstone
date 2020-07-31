@@ -56,6 +56,18 @@ nav {
     vertical-align: middle;
 }
 
+.notification {
+    display: inline-block;
+}
+
+.badge-count {
+    position: relative;
+    top: -10px;
+    right: 0px;
+    background: #CC0000;
+    color: white;
+}
+
 #signout {
     cursor: pointer;
 }
