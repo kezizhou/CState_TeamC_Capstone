@@ -38,8 +38,7 @@ namespace CState_TeamC_Capstone
 
         protected void btnSubmitNewUser_Click(object sender, EventArgs e)
         {
-            try
-            {
+            try {
                 string strFirstName = Request.Form["txtFirstName"];
                 string strMiddleName = Request.Form["txtMiddleName"];
                 string strLastName = Request.Form["txtLastName"];
@@ -67,14 +66,10 @@ namespace CState_TeamC_Capstone
                 conn.Close();
 
                 Response.Redirect("signIn.aspx?type=newUser");
-            }
-                 
-            catch (Exception ex)
-            {
+            } catch (Exception ex) {
                 Response.Write(ex.Message);
             }
-      
-         }
+        }
 
         [WebMethod]
         public static bool CheckDuplicateUsername(string strUsername) {
@@ -97,7 +92,7 @@ namespace CState_TeamC_Capstone
             }
 
             return blnDuplicate;
-		}
+		    }
 
         [WebMethod]
         public static bool CheckDuplicateEmail(string strEmail) {
