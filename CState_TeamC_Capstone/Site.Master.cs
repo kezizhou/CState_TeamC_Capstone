@@ -1,51 +1,46 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Configuration;
 using System.Data.SqlClient;
-using System.Linq;
 using System.Web;
 using System.Web.Security;
-using System.Web.Services;
 using System.Web.UI;
-using System.Web.UI.WebControls;
 
 namespace CState_TeamC_Capstone {
 	public partial class SiteMaster : MasterPage {
 		protected void Page_Load(object sender, EventArgs e) {
-            try
-            {
-                if (Session["User_ID"] == null)
-                {
-                    throw new Exception();
-                }
-            }
-            catch (Exception ex)
-            {
-                // User session expired
-                Response.Redirect("signIn.aspx");
-            }
+			try {
+				try {
+					if (Session["User_ID"] == null) {
+						throw new Exception();
+					}
+				} catch (Exception) {
+					// User session expired
+					Response.Redirect("signIn.aspx");
+				}
 
-            // Check if user is authorized
-            if (Roles.IsUserInRole(HttpContext.Current.User.Identity.Name, "NearMissEHS"))
-            {
-                ReviewIncident.Style["display"] = "block";
-                UpdateIncident.Style["display"] = "block";
-                SearchTool.Style["display"] = "block";
-            }
-            if (Roles.IsUserInRole(HttpContext.Current.User.Identity.Name, "NearMissAssignee"))
-            {
-                ReviewIncident.Style["display"] = "block";
-                UpdateIncident.Style["display"] = "block";
-            }
-            if (Roles.IsUserInRole(HttpContext.Current.User.Identity.Name, "NearMissAdmin"))
-            {
-                AdminSettings.Style["display"] = "block";
-            }
+				// Check if user is authorized
+				if (Roles.IsUserInRole(HttpContext.Current.User.Identity.Name, "NearMissEHS")) {
+					ReviewIncident.Style["display"] = "block";
+					UpdateIncident.Style["display"] = "block";
+					SearchTool.Style["display"] = "block";
+				}
+				if (Roles.IsUserInRole(HttpContext.Current.User.Identity.Name, "NearMissAssignee")) {
+					ReviewIncident.Style["display"] = "block";
+					UpdateIncident.Style["display"] = "block";
+				}
+				if (Roles.IsUserInRole(HttpContext.Current.User.Identity.Name, "NearMissAdmin")) {
+					// Load admin settings requests count
+					badge.InnerText = LoadRequestCount().ToString();
+					AdminSettings.Style["display"] = "block";
+				}
 
-            // Change signout to user initials
-            userinitials.InnerText = GetInitials();
+				// Change signout to user initials
+				userinitials.InnerText = GetInitials();
+			} catch (Exception ex) {
+				Response.Write(ex.Message);
+			}
 
-        }
+		}
 
 		private string GetInitials() {
 			int intUserID = int.Parse(Session["User_ID"].ToString());
@@ -69,6 +64,25 @@ namespace CState_TeamC_Capstone {
 			}
 
 			return strInitials;
+		}
+
+		private int LoadRequestCount() {
+			int intRequestCount = 0;
+
+			SqlConnection conn = new SqlConnection(ConfigurationManager.ConnectionStrings["sqlConn"].ToString());
+			conn.Open();
+			string qry = "SELECT COUNT(ID) AS RequestCount FROM Config.RoleRequests WHERE Status_ID = 2";
+			using (SqlCommand cmd = new SqlCommand(qry, conn)) {
+				SqlDataReader sdr = cmd.ExecuteReader();
+				sdr.Read();
+
+				intRequestCount = int.Parse(sdr["RequestCount"].ToString());
+
+				cmd.Dispose();
+				conn.Close();
+			}
+
+			return intRequestCount;
 		}
 	}
 }

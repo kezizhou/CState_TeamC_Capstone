@@ -10,50 +10,54 @@ using System.Web.UI.WebControls;
 namespace CState_TeamC_Capstone {
 	public partial class resetPassword : System.Web.UI.Page {
 		protected void Page_Load(object sender, EventArgs e) {
-			if (Request.QueryString["username"] != null && Request.QueryString["username"] != string.Empty && Request.QueryString["token"] != null && Request.QueryString["token"] != string.Empty) {
-				txtUsername.Value = Request.QueryString["username"];
-				string strUsername = Request.QueryString["username"];
-				string strToken = Request.QueryString["token"];
+			try {
+				if (Request.QueryString["username"] != null && Request.QueryString["username"] != string.Empty && Request.QueryString["token"] != null && Request.QueryString["token"] != string.Empty) {
+					txtUsername.Value = Request.QueryString["username"];
+					string strUsername = Request.QueryString["username"];
+					string strToken = Request.QueryString["token"];
 
-				string strHashedTokenDb = "";
-				bool blnHashesEqual = false;
+					string strHashedTokenDb = "";
+					bool blnHashesEqual = false;
 
-				// Get the hashed token in the database
-				SqlConnection conn = new SqlConnection(ConfigurationManager.ConnectionStrings["sqlConn"].ToString());
-				conn.Open();
-				string qry = "SELECT R.Token_Hash FROM Data.ResetTokens AS R JOIN Data.Employee AS E ON R.Person_ID = E.Person_ID WHERE E.Username = @username AND R.Token_Used = 0 AND DATEDIFF(millisecond, R.Expiration_Date, GETDATE()) < 0";
-				using (SqlCommand cmd = new SqlCommand(qry, conn)) {
-					var usernameParam = new SqlParameter("@username", System.Data.SqlDbType.VarChar);
-					usernameParam.Value = strUsername;
-					cmd.Parameters.Add(usernameParam);
+					// Get the hashed token in the database
+					SqlConnection conn = new SqlConnection(ConfigurationManager.ConnectionStrings["sqlConn"].ToString());
+					conn.Open();
+					string qry = "SELECT R.Token_Hash FROM Data.ResetTokens AS R JOIN Data.Employee AS E ON R.Person_ID = E.Person_ID WHERE E.Username = @username AND R.Token_Used = 0 AND DATEDIFF(millisecond, R.Expiration_Date, GETDATE()) < 0";
+					using (SqlCommand cmd = new SqlCommand(qry, conn)) {
+						var usernameParam = new SqlParameter("@username", System.Data.SqlDbType.VarChar);
+						usernameParam.Value = strUsername;
+						cmd.Parameters.Add(usernameParam);
 
-					SqlDataReader sdr = cmd.ExecuteReader();
+						SqlDataReader sdr = cmd.ExecuteReader();
 
-					if (sdr.Read()) {
-						strHashedTokenDb = sdr["Token_Hash"].ToString().Trim();
+						if (sdr.Read()) {
+							strHashedTokenDb = sdr["Token_Hash"].ToString().Trim();
 
-						// Compare to query string token hash
-						string strHashedToken = HashSalt.GenerateHashString(strToken);
-						if (strHashedToken.Equals(strHashedTokenDb)) {
-							blnHashesEqual = true;
+							// Compare to query string token hash
+							string strHashedToken = HashSalt.GenerateHashString(strToken);
+							if (strHashedToken.Equals(strHashedTokenDb)) {
+								blnHashesEqual = true;
+							}
+						} else {
+							// Token is already used or expired
+							// Or user does not have an tokens
+							Response.Redirect("reset.aspx?type=invalidToken");
 						}
-					} else {
-						// Token is already used or expired
-						// Or user does not have an tokens
-						Response.Redirect("reset.aspx?type=invalidToken");
+
+						cmd.Dispose();
+						conn.Close();
 					}
 
-					cmd.Dispose();
-					conn.Close();
-				}
-
-				if (blnHashesEqual == false) {
-					// Invalid token
+					if (blnHashesEqual == false) {
+						// Invalid token
+						Response.Redirect("reset.aspx?type=invalidToken");
+					}
+				} else {
+					// No username or token provided
 					Response.Redirect("reset.aspx?type=invalidToken");
 				}
-			} else {
-				// No username or token provided
-				Response.Redirect("reset.aspx?type=invalidToken");
+			} catch (Exception ex) {
+				Response.Write(ex.Message);
 			}
 		}
 

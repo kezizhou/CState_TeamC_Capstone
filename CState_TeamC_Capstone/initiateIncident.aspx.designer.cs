@@ -13,6 +13,15 @@ namespace CState_TeamC_Capstone {
     public partial class initiateIncident {
         
         /// <summary>
+        /// firstnamelastname control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlGenericControl firstnamelastname;
+        
+        /// <summary>
         /// frmNewIncident control.
         /// </summary>
         /// <remarks>
@@ -22,21 +31,12 @@ namespace CState_TeamC_Capstone {
         protected global::System.Web.UI.HtmlControls.HtmlForm frmNewIncident;
         
         /// <summary>
-        /// sltDepartment control.
+        /// btnSubmit control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlSelect sltDepartment;
-        
-        /// <summary>
-        /// sltType control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlSelect sltType;
+        protected global::System.Web.UI.HtmlControls.HtmlButton btnSubmit;
     }
 }
