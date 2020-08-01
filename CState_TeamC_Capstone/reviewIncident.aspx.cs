@@ -10,39 +10,55 @@ using System.Configuration;
 
 namespace CState_TeamC_Capstone {
     public partial class reviewIncident : System.Web.UI.Page {
+        public List<ReviewIncidentPageTable> results;
+        public List<Filters> nearMissReportID;
         public List<Filters> assignTo;
         public List<Filters> severity;
         public List<Filters> risk;
         protected void Page_Load(object sender, EventArgs e) {
-            assignTo = Shared.GetAssignedToNameFilter();
+            results = Shared.GetReviewIncidentPageQuery();
+            assignTo = Shared.GetAssignIncidentReviewPage();
             severity = Shared.GetSeverityFilter();
             risk = Shared.GetRiskFilter();
-            userFullName.InnerText = GetUserName();
+            nearMissReportID = Shared.GetNearMissRecordIDLookUp();
+            GetUserName();
+            if (!IsPostBack)
+            {
+                CreateDropDown();
+            }
+            //userFullName.InnerText = GetUserName();
         }
-        protected void Filter(object sender, EventArgs e)
+        public void Filter(object sender, EventArgs e)
         {
-
-            var departmentSelection = Request["sltDepartment"];
-            var nearMissTypeSElection = Request["sltNearMissType"];
+            var selectedID = sltNearMissReportID.SelectedItem;
+            if (int.Parse(selectedID.Value) == -1) {
+                return;
+            }
+            results = Shared.GetReviewIncidentPageQuery(selectedID.ToString());
+        }
+        public void InsertReviewLog(object sender, EventArgs e)
+        {
+            var assignIncidentSelection = Request["sltAssignIncident"];
             var severitySelection = Request["sltSeverityLevel"];
             var riskSelection = Request["sltRiskLevel"];
+            var nearMissReportID = sltNearMissReportID.SelectedValue;
+            var user = GetUserName();
+            Shared.InsertReviewLogStatement(nearMissReportID, assignIncidentSelection, severitySelection, riskSelection, user, DateTime.Now.Date.ToString());
+            Response.Redirect(Request.RawUrl);
+        }
+        public void CreateDropDown()
+        {
+            sltNearMissReportID.DataTextField = "Value";
+            sltNearMissReportID.DataValueField = "Id";
+            sltNearMissReportID.DataBind();
 
-            //if (!String.IsNullOrEmpty(departmentSelection))
-            //{
-            //    results = originalResult.Where(x => x.Department == departmentSelection).ToList();
-            //}
-            //if (!String.IsNullOrEmpty(nearMissTypeSElection))
-            //{
-            //    results = originalResult.Where(x => x.NearMissType == nearMissTypeSElection).ToList();
-            //}
-            //if (!String.IsNullOrEmpty(severitySelection))
-            //{
-            //    results = originalResult.Where(x => x.SeverityLevel == severitySelection).ToList();
-            //}
-            //if (!String.IsNullOrEmpty(riskSelection))
-            //{
-            //    results = originalResult.Where(x => x.RiskLevel == riskSelection).ToList();
-            //}
+            sltNearMissReportID.Items.Insert(0, new ListItem("Please select", "-1"));
+            var rownumber = 1;
+            foreach (var x in nearMissReportID) {
+                sltNearMissReportID.Items.Insert(rownumber, new ListItem(x.Description, x.ID.ToString()));
+                rownumber++;
+
+            }
 
         }
 
@@ -63,7 +79,7 @@ namespace CState_TeamC_Capstone {
                 SqlDataReader sdr = cmd.ExecuteReader();
                 sdr.Read();
 
-                strUserName = "Welcome: " + sdr["First_Name"].ToString() + " " + sdr["Last_Name"].ToString();
+                strUserName = sdr["First_Name"].ToString() + " " + sdr["Last_Name"].ToString();
 
                 cmd.Dispose();
                 conn.Close();
@@ -71,5 +87,6 @@ namespace CState_TeamC_Capstone {
 
             return strUserName;
         }
+
     }
 }

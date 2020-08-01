@@ -25,19 +25,19 @@ namespace CState_TeamC_Capstone
             SetFilterOptions();
         }
 
-        //private void SetPageCountFromResults()
-        //{
-        //    var recordIntoPages = (results.FirstOrDefault()?.TotalRows / 5.0);
-        //    if (recordIntoPages != null)
-        //    {
-        //        pageCount = (int)Math.Ceiling((double)recordIntoPages);
+        private void SetPageCountFromResults()
+        {
+            var recordIntoPages = (results.FirstOrDefault()?.TotalRows / 5.0);
+            if (recordIntoPages != null)
+            {
+                pageCount = (int)Math.Ceiling((double)recordIntoPages);
 
-        //    }
-        //    else
-        //    {
-        //        pageCount = 1;
-        //    }
-        //}
+            }
+            else
+            {
+                pageCount = 1;
+            }
+        }
 
         private void SetFilterOptions()
         {
@@ -58,26 +58,26 @@ namespace CState_TeamC_Capstone
                              string assigneeFilter = null)
         {
             results = Shared.GetSearchToolQuery(pageNumber, departmentFilter, nearMissTypeFilter, severityTypeFilter, riskTypeFilter, operatorFilter, assigneeFilter);
-            //SetPageCountFromResults();
-            //CreateControl();
+            SetPageCountFromResults();
+            CreateControl();
         }
 
 
-        //private void CreateControl()
-        //{
-        //    PlaceHolder1.Controls.Clear();
-        //    for (var i = 1; i < pageCount + 1; i++)
-        //    {
-        //        LinkButton lb = new LinkButton();
-        //        lb = new LinkButton();
-        //        lb.Text = Convert.ToString(i) + " ";
-        //        lb.ID = Convert.ToString(i);
-        //        lb.CommandArgument = Convert.ToString(i);
-        //        lb.CommandName = Convert.ToString(i);
-        //        lb.Command += lb_Command;
-        //        PlaceHolder1.Controls.Add(lb);
-        //    }
-        //}
+        private void CreateControl()
+        {
+            PlaceHolder1.Controls.Clear();
+            for (var i = 1; i < pageCount + 1; i++)
+            {
+                LinkButton lb = new LinkButton();
+                lb = new LinkButton();
+                lb.Text = Convert.ToString(i) + " ";
+                lb.ID = Convert.ToString(i);
+                lb.CommandArgument = Convert.ToString(i);
+                lb.CommandName = Convert.ToString(i);
+                lb.Command += lb_Command;
+                PlaceHolder1.Controls.Add(lb);
+            }
+        }
 
         void lb_Command(object sender, CommandEventArgs e)
         {

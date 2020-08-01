@@ -133,6 +133,9 @@
                     </table>
                 </div>
             </div>
+            <div>
+                <asp:PlaceHolder ID="PlaceHolder1" runat="server"></asp:PlaceHolder>
+            </div>
         </form>
     </main>
 
