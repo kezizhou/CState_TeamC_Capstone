@@ -87,7 +87,7 @@ namespace CState_TeamC_Capstone {
 
 				if (DateTime.Parse(strStartDate).Date == DateTime.Now.Date && DateTime.Parse(strEndDate).Date == DateTime.Now.Date) {
 					// Date filter not changed, show all data
-					qry = "SELECT Department, SeverityType_Low, SeverityType_Medium, SeverityType_High, RiskLevel_Low, RiskLevel_Medium, RiskLevel_High, TotalIncidents FROM VW.GetDepartmentChartData ORDER BY TotalIncidents DESC, SeverityType_High DESC, RiskLevel_High DESC, SeverityType_Medium DESC, RiskLevel_Medium DESC, SeverityType_Low DESC, RiskLevel_Low DESC";
+					qry = "EXEC SP.GetIncidentsBetweenDates @StartDate = '1/1/1753', @EndDate = '12/31/9999'";
 					using (SqlDataAdapter sda = new SqlDataAdapter(qry, conn)) {
 						sda.Fill(dt);
 
@@ -145,29 +145,34 @@ namespace CState_TeamC_Capstone {
 					lstTotals.Insert(0, department.ToString());
 
 					// Severity Medium
-					lstTotals.Add((from p in dt.AsEnumerable()
-								   where p.Field<string>("Department") == department
-								   select p.Field<int>("SeverityType_Medium")).Cast<int>().ToList()[0]);
+					List<int> lstSMedium = (from p in dt.AsEnumerable()
+										    where p.Field<string>("Department") == department
+										    select p.Field<int>("SeverityType_Medium")).Cast<int>().ToList();
+					lstTotals.Add(lstSMedium[0]);
 
 					// Severity High
-					lstTotals.Add((from p in dt.AsEnumerable()
-								   where p.Field<string>("Department") == department
-								   select p.Field<int>("SeverityType_High")).Cast<int>().ToList()[0]);
+					List<int> lstSHigh = (from p in dt.AsEnumerable()
+										  where p.Field<string>("Department") == department
+										  select p.Field<int>("SeverityType_High")).Cast<int>().ToList();
+					lstTotals.Add(lstSHigh[0]);
 
 					// Risk Low
-					lstTotals.Add((from p in dt.AsEnumerable()
-								   where p.Field<string>("Department") == department
-								   select p.Field<int>("RiskLevel_Low")).Cast<int>().ToList()[0]);
+					List<int> lstRLow = (from p in dt.AsEnumerable()
+										 where p.Field<string>("Department") == department
+										 select p.Field<int>("RiskLevel_Low")).Cast<int>().ToList();
+					lstTotals.Add(lstRLow[0]);
 
 					// Risk Medium
-					lstTotals.Add( (from p in dt.AsEnumerable()
-									where p.Field<string>("Department") == department
-									select p.Field<int>("RiskLevel_Medium")).Cast<int>().ToList()[0] );
+					List<int> lstRMedium = (from p in dt.AsEnumerable()
+											where p.Field<string>("Department") == department
+											select p.Field<int>("RiskLevel_Medium")).Cast<int>().ToList();
+					lstTotals.Add(lstRMedium[0]);
 
 					// Risk High
-					lstTotals.Add((from p in dt.AsEnumerable()
-								   where p.Field<string>("Department") == department
-								   select p.Field<int>("RiskLevel_High")).Cast<int>().ToList()[0]);
+					List<int> lstRHigh = (from p in dt.AsEnumerable()
+										  where p.Field<string>("Department") == department
+										  select p.Field<int>("RiskLevel_High")).Cast<int>().ToList();
+					lstTotals.Add(lstRHigh[0]);
 
 					// Add totals to chart data array if the department has data
 					if ((int)lstTotals[1] != 0 || (int)lstTotals[2] != 0 || (int)lstTotals[3] != 0 || (int)lstTotals[4] != 0 || (int)lstTotals[5] != 0 || (int)lstTotals[6] != 0) {
@@ -230,7 +235,7 @@ namespace CState_TeamC_Capstone {
 				conn.Open();
 				if (DateTime.Parse(strStartDate).Date == DateTime.Now.Date && DateTime.Parse(strEndDate).Date == DateTime.Now.Date) {
 					// Date filter not changed, show all data
-					qry = "SELECT Department, Slip_Trip_Fall, ElectricalSafety, ChemicalSafety, SafetyMachine_Guarding, SafetyMaterial_Handling, SafetyPPE, SafetyCrane, SafetyHousekeeping, SafetyWeather, TotalIncidents FROM VW.GetDepartmentChartData ORDER BY TotalIncidents DESC";
+					qry = "EXEC SP.GetIncidentsBetweenDates @StartDate = '1/1/1753', @EndDate = '12/31/9999'";
 
 					using (SqlDataAdapter sda = new SqlDataAdapter(qry, conn)) {
 						sda.Fill(dt);
