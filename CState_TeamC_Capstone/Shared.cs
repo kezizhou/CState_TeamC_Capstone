@@ -37,8 +37,10 @@ namespace CState_TeamC_Capstone
             return _returnString;
         }
 
-        public static void InsertNearMissRecord(string dtNearMissDate, string strOperatorName, int intDepartment_ID, int intNearMissType_ID, string strNearMissSolution, string strNearMiss_ActionTaken)
+        public static int InsertNearMissRecord(string dtNearMissDate, string strOperatorName, int intDepartment_ID, int intNearMissType_ID, string strNearMissSolution, string strNearMiss_ActionTaken)
         {
+            int intNearMissID = 0;
+
             using (var _sqlConnection = new System.Data.SqlClient.SqlConnection(connectionString: sqlConn))
             {
                 string _sqlCommandText;
@@ -59,8 +61,11 @@ namespace CState_TeamC_Capstone
                 _sqlConnection.Open();
 
                 _sqlCommand.ExecuteNonQuery();
-               
-                }
+
+                intNearMissID = int.Parse(_sqlCommand.Parameters["@NearMiss_ID"].Value.ToString());
+            }
+
+            return intNearMissID;
         }
         public static string GetEHSEmailNearMiss()
         {

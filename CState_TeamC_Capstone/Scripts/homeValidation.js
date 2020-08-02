@@ -13,8 +13,8 @@ $(function () {
     $.validator.addMethod("maxDate", function (value, element) {
         var curDate = new Date();
         var inputDate = new Date(value);
-        return this.optional(element) || inputDate < curDate;
-    }, "Start date must be before today");
+        return this.optional(element) || inputDate <= curDate;
+    }, "Start date cannot be after today");
 
     $("#frmDateRange").validate({
         rules: {
@@ -30,7 +30,7 @@ $(function () {
         messages: {
             dteStart: {
                 required: "Select start date",
-                maxDate: "Start must be before today"
+                maxDate: "Start cannot be after today"
             },
             dteEnd: {
                 required: "Select end date",
