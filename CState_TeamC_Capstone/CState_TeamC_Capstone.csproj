@@ -206,7 +206,9 @@
     <Compile Include="Classes\Department.cs" />
     <Compile Include="Classes\Role.cs" />
     <Compile Include="DomainObjects\Filters.cs" />
+    <Compile Include="DomainObjects\ReviewIncidentPageTable.cs" />
     <Compile Include="DomainObjects\SearchToolQueryResult.cs" />
+    <Compile Include="DomainObjects\UpdateActionPageTable.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
