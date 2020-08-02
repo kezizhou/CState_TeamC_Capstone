@@ -8,30 +8,34 @@ using System.Web.UI.WebControls;
 using System.Data.SqlClient;
 using System.Configuration;
 
-namespace CState_TeamC_Capstone {
-    public partial class reviewIncident : System.Web.UI.Page {
+namespace CState_TeamC_Capstone
+{
+    public partial class reviewIncident : System.Web.UI.Page
+    {
         public List<ReviewIncidentPageTable> results;
         public List<Filters> nearMissReportID;
         public List<Filters> assignTo;
         public List<Filters> severity;
         public List<Filters> risk;
-        protected void Page_Load(object sender, EventArgs e) {
+        protected void Page_Load(object sender, EventArgs e)
+        {
             results = Shared.GetReviewIncidentPageQuery();
             assignTo = Shared.GetAssignIncidentReviewPage();
             severity = Shared.GetSeverityFilter();
             risk = Shared.GetRiskFilter();
-            nearMissReportID = Shared.GetNearMissRecordIDLookUp();
+            nearMissReportID = Shared.GetNearMissRecordIDReviewPage();
             GetUserName();
             if (!IsPostBack)
             {
                 CreateDropDown();
             }
-            //userFullName.InnerText = GetUserName();
+            userFullName.InnerText = GetUserName();
         }
         public void Filter(object sender, EventArgs e)
         {
             var selectedID = sltNearMissReportID.SelectedItem;
-            if (int.Parse(selectedID.Value) == -1) {
+            if (int.Parse(selectedID.Value) == -1)
+            {
                 return;
             }
             results = Shared.GetReviewIncidentPageQuery(selectedID.ToString());
@@ -52,9 +56,10 @@ namespace CState_TeamC_Capstone {
             sltNearMissReportID.DataValueField = "Id";
             sltNearMissReportID.DataBind();
 
-            sltNearMissReportID.Items.Insert(0, new ListItem("Please select", "-1"));
+            sltNearMissReportID.Items.Insert(0, new ListItem("Please Select Near Miss Incident Report", "-1"));
             var rownumber = 1;
-            foreach (var x in nearMissReportID) {
+            foreach (var x in nearMissReportID)
+            {
                 sltNearMissReportID.Items.Insert(rownumber, new ListItem(x.Description, x.ID.ToString()));
                 rownumber++;
 

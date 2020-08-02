@@ -580,7 +580,7 @@ namespace CState_TeamC_Capstone
 
             return searchQueryResults;
         }
-        public static List<Filters> GetNearMissRecordIDLookUp()
+        public static List<Filters> GetNearMissRecordIDReviewPage()
         {
             var searchQueryResults = new List<Filters>();
             string queryString = @"SELECT ID, ID FROM[Data].[NearMissRecord]
@@ -668,6 +668,67 @@ namespace CState_TeamC_Capstone
             }
 
         }
-        
+        public static List<UpdateActionPageTable> GetUpdateActionIncidentPageQuery(string nearMissRecordID = null)
+        {
+            List<UpdateActionPageTable> resultList = new List<UpdateActionPageTable>();
+
+            string sql = $@"SELECT Data.NearMissRecord.ID, data.NearMissRecord.OperatorName, Reference.Department.Department, Reference.NearMissType.NearMissType, data.NearMiss_ReviewLog.AssignedTo,
+                                   Reference.SeverityofInjury.SeverityType, Reference.RiskLevel.RiskType, data.NearMissRecord.NearMiss_Solution, data.NearMissRecord.NearMiss_ActionTaken
+                                    FROM data.NearMissRecord
+                                    INNER JOIN data.NearMiss_ReviewLog ON data.NearMissRecord.ID = data.NearMiss_ReviewLog.NearMiss_ID
+                                    INNER JOIN Reference.Department ON Reference.Department.ID = data.NearMissRecord.Department_ID
+                                    INNER JOIN Reference.NearMissType ON Reference.NearMissType.ID = data.NearMissRecord.NearMissType_ID
+                                    INNER JOIN Reference.SeverityofInjury ON Reference.SeverityofInjury.ID = data.NearMiss_ReviewLog.Severity_ID
+                                    INNER JOIN Reference.RiskLevel ON Reference.RiskLevel.ID = data.NearMiss_ReviewLog.Risk_ID
+                                      where Data.NearMissRecord.ID = COALESCE({nearMissRecordID ?? "null"}, Reference.Department.ID)";
+
+            using (IDbConnection connection = new SqlConnection(sqlConn))
+            {
+                resultList.AddRange(connection.Query<UpdateActionPageTable>(sql, commandType: CommandType.Text).ToList());
+            }
+
+            return resultList;
+        }
+        public static List<Filters> GetNearMissRecordIDUpdateActionPage()
+        {
+            var searchQueryResults = new List<Filters>();
+            string queryString = @"SELECT ID, ID FROM[Data].[NearMissRecord]";
+
+            using (SqlConnection connection = new SqlConnection(sqlConn))
+            {
+                SqlCommand command = new SqlCommand(queryString, connection);
+                connection.Open();
+                using (SqlDataReader reader = command.ExecuteReader())
+                {
+                    while (reader.Read())
+                    {
+                        searchQueryResults.Add(new Filters
+                        {
+                            ID = (int)reader[0],
+                            Description = reader[1].ToString(),
+                        });
+                    }
+                }
+            }
+
+            return searchQueryResults;
+        }
+        public static void InsertUpdateActionStatement(string sltNearMissReportID, string txaActionUpdate = null, string strUserName = null, string reviewDate = null)
+        {
+            string sql = $@"INSERT INTO Data.NearMiss_ActionTakenUpdate(NearMiss_ID, NearMiss_ActionTaken, UpdatedBy, DateUpdate)
+                            VALUES(@sltNearMissReportID, @txaActionUpdate, @strUserName, @reviewDate )";
+
+            using (IDbConnection connection = new SqlConnection(sqlConn))
+            {
+                connection.Execute(sql, new
+                {
+                    sltNearMissReportID,
+                    txaActionUpdate,
+                    strUserName,
+                    reviewDate
+                });
+            }
+
+        }
     }
 }
