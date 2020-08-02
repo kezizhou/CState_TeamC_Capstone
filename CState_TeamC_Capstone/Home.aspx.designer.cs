@@ -13,6 +13,15 @@ namespace CState_TeamC_Capstone {
 	public partial class Home {
 
 		/// <summary>
+		/// firstnamelastname control.
+		/// </summary>
+		/// <remarks>
+		/// Auto-generated field.
+		/// To modify move field declaration from designer file to code-behind file.
+		/// </remarks>
+		protected global::System.Web.UI.HtmlControls.HtmlGenericControl firstnamelastname;
+
+		/// <summary>
 		/// lastIncidentHeading control.
 		/// </summary>
 		/// <remarks>
@@ -65,15 +74,5 @@ namespace CState_TeamC_Capstone {
 		/// To modify move field declaration from designer file to code-behind file.
 		/// </remarks>
 		protected global::System.Web.UI.HtmlControls.HtmlButton btnFilterDates;
-
-        /// <summary>
-        /// firstnamelastname control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlGenericControl firstnamelastname;
-
-    }
+	}
 }

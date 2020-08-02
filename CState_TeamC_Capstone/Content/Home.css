@@ -43,6 +43,10 @@ h5 {
     margin-bottom: 15px;
 }
 
+.card {
+    width: 820px;
+}
+
 .card-body {
     margin-bottom: 10px;
 }

@@ -7,9 +7,9 @@
 <asp:Content ID="Content2" ContentPlaceHolderID="MainContent" Runat="Server">
     <main role="main" class="container-fluid">
         <h2>Near Miss Incident Dashboard</h2>
-        <h5>Welcome:  <span id="firstnamelastname" class="control-label" runat="server">
-             <!-- User initials here -->
-             XX
+        <h5>Welcome:  
+            <span id="firstnamelastname" class="control-label" runat="server">
+
             </span>
         </h5>
 
@@ -24,7 +24,7 @@
             Show/Hide Date Filters
         </button>
         <div id="filtersCollapse" class="collapse">
-            <div class="card card-body center2">
+            <div class="card card-body center">
                 <form id="frmDateRange" name="frmDateRange"  method="post" action="#" runat="server" onsubmit="return $('#frmDateRange').valid()">
                     <div id="dateRangePickers" class="center2">
                         <div>
