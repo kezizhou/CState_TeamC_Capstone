@@ -30,7 +30,12 @@ namespace CState_TeamC_Capstone {
 				}
 				if (Roles.IsUserInRole(HttpContext.Current.User.Identity.Name, "NearMissAdmin")) {
 					// Load admin settings requests count
-					badge.InnerText = LoadRequestCount().ToString();
+					int intRequests = LoadRequestCount();
+					if (intRequests == 0) {
+						badge.Attributes.Add("class", badge.Attributes["class"].ToString().Replace("badge-count", "badge-none"));
+					}
+					badge.InnerText = intRequests.ToString();
+
 					AdminSettings.Style["display"] = "block";
 				}
 
