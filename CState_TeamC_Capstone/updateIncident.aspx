@@ -44,8 +44,8 @@
                                     <td class="align-middle"><%= x?.AssignedTo%></td>
                                     <td class="align-middle"><%= x?.SeverityType%></td>
                                     <td class="align-middle"><%= x?.RiskType%></td>
-                                    <td class="align-middle"><%= x?.PorposedSolution%></td>
-                                    <td class="align-middle"><%= x?.ActionTaken%></td>
+                                    <td class="align-middle"><%= x?.NearMiss_Solution%></td>
+                                    <td class="align-middle"><%= x?.NearMiss_ActionTaken%></td>
                                 </tr>
                                 <%};%>
                             </tbody>

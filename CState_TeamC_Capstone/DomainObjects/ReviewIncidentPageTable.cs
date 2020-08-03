@@ -11,6 +11,6 @@ namespace CState_TeamC_Capstone.DomainObjects
             public string OperatorName { get; set; }
             public string Department { get; set; }
             public string NearMissType { get; set; }
-            public string ProposedSolution { get; set; }
+            public string NearMiss_Solution { get; set; }
     }
 }

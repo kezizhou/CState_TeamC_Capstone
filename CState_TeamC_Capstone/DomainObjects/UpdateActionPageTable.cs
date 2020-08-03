@@ -14,7 +14,7 @@ namespace CState_TeamC_Capstone.DomainObjects
         public string AssignedTo { get; set; }
         public string SeverityType { get; set; }
         public string RiskType { get; set; }
-        public string PorposedSolution { get; set; }
-        public string ActionTaken { get; set; }
+        public string NearMiss_Solution { get; set; }
+        public string NearMiss_ActionTaken { get; set; }
     }
 }
