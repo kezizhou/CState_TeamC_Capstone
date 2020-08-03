@@ -7,6 +7,7 @@ using System.Linq;
 using Dapper;
 
 using System.Configuration;
+using System;
 
 namespace CState_TeamC_Capstone
 {
@@ -57,12 +58,12 @@ namespace CState_TeamC_Capstone
                 _sqlCommand.Parameters.Add(new System.Data.SqlClient.SqlParameter("@NearMiss_Solution", System.Data.SqlDbType.VarChar)).Value = strNearMissSolution;
                 _sqlCommand.Parameters.Add(new System.Data.SqlClient.SqlParameter("@NearMiss_ActionTaken", System.Data.SqlDbType.VarChar)).Value = strNearMiss_ActionTaken;
                 _sqlCommand.Parameters.Add(new System.Data.SqlClient.SqlParameter("@DateEntered", System.Data.SqlDbType.DateTime2)).Value = System.DateTime.Now;
+                _sqlCommand.Parameters.Add("@NearMiss_ID", SqlDbType.Int).Direction = ParameterDirection.Output;
 
                 _sqlConnection.Open();
-
                 _sqlCommand.ExecuteNonQuery();
 
-                intNearMissID = int.Parse(_sqlCommand.Parameters["@NearMiss_ID"].Value.ToString());
+                intNearMissID = Convert.ToInt32(_sqlCommand.Parameters["@NearMiss_ID"].Value);
             }
 
             return intNearMissID;

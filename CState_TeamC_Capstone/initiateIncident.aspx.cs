@@ -22,11 +22,6 @@ namespace CState_TeamC_Capstone
             firstnamelastname.InnerText = GetFirstNameLastName();          
         }
 
-        //protected void txtBadgeNumber_TextChanged(object sender, EventArgs e)
-        //{
-        //    string strOperatorName = GetOpertorName();
-
-        //}
         private List<Department> LoadDepartments()
         {
             lstDepartments = new List<Department>();
@@ -83,87 +78,51 @@ namespace CState_TeamC_Capstone
         
         protected void btnSubmit_Click(object sender, EventArgs e)
         {
-            int intDepartment_ID = int.Parse(Request.Form["sltDepartment"].ToString());
-            int intNearMissType_ID = int.Parse(Request.Form["sltNMType"].ToString());
-            string strDepartment = (Request.Form["sltDepartment"].ToString());
-            string strNearMissType = (Request.Form["sltNMType"].ToString());
-
-            try
+            try 
             {
+                int intDepartment_ID = Convert.ToInt32(Request.Form["sltDepartment"]);
+                int intNearMissType_ID = Convert.ToInt32(Request.Form["sltNMType"]);
                 string dteNearMissDate = Convert.ToString(Request.Form["dteIncident"]);
                 int intBadgeNumber = Convert.ToInt32(Request.Form["txtBadgeNumber"]);
-                string strBadgeNumber = Request.Form["txtBadgeNumber"];
                 string strNearMissSolution = Request.Form["txaSolution"];
                 string strNearMiss_ActionTaken = Request.Form["txaActionTaken"];
-                string strOperatorName = "";
-                //string qry = "";
-                //string strEmail = "";
+
+                string strOperatorName = GetOperatorName(intBadgeNumber);
                 
+                int intMearMissID = Shared.InsertNearMissRecord(dteNearMissDate, strOperatorName, intDepartment_ID, intNearMissType_ID, strNearMissSolution, strNearMiss_ActionTaken);
 
-                SqlConnection conn = new SqlConnection(ConfigurationManager.ConnectionStrings["sqlConn"].ToString());
-                conn.Open();
+                // Get list of EHS members
+                List<string> lsttEHSMembers = EHSList();
 
-                strOperatorName = GetOpertorName();
-                
-                Shared.InsertNearMissRecord(dteNearMissDate, strOperatorName, intDepartment_ID, intNearMissType_ID, strNearMissSolution, strNearMiss_ActionTaken);
-                         
-                //if (Request.Form["txtBadgeNumber"] != "")
-                //{
-                //   //int intID = cmd.Parameters["@ID"].Value.ToString();
-                //    string strID;
-
-                //    //qry = "SELECT * FROM Data.NearMissRecord WHERE strID = @ID";
-                //    strEmail = "vlmccomas@cincinnatistate.edu";
-
-                //    using (SqlCommand cmd = new SqlCommand(qry, conn))
-                //    {
-
-                //        SqlDataReader sdr = cmd.ExecuteReader();
-                //        if (sdr.Read())
-                //        {
-                //            var idParam = new SqlParameter("@ID", System.Data.SqlDbType.Int);
-                //            idParam.Value = cmd.ExecuteScalar();
-                //            cmd.Parameters.Add(idParam);
-
-                //            var nearMissDateParam = new SqlParameter("@NearMissDate", System.Data.SqlDbType.DateTime);
-                //            nearMissDateParam.Value = dteNearMissDate;
-                //            cmd.Parameters.Add(nearMissDateParam);
-
-                //            var operatorNameParam = new SqlParameter("@OperatorName", System.Data.SqlDbType.VarChar);
-                //            operatorNameParam.Value = strOperatorName;
-                //            cmd.Parameters.Add(operatorNameParam);
-
-                //            var departmentParam = new SqlParameter("@Department_ID", System.Data.SqlDbType.VarChar);
-                //            departmentParam.Value = strDepartment;
-                //            cmd.Parameters.Add(departmentParam);
-
-                //            var nearMissParam = new SqlParameter("@NearMiss_ID", System.Data.SqlDbType.VarChar);
-                //            nearMissParam.Value = strNearMissType;
-                //            cmd.Parameters.Add(nearMissParam);
-
-                //            var nearMissSolutionParam = new SqlParameter("@NearMiss_Solution", System.Data.SqlDbType.VarChar);
-                //            nearMissSolutionParam.Value = strNearMissSolution;
-                //            cmd.Parameters.Add(nearMissSolutionParam);
-
-                //            var nearMissActionTakenParam = new SqlParameter("@NearMiss_ActionTaken", System.Data.SqlDbType.VarChar);
-                //            nearMissActionTakenParam.Value = strNearMiss_ActionTaken;
-                //            cmd.Parameters.Add(nearMissActionTakenParam);
-
-                //            // Send EHS Review Email
-                //           // sendEHSReviewEmail(strID, strEmail);
-                //        }
-                    //    conn.Close();
-                    //}
-
-                    //Redirect to success new user page
-                //    Response.Redirect("signIn.aspx");
-                //}
-            }
+                // Send EHS Review Email
+                SendEHSReviewEmail(intMearMissID, lsttEHSMembers);
+			}
 
             catch (Exception ex)
             {
                 Response.Write(ex.Message);
             }
+        }
+
+        private List<string> EHSList()
+        {
+            List<string> lsttEHSMembers = new List<string>();
+
+            SqlConnection conn = new SqlConnection(ConfigurationManager.ConnectionStrings["sqlConn"].ToString());
+            conn.Open();
+            string qry = "SELECT DE.Email FROM Data.Employee AS DE JOIN Config.EmployeeRole AS CER ON DE.Person_ID = CER.Person_ID WHERE CER.Role_ID = 2";
+            using (SqlCommand cmd = new SqlCommand(qry, conn)) {
+                SqlDataReader sdr = cmd.ExecuteReader();
+
+                while (sdr.Read()) {
+                    lsttEHSMembers.Add(sdr["Email"].ToString());
+				}
+
+                cmd.Dispose();
+                conn.Close();
+            }
+
+            return lsttEHSMembers;
         }
 
         private string GetFirstNameLastName()
@@ -176,7 +135,7 @@ namespace CState_TeamC_Capstone
             string qry = "SELECT * FROM Data.Employee WHERE Person_ID = @id";
             using (SqlCommand cmd = new SqlCommand(qry, conn))
             {
-                var idParam = new SqlParameter("@id", System.Data.SqlDbType.VarChar);
+                var idParam = new SqlParameter("@id", System.Data.SqlDbType.Int);
                 idParam.Value = intUserID;
                 cmd.Parameters.Add(idParam);
 
@@ -191,21 +150,23 @@ namespace CState_TeamC_Capstone
 
             return strfirstnamelastname;
         }
-        private string GetOpertorName()
+        private string GetOperatorName(int intBadgeNumber)
         {
-            string strOperatorName;
-
-            string strBadgeNumber = (Request.Form["txtBadgeNumber"].ToString());
+            string strOperatorName = "";
 
             SqlConnection conn = new SqlConnection(ConfigurationManager.ConnectionStrings["sqlConn"].ToString());
             conn.Open();
-            string qry = "SELECT * FROM Data.Employee WHERE Employee_ID ='" + strBadgeNumber + "'";
+            string qry = "SELECT First_Name, Last_Name FROM Data.Employee WHERE Employee_ID =@id";
             using (SqlCommand cmd = new SqlCommand(qry, conn))
             {
-                SqlDataReader sdr = cmd.ExecuteReader();
-                sdr.Read();
+                var idParam = new SqlParameter("@id", System.Data.SqlDbType.Int);
+                idParam.Value = intBadgeNumber;
+                cmd.Parameters.Add(idParam);
 
-                strOperatorName = sdr["Last_Name"].ToString() + ", " + sdr["First_Name"].ToString();
+                SqlDataReader sdr = cmd.ExecuteReader();
+                if (sdr.Read()) {
+                    strOperatorName = sdr["Last_Name"].ToString() + ", " + sdr["First_Name"].ToString();
+                }
 
                 cmd.Dispose();
                 conn.Close();
@@ -214,20 +175,12 @@ namespace CState_TeamC_Capstone
             return strOperatorName;
         }
 
-        private void sendEHSReviewEmail(string strUsername, string strEmail)
+        private void SendEHSReviewEmail(int intNearMissID, List<string> lsttEHSMembers)
         {
-            SmtpSection section = (SmtpSection)ConfigurationManager.GetSection("system.net/mailSettings/smtp");
-            MailMessage mailMessage = new MailMessage(section.Network.UserName, strEmail);
-
-            string strID = "";
-
-            //while (sdr.Read())
-            //{
-            //    if (i != numberOfRecords)
-            //    {
-            //        strEmail += sdr["Email"] + ", "
-            //    }
-            //}
+            MailMessage mailMessage = new MailMessage();
+            foreach (string strEmail in lsttEHSMembers) {
+                mailMessage.To.Add(new MailAddress(strEmail));
+			}
 
             string templatePath = HttpRuntime.AppDomainAppPath + "/emailEHSNotificationTemplate.html";
             StreamReader sr = new StreamReader(templatePath);
@@ -235,13 +188,12 @@ namespace CState_TeamC_Capstone
             sr.Close();
 
             // Replace the template placeholder variables
-            strEmailBody = strEmailBody.Replace("[strUsername]", strUsername);
-            strEmailBody = strEmailBody.Replace("[actionURL]", ConfigurationManager.AppSettings["mainURL"] + "reviewIncident?NearMissID=" + strID);
-            strEmailBody = strEmailBody.Replace("[mainURL]", ConfigurationManager.AppSettings["mainURL"] + "signIn");
+            strEmailBody = strEmailBody.Replace("[actionURL]", ConfigurationManager.AppSettings["mainURL"] + "reviewIncident?NearMissID=" + intNearMissID.ToString());
+            strEmailBody = strEmailBody.Replace("[mainURL]", ConfigurationManager.AppSettings["mainURL"]);
 
             mailMessage.IsBodyHtml = true;
             mailMessage.Body = strEmailBody;
-            mailMessage.Subject = "Forgot Username?";
+            mailMessage.Subject = "Near Miss Incident Requiring Review";
             SmtpClient smtpClient = new SmtpClient();
             smtpClient.Send(mailMessage);
         }
