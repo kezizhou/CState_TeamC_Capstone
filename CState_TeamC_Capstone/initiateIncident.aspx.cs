@@ -13,20 +13,19 @@ namespace CState_TeamC_Capstone
 {
     public partial class initiateIncident : System.Web.UI.Page
     {
+      
         protected List<Department> lstDepartments { get; set; }
         protected List<NearMissType> lstNMType { get; set; }
+
+
         protected void Page_Load(object sender, EventArgs e)
         {
             lstDepartments = LoadDepartments();
             lstNMType = LoadNearMissType();
-            firstnamelastname.InnerText = GetFirstNameLastName();          
+            firstnamelastname.InnerText = GetFirstNameLastName();
         }
 
-        //protected void txtBadgeNumber_TextChanged(object sender, EventArgs e)
-        //{
-        //    string strOperatorName = GetOpertorName();
 
-        //}
         private List<Department> LoadDepartments()
         {
             lstDepartments = new List<Department>();
@@ -36,7 +35,7 @@ namespace CState_TeamC_Capstone
             string qry = "SELECT ID, Department FROM Reference.Department ";
 
             // Fill in with user's existing roles
-             using (SqlCommand cmd = new SqlCommand(qry, conn))
+            using (SqlCommand cmd = new SqlCommand(qry, conn))
             {
                 string strID = "";
                 string strDepartment = "";
@@ -80,7 +79,8 @@ namespace CState_TeamC_Capstone
 
             return lstNMType;
         }
-        
+
+
         protected void btnSubmit_Click(object sender, EventArgs e)
         {
             int intDepartment_ID = int.Parse(Request.Form["sltDepartment"].ToString());
@@ -97,74 +97,116 @@ namespace CState_TeamC_Capstone
                 string strNearMiss_ActionTaken = Request.Form["txaActionTaken"];
                 string strOperatorName = "";
                 //string qry = "";
-                //string strEmail = "";
-                
+               // string strEmail = "";
+                string lblMessage = Request.Form["lblMessage"];
+                //string strID;
+
+                //SqlConnection conn = new SqlConnection(ConfigurationManager.ConnectionStrings["sqlConn"].ToString());
+                //conn.Open();
+                // Shared.InsertNearMissRecord(dteNearMissDate, strOperatorName, intDepartment_ID, intNearMissType_ID, strNearMissSolution, strNearMiss_ActionTaken);
 
                 SqlConnection conn = new SqlConnection(ConfigurationManager.ConnectionStrings["sqlConn"].ToString());
                 conn.Open();
+                SqlCommand cmd = new SqlCommand();
+                cmd.CommandType = CommandType.StoredProcedure;
+                cmd.CommandText = "InsertNearMissRecord";
+
+                cmd.Parameters.Add("@NearMissDate", SqlDbType.DateTime).Value = dteNearMissDate;
+                cmd.Parameters.Add("@OperatorName", SqlDbType.VarChar).Value = strOperatorName;
+                cmd.Parameters.Add("@Department_ID", SqlDbType.Int).Value = intDepartment_ID;
+                cmd.Parameters.Add("@NearMissType_ID", SqlDbType.Int).Value = intNearMissType_ID;
+                cmd.Parameters.Add("@NearMiss_Solution", SqlDbType.VarChar).Value = strNearMissSolution;
+                cmd.Parameters.Add("@NearMiss_ActionTaken", SqlDbType.VarChar).Value = strNearMiss_ActionTaken;
+                cmd.Parameters.Add("@DateEntered", SqlDbType.DateTime2).Value = System.DateTime.Now;
+
+                cmd.Connection = conn;
+                try
+                {
+                    conn.Open();
+                    object obj = cmd.ExecuteScalar();
+                    lblMessage = obj.ToString();
+
+                }
+                catch (Exception ex)
+                {
+                    throw ex;
+                }
+                finally
+                {
+                    conn.Close();
+                    conn.Dispose();
+                }
 
                 strOperatorName = GetOpertorName();
-                
-                Shared.InsertNearMissRecord(dteNearMissDate, strOperatorName, intDepartment_ID, intNearMissType_ID, strNearMissSolution, strNearMiss_ActionTaken);
-                         
-                //if (Request.Form["txtBadgeNumber"] != "")
-                //{
-                //   //int intID = cmd.Parameters["@ID"].Value.ToString();
-                //    string strID;
 
-                //    //qry = "SELECT * FROM Data.NearMissRecord WHERE strID = @ID";
-                //    strEmail = "vlmccomas@cincinnatistate.edu";
-
-                //    using (SqlCommand cmd = new SqlCommand(qry, conn))
-                //    {
-
-                //        SqlDataReader sdr = cmd.ExecuteReader();
-                //        if (sdr.Read())
-                //        {
-                //            var idParam = new SqlParameter("@ID", System.Data.SqlDbType.Int);
-                //            idParam.Value = cmd.ExecuteScalar();
-                //            cmd.Parameters.Add(idParam);
-
-                //            var nearMissDateParam = new SqlParameter("@NearMissDate", System.Data.SqlDbType.DateTime);
-                //            nearMissDateParam.Value = dteNearMissDate;
-                //            cmd.Parameters.Add(nearMissDateParam);
-
-                //            var operatorNameParam = new SqlParameter("@OperatorName", System.Data.SqlDbType.VarChar);
-                //            operatorNameParam.Value = strOperatorName;
-                //            cmd.Parameters.Add(operatorNameParam);
-
-                //            var departmentParam = new SqlParameter("@Department_ID", System.Data.SqlDbType.VarChar);
-                //            departmentParam.Value = strDepartment;
-                //            cmd.Parameters.Add(departmentParam);
-
-                //            var nearMissParam = new SqlParameter("@NearMiss_ID", System.Data.SqlDbType.VarChar);
-                //            nearMissParam.Value = strNearMissType;
-                //            cmd.Parameters.Add(nearMissParam);
-
-                //            var nearMissSolutionParam = new SqlParameter("@NearMiss_Solution", System.Data.SqlDbType.VarChar);
-                //            nearMissSolutionParam.Value = strNearMissSolution;
-                //            cmd.Parameters.Add(nearMissSolutionParam);
-
-                //            var nearMissActionTakenParam = new SqlParameter("@NearMiss_ActionTaken", System.Data.SqlDbType.VarChar);
-                //            nearMissActionTakenParam.Value = strNearMiss_ActionTaken;
-                //            cmd.Parameters.Add(nearMissActionTakenParam);
-
-                //            // Send EHS Review Email
-                //           // sendEHSReviewEmail(strID, strEmail);
-                //        }
-                    //    conn.Close();
-                    //}
-
-                    //Redirect to success new user page
-                //    Response.Redirect("signIn.aspx");
-                //}
+               //Redirect to success new user page
+                Response.Redirect("signIn.aspx");
             }
-
             catch (Exception ex)
             {
                 Response.Write(ex.Message);
             }
         }
+
+
+
+
+        //qry = "SELECT * FROM Data.NearMissRecord WHERE strID = @ID";
+        //strEmail = "vlmccomas@cincinnatistate.edu";
+
+        //if (Request.Form["txtBadgeNumber"] != "")
+        //{
+        //int intID = cmd.Parameters["@ID"].Value.ToString();
+        //using (SqlCommand cmd = new SqlCommand(qry, conn))
+        //{
+
+        //    SqlDataReader sdr = cmd.ExecuteReader();
+        //    if (sdr.Read())
+        //    {
+        //        var idParam = new SqlParameter("@ID", System.Data.SqlDbType.Int);
+        //        idParam.Value = cmd.ExecuteScalar();
+        //        cmd.Parameters.Add(idParam);
+
+        //        var nearMissDateParam = new SqlParameter("@NearMissDate", System.Data.SqlDbType.DateTime);
+        //        nearMissDateParam.Value = dteNearMissDate;
+        //        cmd.Parameters.Add(nearMissDateParam);
+
+        //        var operatorNameParam = new SqlParameter("@OperatorName", System.Data.SqlDbType.VarChar);
+        //        operatorNameParam.Value = strOperatorName;
+        //        cmd.Parameters.Add(operatorNameParam);
+
+        //        var departmentParam = new SqlParameter("@Department_ID", System.Data.SqlDbType.VarChar);
+        //        departmentParam.Value = strDepartment;
+        //        cmd.Parameters.Add(departmentParam);
+
+        //        var nearMissParam = new SqlParameter("@NearMiss_ID", System.Data.SqlDbType.VarChar);
+        //        nearMissParam.Value = strNearMissType;
+        //        cmd.Parameters.Add(nearMissParam);
+
+        //        var nearMissSolutionParam = new SqlParameter("@NearMiss_Solution", System.Data.SqlDbType.VarChar);
+        //        nearMissSolutionParam.Value = strNearMissSolution;
+        //        cmd.Parameters.Add(nearMissSolutionParam);
+
+        //        var nearMissActionTakenParam = new SqlParameter("@NearMiss_ActionTaken", System.Data.SqlDbType.VarChar);
+        //        nearMissActionTakenParam.Value = strNearMiss_ActionTaken;
+        //        cmd.Parameters.Add(nearMissActionTakenParam);
+
+        //        // Send EHS Review Email
+        //        // sendEHSReviewEmail(strID, strEmail);
+        //            }
+        //            conn.Close();
+        //        }
+
+        //        //Redirect to success new user page
+        //        Response.Redirect("signIn.aspx");
+        //    }
+        //}
+
+        //    catch (Exception ex)
+        //    {
+        //        Response.Write(ex.Message);
+        //    }
+        //}
 
         private string GetFirstNameLastName()
         {

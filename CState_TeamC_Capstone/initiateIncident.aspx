@@ -46,7 +46,8 @@
                             <option value="<%= nearmisstype.strID %>"><%= nearmisstype.strNearMissType %></option>
                         <% } %>
                     </select>
-                </div>
+                    <a href="/typeInstructions.aspx?NearMissType_ID=strID?NearMissType_ID=4" target="_top" >Near Miss Type Tips to Resolve</a>
+              </div>
                 <div class="form-group">
                     <label for="txaSolution" class="control-label"> Near Miss Proposed Solution: </label>
                     <textarea name="txaSolution" id="txaSolution" class="form-control" rows="8" required="required"></textarea>
@@ -59,6 +60,9 @@
                 
                 <div class="container">
                     <button type="submit" id="btnSubmit" class="btn btn-primary btn-sm center" runat="server" onserverclick="btnSubmit_Click">Submit New User</button>
+                </div>
+                <div class ="container">
+                    <label for="lblMessage" class="control-label" runat="server">Record inserted successfully.  NearMiss_ID = </label>
                 </div>
             </form>
         </div>
