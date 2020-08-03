@@ -67,5 +67,6 @@
 <asp:Content ID="Content3" ContentPlaceHolderID="ScriptContent" Runat="Server">
     <!-- Validation JQuery -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.19.2/jquery.validate.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.19.2/additional-methods.js"></script>
     <script src="Scripts/initiateIncident.js"></script>
 </asp:Content>

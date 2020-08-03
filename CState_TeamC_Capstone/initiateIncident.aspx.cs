@@ -8,6 +8,7 @@ using System.Net.Configuration;
 using System.Net.Mail;
 using System.IO;
 using System.Data;
+using System.Web.Services;
 
 namespace CState_TeamC_Capstone
 {
@@ -198,6 +199,32 @@ namespace CState_TeamC_Capstone
             smtpClient.Send(mailMessage);
         }
 
+        [WebMethod]
+        public static bool CheckValidID(string strBadgeNumber) {
+            bool blnValid = false;
+
+            try {
+                SqlConnection conn = new SqlConnection(ConfigurationManager.ConnectionStrings["sqlConn"].ToString());
+                conn.Open();
+                string qry = "SELECT * FROM Data.Employee WHERE Employee_ID = @id";
+                using (SqlCommand cmd = new SqlCommand(qry, conn)) {
+                    var idParam = new SqlParameter("@id", System.Data.SqlDbType.Int);
+                    idParam.Value = strBadgeNumber;
+                    cmd.Parameters.Add(idParam);
+
+                    SqlDataReader sdr = cmd.ExecuteReader();
+                    if (sdr.Read()) {
+                        blnValid = true;
+                    }
+                    cmd.Dispose();
+                    conn.Close();
+                }
+            } catch (Exception ex) {
+                HttpContext.Current.Response.Write(ex.Message);
+            }
+
+            return blnValid;
+        }
     }
 }
 
