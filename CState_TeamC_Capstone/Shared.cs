@@ -692,7 +692,14 @@ namespace CState_TeamC_Capstone
         public static List<Filters> GetNearMissRecordIDUpdateActionPage()
         {
             var searchQueryResults = new List<Filters>();
-            string queryString = @"SELECT ID, ID FROM[Data].[NearMissRecord]";
+            string queryString = @"SELECT data.NearMissRecord.ID, data.NearMissRecord.ID FROM[Data].[NearMissRecord]
+  INNER JOIN data.NearMiss_ReviewLog ON data.NearMissRecord.ID = data.NearMiss_ReviewLog.NearMiss_ID
+INNER JOIN Reference.NearMissType ON Reference.NearMissType.ID = data.NearMissRecord.NearMissType_ID
+INNER JOIN Reference.SeverityofInjury ON Reference.SeverityofInjury.ID = data.NearMiss_ReviewLog.Severity_ID
+INNER JOIN Reference.RiskLevel ON Reference.RiskLevel.ID = data.NearMiss_ReviewLog.Risk_ID
+  WHERE data.NearMiss_ReviewLog.AssignedTo IS NOT NULL
+  AND data.NearMiss_ReviewLog.Severity_ID IS NOT NULL
+  AND data.NearMiss_ReviewLog.Severity_ID IS NOT NULL";
 
             using (SqlConnection connection = new SqlConnection(sqlConn))
             {
