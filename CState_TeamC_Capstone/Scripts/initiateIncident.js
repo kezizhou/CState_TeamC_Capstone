@@ -22,7 +22,20 @@ $(function () {
                 required: true,
                 minlength: 6,
                 maxlength: 6,
-                number: true
+                number: true,
+                remote: function () {
+                    var r = {
+                        url: "initiateIncident.aspx/CheckValidID",
+                        type: "post",
+                        contentType: "application/json; charset=utf-8",
+                        dataType: "json",
+                        data: "{'strBadgeNumber': '" + $('#txtBadgeNumber').val() + "'}",
+                        dataFilter: function (data) {
+                            return (JSON.parse(data)).d;
+                        }
+                    }
+                    return r;
+                }
             },
             sltDepartment: {
                 required: true,
@@ -48,8 +61,9 @@ $(function () {
             txtBadgeNumber: {
                 required: "Enter badge number",
                 minlength: "Badge number must be 6 digits",
-                maxlength: "Maximum badge number is 10 characters",
-                number: "Enter numbers only for badge number"
+                maxlength: "Badge number must be 6 digits",
+                number: "Enter numbers only for badge number",
+                remote: "Invalid badge number entered"
             },
             sltDepartment: "Select department",
             sltNMType: "Select near miss type",

@@ -57,7 +57,6 @@ $(function () {
                     }
                     return r;
                 }
-
             },
             sltDepartment: {
                 required: true,

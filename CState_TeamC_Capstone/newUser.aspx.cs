@@ -78,8 +78,12 @@ namespace CState_TeamC_Capstone
             try {
                 SqlConnection conn = new SqlConnection(ConfigurationManager.ConnectionStrings["sqlConn"].ToString());
                 conn.Open();
-                string qry = "SELECT * FROM Data.Employee WHERE Username = '" + strUsername + "'";
+                string qry = "SELECT * FROM Data.Employee WHERE Username = @username";
                 using (SqlCommand cmd = new SqlCommand(qry, conn)) {
+                    var usernameParam = new SqlParameter("@username", System.Data.SqlDbType.VarChar);
+                    usernameParam.Value = strUsername;
+                    cmd.Parameters.Add(usernameParam);
+
                     SqlDataReader sdr = cmd.ExecuteReader();
                     if (sdr.Read()) {
                         blnDuplicate = false;
@@ -92,7 +96,7 @@ namespace CState_TeamC_Capstone
             }
 
             return blnDuplicate;
-		    }
+		}
 
         [WebMethod]
         public static bool CheckDuplicateEmail(string strEmail) {
@@ -101,8 +105,12 @@ namespace CState_TeamC_Capstone
             try {
                 SqlConnection conn = new SqlConnection(ConfigurationManager.ConnectionStrings["sqlConn"].ToString());
                 conn.Open();
-                string qry = "SELECT * FROM Data.Employee WHERE Email = '" + strEmail + "'";
+                string qry = "SELECT * FROM Data.Employee WHERE Email = @email";
                 using (SqlCommand cmd = new SqlCommand(qry, conn)) {
+                    var emailParam = new SqlParameter("@email", System.Data.SqlDbType.VarChar);
+                    emailParam.Value = strEmail;
+                    cmd.Parameters.Add(emailParam);
+
                     SqlDataReader sdr = cmd.ExecuteReader();
                     if (sdr.Read()) {
                         blnDuplicate = false;
