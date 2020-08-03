@@ -19,7 +19,14 @@ function drawNearMissTypesChart() {
         colors: ['#c55d86', '#75b74b', '#c15abc', '#009999', '#7768ca', '#c69442', '#6c93d0', '#cb5842', '#6f823b'],
         chartArea: {
             width: '100%',
-            height: '425',
+            height: '90%',
+        },
+        legend: {
+            textStyle: {
+                color: '#757575',
+                fontName: 'Roboto',
+                fontSize: '15'
+            }
         },
         sliceVisibilityThreshold: 0
     };
@@ -83,10 +90,13 @@ function drawInjurySeverityChart() {
             // Use https://learnui.design/tools/data-color-picker.html for more color schemes
             colors: colors,
             isStacked: 'true',
-            height: '425',
+            height: '100%',
             width: data.getNumberOfRows() * 150 + 300,
             bar: {
                 groupWidth: '75%'
+            },
+            hAxis: {
+                title: ''
             },
             vAxis: {
                 viewWindow: {
@@ -126,7 +136,6 @@ function drawInjurySeverityChart() {
         var chart = new google.visualization.ChartWrapper({
             chartType: 'Bar',
             containerId: 'riskSeverityChart',
-            //dataTable: data,
             options: google.charts.Bar.convertOptions(options)
         });
 
@@ -136,7 +145,6 @@ function drawInjurySeverityChart() {
         var columnFilter = new google.visualization.ControlWrapper({
             controlType: 'CategoryFilter',
             containerId: 'srByDepartmentFilter',
-            //dataTable: columnsTable,
             options: {
                 filterColumnLabel: 'Departments',
                 //useFormattedValue: true,
@@ -201,15 +209,14 @@ function drawDepartmentNearMissTypesChart() {
         }
 
         var options = {
-            legend: {
-                position: 'top',
-                maxLines: '2'
-            },
             isStacked: 'true',
-            height: '100%',
+            height: '385',
             width: data.getNumberOfRows() * 160 + 300,
             bar: {
                 groupWidth: '75%'
+            },
+            hAxis: {
+                title: ''
             },
             vAxis: {
                 viewWindow: {
