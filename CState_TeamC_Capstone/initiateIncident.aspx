@@ -7,14 +7,13 @@
 <asp:Content ID="Content2" ContentPlaceHolderID="MainContent" Runat="Server">
     <main role="main" class="container-fluid">
         <h2>Report a New Incident</h2>
-        <h5>Welcome:  <span id="firstnamelastname" class="control-label" runat="server">
-             <!-- User initials here -->
-             XX
+        <h5>Welcome:  
+            <span id="firstnamelastname" class="control-label" runat="server">
             </span>
         </h5>
         <!-- Form -->
         <div class="container">
-            <form name="frmNewIncident" id="frmNewIncident" method="post" action="#" runat="server">
+            <form name="frmNewIncident" id="frmNewIncident" method="post" action="#" runat="server" onsubmit="return $('#frmNewIncident').valid()">
                 <div class="form-group">
                     <label for="dteIncident" class="control-label">Date of Near Miss:</label>
                     <input id="dteIncident" name="dteIncident" class="form-control" type="date" required="required"/>
@@ -48,17 +47,17 @@
                     </select>
                 </div>
                 <div class="form-group">
-                    <label for="txaSolution" class="control-label"> Near Miss Proposed Solution: </label>
+                    <label for="txaSolution" class="control-label"> Near Miss Proposed Solution:</label>
                     <textarea name="txaSolution" id="txaSolution" class="form-control" rows="8" required="required"></textarea>
                 </div>
 
                 <div class="form-group">
-                    <label for="txaActionTaken" class="control-label"> Action Taken: </label>
+                    <label for="txaActionTaken" class="control-label"> Action Taken:</label>
                     <textarea name="txaActionTaken" id="txaActionTaken" class="form-control" rows="8" required="required"></textarea>
                 </div>
                 
                 <div class="container">
-                    <button type="submit" id="btnSubmit" class="btn btn-primary btn-sm center" runat="server" onserverclick="btnSubmit_Click">Submit New User</button>
+                    <button type="submit" id="btnSubmit" class="btn btn-primary btn-sm center" runat="server" onserverclick="btnSubmit_Click">Submit New Incident</button>
                 </div>
             </form>
         </div>
@@ -68,5 +67,6 @@
 <asp:Content ID="Content3" ContentPlaceHolderID="ScriptContent" Runat="Server">
     <!-- Validation JQuery -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.19.2/jquery.validate.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.19.2/additional-methods.js"></script>
     <script src="Scripts/initiateIncident.js"></script>
 </asp:Content>

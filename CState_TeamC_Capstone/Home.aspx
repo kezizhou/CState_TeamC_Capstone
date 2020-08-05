@@ -47,18 +47,22 @@
 
         <div class="container-fluid">
             <div class="row">
-                <div class="container-fluid chartContainer col-lg-auto">
+                <div class="container-fluid col-lg-auto">
                     <div id="riskSeverityChart"></div>
-                    <div id="srByDepartmentFilter" class="filter"></div>
+                    <div class="filterContainer">
+                        <div id="srByDepartmentFilter" class="filter"></div>
+                    </div>
                 </div>
                 <div class="w-100"></div>
-                <div class="container-fluid chartContainer col-lg-auto">
+                <div class="container-fluid col-lg-auto chartContainer">
                     <div id="departmentNearMissTypesChart"></div>
-                    <div id="typeByDepartmentFilter" class="filter"></div>
-                    <div id="nearMissTypeFilter" class="filter"></div>
+                    <div class="filterContainer">
+                        <div id="typeByDepartmentFilter" class="filter"></div>
+                        <div id="nearMissTypeFilter" class="filter"></div>
+                    </div>
                 </div>
-                <div class="container-fluid chartContainer col-lg-auto">
-                    <span class="chartHeading">Frequency of Near Miss Types</span>
+                <div class="container-fluid col-lg-auto">
+                    <div class="chartHeading">Frequency of Near Miss Types</div>
                     <div id="nearMissTypesChart"></div>
                 </div>
             </div>

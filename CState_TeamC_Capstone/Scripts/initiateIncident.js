@@ -1,7 +1,12 @@
 ﻿// Wait for the DOM to be ready
 $(function () {
-    // Initialize form validation on the registration form.
-    // It has the name attribute "registration"
+    $.validator.addMethod("maxDate", function (value, element) {
+        var curDate = new Date();
+        var inputDate = new Date(value);
+        return this.optional(element) || inputDate <= curDate;
+    }, "Date cannot be after today");
+
+    // Initialize form validation
     $("#frmNewIncident").validate({
         // Specify validation rules
         rules: {
@@ -11,19 +16,31 @@ $(function () {
             // on the right side
             dteIncident: {
                 required: true,
-                minlength: 3,
-                maxlength: 20
+                maxDate: true
             },
             txtBadgeNumber: {
                 required: true,
-                minlength: 3,
-                maxlength: 15,
-                number: true
+                minlength: 6,
+                maxlength: 6,
+                number: true,
+                remote: function () {
+                    var r = {
+                        url: "initiateIncident.aspx/CheckValidID",
+                        type: "post",
+                        contentType: "application/json; charset=utf-8",
+                        dataType: "json",
+                        data: "{'strBadgeNumber': '" + $('#txtBadgeNumber').val() + "'}",
+                        dataFilter: function (data) {
+                            return (JSON.parse(data)).d;
+                        }
+                    }
+                    return r;
+                }
             },
             sltDepartment: {
                 required: true,
             },
-            sltType: {
+            sltNMType: {
                 required: true,
             },
             txaSolution: {
@@ -39,15 +56,17 @@ $(function () {
         messages: {
             dteIncident: {
                 required: "Select date",
+                maxDate: "Date cannot be after today"
             },
             txtBadgeNumber: {
                 required: "Enter badge number",
-                minlength: "Minimum badge number is 4 characters",
-                maxlength: "Maximum badge number is 10 characters",
-                number: "Enter numbers only for badge number"
+                minlength: "Badge number must be 6 digits",
+                maxlength: "Badge number must be 6 digits",
+                number: "Enter numbers only for badge number",
+                remote: "Invalid badge number entered"
             },
             sltDepartment: "Select department",
-            sltType: "Select near miss type",
+            sltNMType: "Select near miss type",
             txaSolution: {
                 minlength: "Minimum description is 5 characters",
             },
@@ -56,6 +75,9 @@ $(function () {
                 minlength: "Minimum description is 5 characters",
             },
         },
+
+        // Remove focus on validate
+        focusInvalid: false,
 
         // Uncomment for eager validation - Validate when focus leaves
         //onfocusout: function (element) {

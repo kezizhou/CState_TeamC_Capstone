@@ -87,8 +87,12 @@ namespace CState_TeamC_Capstone {
 
 				if (DateTime.Parse(strStartDate).Date == DateTime.Now.Date && DateTime.Parse(strEndDate).Date == DateTime.Now.Date) {
 					// Date filter not changed, show all data
-					qry = "EXEC SP.GetIncidentsBetweenDates @StartDate = '1/1/1753', @EndDate = '12/31/9999'";
+					qry = "EXEC SP.GetIncidentsBetweenDates @StartDate = '1/1/1753', @EndDate = @today";
 					using (SqlDataAdapter sda = new SqlDataAdapter(qry, conn)) {
+						var endDateParam = new SqlParameter("@today", System.Data.SqlDbType.DateTime);
+						endDateParam.Value = strEndDate;
+						sda.SelectCommand.Parameters.Add(endDateParam);
+
 						sda.Fill(dt);
 
 						sda.Dispose();
@@ -235,9 +239,13 @@ namespace CState_TeamC_Capstone {
 				conn.Open();
 				if (DateTime.Parse(strStartDate).Date == DateTime.Now.Date && DateTime.Parse(strEndDate).Date == DateTime.Now.Date) {
 					// Date filter not changed, show all data
-					qry = "EXEC SP.GetIncidentsBetweenDates @StartDate = '1/1/1753', @EndDate = '12/31/9999'";
+					qry = "EXEC SP.GetIncidentsBetweenDates @StartDate = '1/1/1753', @EndDate = @today";
 
 					using (SqlDataAdapter sda = new SqlDataAdapter(qry, conn)) {
+						var endDateParam = new SqlParameter("@today", System.Data.SqlDbType.DateTime);
+						endDateParam.Value = strEndDate;
+						sda.SelectCommand.Parameters.Add(endDateParam);
+
 						sda.Fill(dt);
 
 						sda.Dispose();
