@@ -1,6 +1,7 @@
 ﻿using CState_TeamC_Capstone.DomainObjects;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Web.UI.WebControls;
 
@@ -99,6 +100,20 @@ namespace CState_TeamC_Capstone
         protected void Clear(object sender, EventArgs e)
         {
             SetPage(1);
+        }
+        protected void Export(object sender, EventArgs e)
+        {
+            var exportExcell = Shared.GetExcellTableExport();
+            var excellBytes = Services.ExcellGeneration.CreateExcelDocument(exportExcell);
+
+            string myName = Server.UrlEncode("NearMissReports.xlsx");
+
+            Response.Clear();
+            Response.Buffer = true;
+            Response.AddHeader("content-disposition", "attachment; filename=" + myName);
+            Response.ContentType = "application/vnd.ms-excel";
+            Response.BinaryWrite(excellBytes);
+            Response.End();
         }
     }
 }
