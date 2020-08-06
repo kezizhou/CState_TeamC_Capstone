@@ -1,9 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
 using System.Web.UI;
-using System.Web.UI.WebControls;
 
 namespace CState_TeamC_Capstone {
 	public partial class reset : System.Web.UI.Page {
@@ -28,6 +24,11 @@ namespace CState_TeamC_Capstone {
 					case "unauthorizedUser":
 						Page.Title = "Near Miss Reporting - Unauthorized";
 						confirmMessage.InnerText = "Error: This page cannot be viewed because you are not signed in or not authorized to view this page.";
+						messageDiv.Attributes.Add("class", messageDiv.Attributes["class"].ToString().Replace("message", "invalid"));
+						break;
+					case "error":
+						Page.Title = "Near Miss Reporting - Error";
+						confirmMessage.InnerText = "Error: There was an error processing your request. Please try again.";
 						messageDiv.Attributes.Add("class", messageDiv.Attributes["class"].ToString().Replace("message", "invalid"));
 						break;
 					default:

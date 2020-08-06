@@ -218,13 +218,13 @@ function drawDepartmentNearMissTypesChart() {
             hAxis: {
                 title: ''
             },
-            vAxis: {
-                viewWindow: {
-                    // Change this number to a multiple of 6 to have whole number y-axis labels
-                    max: '6',
-                    min: '0'
-                }
-            },
+            //vAxis: {
+            //    viewWindow: {
+            //        // Change this number to a multiple of 6 to have whole number y-axis labels
+            //        max: '6',
+            //        min: '0'
+            //    }
+            //},
             vAxes: {
                 0: {},
                 1: {
