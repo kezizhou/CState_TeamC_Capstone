@@ -27,10 +27,10 @@
                         </tr>
                     </thead>
                     <tbody>
-                        <% foreach (var request in LSTNMTypeInstructions) { %>
+                        <% foreach (var request in lstNMTypeInstructions) { %>
                             <tr>
-                                <th scope="row" class="align-left"><%= request.strNMT_Type %></th>
-                                <td class="align-left"><%=request.strNMType_ID %></td>
+                                <th scope="row" class="align-left"><%= request.strNearMissType_ID %></th>
+                                <td class="align-left"><%=request.strNMT_Type %></td>
                                 <td class="align-left"><%= request.strI_Ins %></td>
                             </tr> 
                         <% } %>

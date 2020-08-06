@@ -7,8 +7,8 @@ using System.Web;
 using System.Net.Configuration;
 using System.Net.Mail;
 using System.IO;
-using System.Data;
 using System.Web.Services;
+
 
 namespace CState_TeamC_Capstone
 {
@@ -31,7 +31,7 @@ namespace CState_TeamC_Capstone
             conn.Open();
             string qry = "SELECT ID, Department FROM Reference.Department ";
 
-            // Fill in with user's existing roles
+            // Fill in with Departments
              using (SqlCommand cmd = new SqlCommand(qry, conn))
             {
                 string strID = "";
@@ -58,7 +58,7 @@ namespace CState_TeamC_Capstone
             conn.Open();
             string qry = "SELECT ID, NearMissType FROM Reference.NearMissType ";
 
-            // Fill in with user's existing roles
+            // Fill in with Near Miss Types
             using (SqlCommand cmd = new SqlCommand(qry, conn))
             {
                 string strID = "";
@@ -81,28 +81,36 @@ namespace CState_TeamC_Capstone
         {
             try 
             {
-                int intDepartment_ID = Convert.ToInt32(Request.Form["sltDepartment"]);
-                int intNearMissType_ID = Convert.ToInt32(Request.Form["sltNMType"]);
+                int intDepartment_ID = Convert.ToInt32(Request.Form["sltDepartment"].ToString());
+                int intNearMissType_ID = Convert.ToInt32(Request.Form["sltNMType"].ToString());
                 string dteNearMissDate = Convert.ToString(Request.Form["dteIncident"]);
                 int intBadgeNumber = Convert.ToInt32(Request.Form["txtBadgeNumber"]);
                 string strNearMissSolution = Request.Form["txaSolution"];
                 string strNearMiss_ActionTaken = Request.Form["txaActionTaken"];
 
+                string strDepartment = lstDepartments.Find(item => item.strID == Request.Form["sltDepartment"]).strDepartment;
+                string strType = lstNMType.Find(item => item.strID == Request.Form["sltNMType"]).strNearMissType;
+
                 string strOperatorName = GetOperatorName(intBadgeNumber);
                 
-                int intMearMissID = Shared.InsertNearMissRecord(dteNearMissDate, strOperatorName, intDepartment_ID, intNearMissType_ID, strNearMissSolution, strNearMiss_ActionTaken);
+                int intNearMissID = Shared.InsertNearMissRecord(dteNearMissDate, strOperatorName, intDepartment_ID, intNearMissType_ID, strNearMissSolution, strNearMiss_ActionTaken);
 
                 // Get list of EHS members
                 List<string> lsttEHSMembers = EHSList();
 
                 // Send EHS Review Email
-                SendEHSReviewEmail(intMearMissID, lsttEHSMembers);
+                SendEHSReviewEmail(intNearMissID, lsttEHSMembers, strDepartment, strType);
+                    
 			}
 
             catch (Exception ex)
             {
                 Response.Write(ex.Message);
             }
+
+            int NearMissType_ID = Convert.ToInt32(Request.Form["sltNMType"].ToString());
+            Response.Redirect("~/typeInstructions.aspx?NearMissType_ID=" + NearMissType_ID.ToString());
+
         }
 
         private List<string> EHSList()
@@ -176,9 +184,42 @@ namespace CState_TeamC_Capstone
             return strOperatorName;
         }
 
-        private void SendEHSReviewEmail(int intNearMissID, List<string> lsttEHSMembers)
+        private string GetUserEmailAddress()
         {
+            int intUserID = int.Parse(Session["User_ID"].ToString());
+            string strUserEmail = "";
+
+            SqlConnection conn = new SqlConnection(ConfigurationManager.ConnectionStrings["sqlConn"].ToString());
+            conn.Open();
+            string qry = "SELECT * FROM Data.Employee WHERE Person_ID = @id";
+            using (SqlCommand cmd = new SqlCommand(qry, conn))
+            {
+                var idParam = new SqlParameter("@id", System.Data.SqlDbType.Int);
+                idParam.Value = intUserID;
+                cmd.Parameters.Add(idParam);
+
+                SqlDataReader sdr = cmd.ExecuteReader();
+                sdr.Read();
+
+                strUserEmail = sdr["Email"].ToString();
+
+                cmd.Dispose();
+                conn.Close();
+            }
+
+            return strUserEmail;
+        }
+        
+       private void SendEHSReviewEmail(int intNearMissID, List<string> lsttEHSMembers, string strDepartment, string strType)
+        {
+            int intBadgeNumber = Convert.ToInt32(Request.Form["txtBadgeNumber"]);
+            string strNearMissSolution = Request.Form["txaSolution"];
+            string strNearMiss_ActionTaken = Request.Form["txaActionTaken"];
+            
+            SmtpSection section = (SmtpSection)ConfigurationManager.GetSection("system.net/mailSettings/smtp");
             MailMessage mailMessage = new MailMessage();
+            mailMessage.From = new MailAddress(section.Network.UserName);
+       
             foreach (string strEmail in lsttEHSMembers) {
                 mailMessage.To.Add(new MailAddress(strEmail));
 			}
@@ -192,11 +233,19 @@ namespace CState_TeamC_Capstone
             strEmailBody = strEmailBody.Replace("[actionURL]", ConfigurationManager.AppSettings["mainURL"] + "reviewIncident?NearMissID=" + intNearMissID.ToString());
             strEmailBody = strEmailBody.Replace("[mainURL]", ConfigurationManager.AppSettings["mainURL"]);
 
+            strEmailBody = strEmailBody.Replace("[NearMissID]", intNearMissID.ToString());
+            strEmailBody = strEmailBody.Replace("[OperatorName]", (GetOperatorName(intBadgeNumber)));
+            strEmailBody = strEmailBody.Replace("[Department]", strDepartment);
+            strEmailBody = strEmailBody.Replace("[NearMissType]", strType);
+            strEmailBody = strEmailBody.Replace("[NearMissDetails]", strNearMissSolution);
+            strEmailBody = strEmailBody.Replace("[NearMissActionTaken]", strNearMiss_ActionTaken);
+ 
             mailMessage.IsBodyHtml = true;
             mailMessage.Body = strEmailBody;
             mailMessage.Subject = "Near Miss Incident Requiring Review";
             SmtpClient smtpClient = new SmtpClient();
             smtpClient.Send(mailMessage);
+
         }
 
         [WebMethod]
