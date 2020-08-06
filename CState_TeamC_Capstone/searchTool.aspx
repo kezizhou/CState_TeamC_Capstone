@@ -96,7 +96,7 @@
             <div class="container-fluid center2">
                 <asp:Button runat="server" ID="btnFilter" class="btn btn-secondary btn-sm" Text="Filter" OnClick="Filter" />
                 <asp:Button runat="server" ID="btnClear" class="btn btn-secondary btn-sm" Text="Clear" OnClick="Clear" />
-                <button type="button" id="btnExport" class="btn btn-secondary btn-sm" onclick="">Export to Excel</button>
+                <asp:Button runat="server" ID="btnExport" class="btn btn-secondary btn-sm" Text="Export to Excel" OnClick="Export" />
             </div>
 
             <!-- Results table -->
@@ -132,9 +132,6 @@
                         </tbody>
                     </table>
                 </div>
-            </div>
-            <div>
-                <asp:PlaceHolder ID="PlaceHolder1" runat="server"></asp:PlaceHolder>
             </div>
         </form>
     </main>

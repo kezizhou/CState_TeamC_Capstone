@@ -27,9 +27,6 @@
                                     <th scope="col">Operator Name</th>
                                     <th scope="col">Department</th>
                                     <th scope="col">Near Miss Type</th>
-                                    <th scope="col">Assigned To</th>
-                                    <th scope="col">Severity Level</th>
-                                    <th scope="col">Risk Level</th>
                                     <th scope="col">Brief Detail</th>
                                 </tr>
                             </thead>
@@ -41,10 +38,7 @@
                                     <td class="align-middle"><%= x?.OperatorName%></td>
                                     <td class="align-middle"><%= x?.Department%></td>
                                     <td class="align-middle"><%= x?.NearMissType%></td>
-                                    <td class="align-middle"></td>
-                                    <td class="align-middle"></td>
-                                    <td class="align-middle"></td>
-                                    <td class="align-middle"><%= x?.ProposedSolution%></td>
+                                    <td class="align-middle"><%= x?.NearMiss_Solution%></td>
                                 </tr>
                                 <%};%>
                             </tbody>
