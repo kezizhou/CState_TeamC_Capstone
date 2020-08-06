@@ -22,7 +22,7 @@ namespace CState_TeamC_Capstone
 
         protected void Page_Load(object sender, EventArgs e)
         {
-            SetPage(1);
+            GetResults();
             SetFilterOptions();
         }
 
@@ -50,39 +50,15 @@ namespace CState_TeamC_Capstone
             assignedToName = Shared.GetAssignedToNameFilter();
         }
 
-        private void SetPage(int pageNumber,
-                             string departmentFilter = null,
+        private void GetResults(string departmentFilter = null,
                              string nearMissTypeFilter = null,
                              string severityTypeFilter = null,
                              string riskTypeFilter = null,
                              string operatorFilter = null,
                              string assigneeFilter = null)
         {
-            results = Shared.GetSearchToolQuery(pageNumber, departmentFilter, nearMissTypeFilter, severityTypeFilter, riskTypeFilter, operatorFilter, assigneeFilter);
+            results = Shared.GetSearchToolQuery(departmentFilter, nearMissTypeFilter, severityTypeFilter, riskTypeFilter, operatorFilter, assigneeFilter);
             SetPageCountFromResults();
-            CreateControl();
-        }
-
-
-        private void CreateControl()
-        {
-            PlaceHolder1.Controls.Clear();
-            for (var i = 1; i < pageCount + 1; i++)
-            {
-                LinkButton lb = new LinkButton();
-                lb = new LinkButton();
-                lb.Text = Convert.ToString(i) + " ";
-                lb.ID = Convert.ToString(i);
-                lb.CommandArgument = Convert.ToString(i);
-                lb.CommandName = Convert.ToString(i);
-                lb.Command += lb_Command;
-                PlaceHolder1.Controls.Add(lb);
-            }
-        }
-
-        void lb_Command(object sender, CommandEventArgs e)
-        {
-            SetPage(int.Parse(e.CommandArgument.ToString()));
         }
 
         protected void Filter(object sender, EventArgs e)
@@ -94,12 +70,12 @@ namespace CState_TeamC_Capstone
             var operatorSelection = Request["sltOperatorName"];
             var assignedToSelection = Request["sltAssignedTo"];
 
-            SetPage(1, departmentSelection, nearMissTypeSElection, severitySelection, riskSelection, operatorSelection, assignedToSelection);
+            GetResults(departmentSelection, nearMissTypeSElection, severitySelection, riskSelection, operatorSelection, assignedToSelection);
         }
 
         protected void Clear(object sender, EventArgs e)
         {
-            SetPage(1);
+            GetResults();
         }
         protected void Export(object sender, EventArgs e)
         {

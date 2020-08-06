@@ -361,24 +361,18 @@ namespace CState_TeamC_Capstone
             }
         }
 
-        public static List<SearchToolQueryResult> GetSearchToolQuery(int pageNumber,
-                                                                     string departmentFilter = null,
+        public static List<SearchToolQueryResult> GetSearchToolQuery(string departmentFilter = null,
                                                                      string nearMissTypeFilter = null,
                                                                      string severityTypeFilter = null,
                                                                      string riskTypeFilter = null,
                                                                      string operatorFilter = null,
                                                                      string assigneeFilter = null)
         {
-            var sqlOffset = 0;
-            if (pageNumber != 1)
-            {
-                sqlOffset = (pageNumber - 1) * 5;
-            }
 
             List<SearchToolQueryResult> resultList = new List<SearchToolQueryResult>();
 
             string sql = $@"SELECT Data.NearMissRecord.ID, data.NearMissRecord.OperatorName, Reference.Department.Department, Reference.NearMissType.NearMissType, data.NearMiss_ReviewLog.AssignedTo,
-                                   Reference.SeverityofInjury.SeverityType, Reference.RiskLevel.RiskType, data.NearMiss_ReviewLog.Comments, TotalRows = COUNT(*) OVER()
+                                   Reference.SeverityofInjury.SeverityType, Reference.RiskLevel.RiskType, data.NearMiss_ReviewLog.Comments
                                     FROM data.NearMissRecord
                                     INNER JOIN data.NearMiss_ReviewLog ON data.NearMissRecord.ID = data.NearMiss_ReviewLog.NearMiss_ID
                                     INNER JOIN Reference.Department ON Reference.Department.ID = data.NearMissRecord.Department_ID
@@ -391,9 +385,7 @@ namespace CState_TeamC_Capstone
                                         AND Reference.RiskLevel.ID = COALESCE({riskTypeFilter ?? "null"}, Reference.RiskLevel.ID)
                                         AND data.NearMissRecord.OperatorName = COALESCE({GetNameFormattedForSQL(operatorFilter)}, data.NearMissRecord.OperatorName)
                                         AND data.NearMiss_ReviewLog.AssignedTo = COALESCE({GetNameFormattedForSQL(assigneeFilter)}, data.NearMiss_ReviewLog.AssignedTo)
-                                    ORDER BY DATA.NearMissRecord.ID
-                                    OFFSET {sqlOffset} ROWS
-                                    FETCH NEXT 5 ROWS ONLY";
+                                    ORDER BY DATA.NearMissRecord.ID";
 
             using (IDbConnection connection = new SqlConnection(sqlConn))
             {
