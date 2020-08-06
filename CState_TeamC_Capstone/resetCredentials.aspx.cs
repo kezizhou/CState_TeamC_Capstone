@@ -146,7 +146,7 @@ namespace CState_TeamC_Capstone {
 			// Replace the template placeholder variables
 			strEmailBody = strEmailBody.Replace("[strUsername]", strUsername);
 			strEmailBody = strEmailBody.Replace("[actionURL]", ConfigurationManager.AppSettings["mainURL"] + "resetPassword?username=" + strUsername + "&token=" + strToken);
-			strEmailBody = strEmailBody.Replace("[mainURL]", ConfigurationManager.AppSettings["mainURL"] + "signIn");
+			strEmailBody = strEmailBody.Replace("[mainURL]", ConfigurationManager.AppSettings["mainURL"]);
 
 			mailMessage.IsBodyHtml = true;
 			mailMessage.Body = strEmailBody;

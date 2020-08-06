@@ -218,6 +218,7 @@
     </Compile>
     <Compile Include="App_Start\BundleConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
+    <Compile Include="Classes\NearMissTypeInstructions.cs" />
     <Compile Include="Classes\NearMissType.cs" />
     <Compile Include="Classes\Department.cs" />
     <Compile Include="Classes\Role.cs" />

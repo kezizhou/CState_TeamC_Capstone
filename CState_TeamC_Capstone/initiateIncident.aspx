@@ -59,6 +59,7 @@
                 <div class="container">
                     <button type="submit" id="btnSubmit" class="btn btn-primary btn-sm center" runat="server" onserverclick="btnSubmit_Click">Submit New Incident</button>
                 </div>
+               
             </form>
         </div>
     </main>

@@ -11,7 +11,6 @@ namespace CState_TeamC_Capstone {
     
     
     public partial class updateIncident {
-        
         /// <summary>
         /// userFullName control.
         /// </summary>
@@ -20,7 +19,7 @@ namespace CState_TeamC_Capstone {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.HtmlControls.HtmlGenericControl userFullName;
-        
+
         /// <summary>
         /// frmUpdateIncident control.
         /// </summary>
@@ -29,7 +28,7 @@ namespace CState_TeamC_Capstone {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.HtmlControls.HtmlForm frmUpdateIncident;
-        
+
         /// <summary>
         /// sltNearMissReportID control.
         /// </summary>
@@ -38,7 +37,7 @@ namespace CState_TeamC_Capstone {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.DropDownList sltNearMissReportID;
-        
+
         /// <summary>
         /// btnSubmit control.
         /// </summary>
