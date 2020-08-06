@@ -11,20 +11,29 @@ namespace CState_TeamC_Capstone {
         protected void Page_Load(object sender, EventArgs e) {
 
           string strNearMissType_ID = Request.QueryString["NearMissType_ID"];
+
+            nearmisstype.InnerText = GetNearMissType();
+            try
+            {
+                lstNMTypeInstructions = LoadNearMissTypeInstructions();
+            }
+            catch (Exception ex)
+            {
+                Response.Write(ex.Message);
+            }
         }
 
         private List<NearMissTypeInstructions> LoadNearMissTypeInstructions()
         {
-            //string strNearMissType_ID = Request.QueryString["NearMissType_ID"];
             lstNMTypeInstructions = new List<NearMissTypeInstructions>();
 
             SqlConnection conn = new SqlConnection(ConfigurationManager.ConnectionStrings["sqlConn"].ToString());
             conn.Open();
 
-            string qry = "SELECT NearMissType_ID, NMT_Type, I_Ins FROM [VW].[Config_TypeInstructions] WHERE NearMissType_ID = @NearMissType_ID ";
+            string qry = "SELECT  NMT_Type, I_Ins FROM [VW].[Config_TypeInstructions] WHERE NearMissType_ID = @NearMissType_ID ";
             using (SqlCommand cmd = new SqlCommand(qry, conn))
             {
-                string strNearMissType_ID = "";
+                //string strNearMissType_ID = "";
                 string strNMT_Type = "";
                 string strI_Ins = "";
 
@@ -36,12 +45,11 @@ namespace CState_TeamC_Capstone {
 
                 while (sdr.Read())
                 {
-                    strNearMissType_ID = sdr["NearMissType_ID"].ToString();
                     strNMT_Type = sdr["NMT_Type"].ToString();
                     strI_Ins = sdr["I_Ins"].ToString();
 
                     // Add user to list
-                    lstNMTypeInstructions.Add(new NearMissTypeInstructions(strNearMissType_ID, strNMT_Type, strI_Ins));
+                   lstNMTypeInstructions.Add(new NearMissTypeInstructions(strNMT_Type, strI_Ins));
                 }
 
                 cmd.Dispose();
@@ -49,6 +57,33 @@ namespace CState_TeamC_Capstone {
             }
 
             return lstNMTypeInstructions;
+        }
+
+        private string GetNearMissType()
+        {
+            string strNearMissType_ID = Request.QueryString["NearMissType_ID"];
+          
+            string strnearmisstype = "";
+
+            SqlConnection conn = new SqlConnection(ConfigurationManager.ConnectionStrings["sqlConn"].ToString());
+            conn.Open();
+            string qry = "SELECT * FROM Reference.NearMissType WHERE ID = @NearMissType_ID";
+            using (SqlCommand cmd = new SqlCommand(qry, conn))
+            {
+                var NearMissType_IDParam = new SqlParameter("@NearMissType_ID", System.Data.SqlDbType.Int);
+                NearMissType_IDParam.Value = strNearMissType_ID;
+                cmd.Parameters.Add(NearMissType_IDParam);
+
+                SqlDataReader sdr = cmd.ExecuteReader();
+                sdr.Read();
+
+                strnearmisstype = sdr["NearMissType"].ToString();
+
+                cmd.Dispose();
+                conn.Close();
+            }
+
+            return strnearmisstype;
         }
     }
 }

@@ -6,12 +6,13 @@
 <asp:Content ID="Content2" ContentPlaceHolderID="MainContent" runat="server">
     <main role="main" class="container-fluid">
         <h2>Near Miss Action Instructions</h2>
-      <h2></h2>
+        <h2> <span id="nearmisstype" class="align-center" runat="server">
+            </span>
+     </h2>
 
         <!-- Form -->
         <form name="frmTypeInstructions" method="get" action="#" runat="server">
             <div class="container">
-            Near Miss Initial Instructions:
             </div>
             <div class="form-group">
                     <label for="txtNearMissType_ID" class="control-label" hidden="hidden">Operator Name:</label>
@@ -21,16 +22,15 @@
                 <table id="nearmissInitialInstructions" class="table table-hover">
                     <thead class="thead-light">
                         <tr>
-                            <th scope="col">Near Miss Type ID</th>
+                            <%--<th scope="col">Near Miss Type ID</th>
                             <th scope="col">Near Miss Type</th>
-                            <th scope="col">Instructions</th>
+                            <th scope="col">Instructions</th>--%>
                         </tr>
                     </thead>
                     <tbody>
                         <% foreach (var request in lstNMTypeInstructions) { %>
                             <tr>
-                                <th scope="row" class="align-left"><%= request.strNearMissType_ID %></th>
-                                <td class="align-left"><%=request.strNMT_Type %></td>
+                                <th scope="row" class="align-left"><%=request.strNMT_Type %></th>
                                 <td class="align-left"><%= request.strI_Ins %></td>
                             </tr> 
                         <% } %>
