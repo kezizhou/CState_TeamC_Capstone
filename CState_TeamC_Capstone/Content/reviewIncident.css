@@ -1,27 +1,3 @@
-﻿#incidentTable {
+﻿#resultTable {
     margin-bottom: 30px;
-}
-
-/**
-    Form Table
-*/
-.formTable label {
-    padding-right: 20px;
-}
-
-.formTable input,
-.formTable label,
-.formTable select,
-.formTable textarea {
-    margin-bottom: 5px;
-}
-
-.populated {
-    background-color: lightgray;
-    pointer-events: none;
-}
-
-.formTable {
-    border-collapse:separate;
-    border-spacing:0 15px;
 }
