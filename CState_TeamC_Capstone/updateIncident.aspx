@@ -9,17 +9,19 @@
         <h2>Update Incident Action</h2>
         <h5>Welcome: <span id="userFullName" runat="server"></span></h5>
 
-        <!-- Update Incident Action Form -->
-        <form id="frmUpdateIncident" name="frmUpdateIncident" method="post" action="#" runat="server">
-            <div class="form-group">
-                <label for="sltNearMissReportID" class="control-label">Select Near Miss Incident ID:</label>
-                <asp:DropDownList runat="server" ID="sltNearMissReportID" name="sltNearMissReportID" class="required form-control" OnSelectedIndexChanged="Filter" AutoPostBack="True">
-                </asp:DropDownList>
-            </div>
-            <!-- Results table -->
-                <div class="container-fluid row justify-content-center">
+        <div class="container">
+            <!-- Update Incident Action Form -->
+            <form id="frmUpdateIncident" name="frmUpdateIncident" method="post" action="#" runat="server">
+                <div class="form-group container">
+                    <label for="sltNearMissReportID" class="control-label">Select Near Miss Incident ID:</label>
+                    <asp:DropDownList runat="server" ID="sltNearMissReportID" name="sltNearMissReportID" class="required form-control" OnSelectedIndexChanged="Filter" AutoPostBack="True">
+                    </asp:DropDownList>
+                </div>
+
+                <!-- Results table -->
+                <div class="container">
                     <div class="table-responsive">
-                        <table id="resultTable" class="table table-hover">
+                        <table id="resultTable" class="table">
                             <thead class="thead-light">
                                 <tr>
                                     <th scope="col">Near Miss ID</th>
@@ -53,18 +55,17 @@
                     </div>
                 </div>
             
-            <div class="container">
-
-                <div class="form-group">
-                    <label for="txaActionUpdate" class="control-label">Action Update: </label>
-                    <textarea name="txaActionUpdate" id="txaActionUpdate" class="form-control" rows="9"></textarea>
-                </div>
                 <div class="container">
-                    <asp:Button runat="server" ID="btnSubmit" class="btn btn-primary btn-sm center" Text="Update" OnClick="InsertUpdateAction" />
-
+                    <div class="form-group">
+                        <label for="txaActionUpdate" class="control-label">Action Update: </label>
+                        <textarea name="txaActionUpdate" id="txaActionUpdate" class="form-control" rows="9"></textarea>
+                    </div>
+                    <div class="container">
+                        <asp:Button runat="server" ID="btnSubmit" class="btn btn-primary btn-sm center" Text="Update" OnClick="InsertUpdateAction" />
+                    </div>
                 </div>
-            </div>
-        </form>
+            </form> 
+        </div>
     </main>
 </asp:Content>
 

@@ -8,19 +8,20 @@
     <main role="main" class="container-fluid">
         <h2>Review Incident</h2>
         <h5>Welcome: <span id="userFullName" runat="server"></span></h5>
+
         <div class="container">
             <!-- Review Incident Form -->
             <form id="frmReviewIncident" name="frmReviewIncident" method="post" action="#" runat="server">
-                <div class="form-group">
+                <div class="form-group container">
                     <label for="sltNearMissReportID" class="control-label">Select Near Miss Incident ID:</label>
                     <asp:DropDownList runat="server" ID="sltNearMissReportID" name="sltNearMissReportID" class="required form-control" OnSelectedIndexChanged="Filter" AutoPostBack="True">
                     </asp:DropDownList>
                 </div>
 
                 <!-- Results table -->
-                <div class="container-fluid row justify-content-center">
+                <div class="container">
                     <div class="table-responsive">
-                        <table id="resultTable" class="table table-hover">
+                        <table id="resultTable" class="table">
                             <thead class="thead-light">
                                 <tr>
                                     <th scope="col">Near Miss ID</th>
@@ -46,48 +47,49 @@
                     </div>
                 </div>
 
+                <div class="container">
+                    <div class="form-group">
+                        <label for="sltAssignIncident" class="control-label">Assign Near Miss Incident:</label>
+                        <select id="sltAssignIncident" name="sltAssignIncident" class="required form-control">
+                            <option value="none" selected="selected" disabled="disabled">Assign Near Miss to..</option>
+                            <% foreach (var x in assignTo)
+                                {%><option value="<%= x.Description%>">
 
-                <div class="form-group">
-                    <label for="sltAssignIncident" class="control-label">Assign Near Miss Incident:</label>
-                    <select id="sltAssignIncident" name="sltAssignIncident" class="required form-control">
-                        <option value="none" selected="selected" disabled="disabled">Assign Near Miss to..</option>
-                        <% foreach (var x in assignTo)
-                            {%><option value="<%= x.Description%>">
+                                            <%= x.Description%>
+                            
+                                        </option>
+                            <%};%>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="sltInjurySeverity" class="control-label">Severity of Injury:</label>
+                        <select id="sltSeverityLevel" name="sltSeverityLevel" class="required form-control">
+                            <option value="none" selected="selected" disabled="disabled">Severity Level</option>
+                            <% foreach (var x in severity)
+                                {%><option value="<%= x.ID%>">
 
                                         <%= x.Description%>
                             
                                     </option>
-                        <%};%>
-                    </select>
-                </div>
-                <div class="form-group">
-                    <label for="sltInjurySeverity" class="control-label">Severity of Injury:</label>
-                    <select id="sltSeverityLevel" name="sltSeverityLevel" class="required form-control">
-                        <option value="none" selected="selected" disabled="disabled">Severity Level</option>
-                        <% foreach (var x in severity)
-                            {%><option value="<%= x.ID%>">
+                            <%};%>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="sltRiskLevel" class="control-label">Risk Level:</label>
+                        <select id="sltRiskLevel" name="sltRiskLevel" class="required form-control">
+                            <option value="none" selected="selected" disabled="disabled">Risk Level</option>
+                            <% foreach (var x in risk)
+                                {%><option value="<%= x.ID%>">
 
-                                    <%= x.Description%>
+                                        <%= x.Description%>
                             
-                                </option>
-                        <%};%>
-                    </select>
-                </div>
-                <div class="form-group">
-                    <label for="sltRiskLevel" class="control-label">Risk Level:</label>
-                    <select id="sltRiskLevel" name="sltRiskLevel" class="required form-control">
-                        <option value="none" selected="selected" disabled="disabled">Risk Level</option>
-                        <% foreach (var x in risk)
-                            {%><option value="<%= x.ID%>">
-
-                                    <%= x.Description%>
-                            
-                                </option>
-                        <%};%>
-                    </select>
-                </div>
-                <div class="container">
-                    <asp:Button runat="server" ID="btnSubmit" class="btn btn-primary btn-sm center" Text="Submit" OnClick="InsertReviewLog" />
+                                    </option>
+                            <%};%>
+                        </select>
+                    </div>
+                    <div class="container">
+                        <asp:Button runat="server" ID="btnSubmit" class="btn btn-primary btn-sm center" Text="Submit" OnClick="InsertReviewLog" />
+                    </div>
                 </div>
             </form>
         </div>
