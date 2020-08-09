@@ -9,7 +9,6 @@ using System.Net.Mail;
 using System.IO;
 using System.Web.Services;
 
-
 namespace CState_TeamC_Capstone
 {
     public partial class initiateIncident : System.Web.UI.Page
@@ -20,7 +19,7 @@ namespace CState_TeamC_Capstone
         {
             lstDepartments = LoadDepartments();
             lstNMType = LoadNearMissType();
-            firstnamelastname.InnerText = GetFirstNameLastName();          
+            firstLastName.InnerText = ExtensionMethods.GetLastNameFirstName();
         }
 
         private List<Department> LoadDepartments()
