@@ -7,6 +7,8 @@ using System.Web.Services;
 using System.Linq;
 using System.Web;
 
+using CState_TeamC_Capstone.Classes;
+
 namespace CState_TeamC_Capstone {
 	public partial class Home : System.Web.UI.Page {
 
@@ -20,7 +22,7 @@ namespace CState_TeamC_Capstone {
     
 			try {
 				// Welcome name
-				firstnamelastname.InnerText = GetFirstNameLastName();
+				firstLastName.InnerText = ExtensionMethods.GetLastNameFirstName();
 				
 				// Days since last incident
 				int intDays = DaysSinceLastIncident();
@@ -409,31 +411,6 @@ namespace CState_TeamC_Capstone {
 				Response.Write(ex.Message);
 			}
 		}
-    
-    private string GetFirstNameLastName() {
-        int intUserID = int.Parse(Session["User_ID"].ToString());
-        string strfirstnamelastname = "";
-
-        SqlConnection conn = new SqlConnection(ConfigurationManager.ConnectionStrings["sqlConn"].ToString());
-        conn.Open();
-        string qry = "SELECT * FROM Data.Employee WHERE Person_ID = @id";
-        using (SqlCommand cmd = new SqlCommand(qry, conn))
-        {
-            var idParam = new SqlParameter("@id", System.Data.SqlDbType.VarChar);
-            idParam.Value = intUserID;
-            cmd.Parameters.Add(idParam);
-
-            SqlDataReader sdr = cmd.ExecuteReader();
-            sdr.Read();
-
-            strfirstnamelastname = sdr["Last_Name"].ToString() + ", " + sdr["First_Name"].ToString();
-
-            cmd.Dispose();
-            conn.Close();
-        }
-
-        return strfirstnamelastname;
-    }
 
 		protected void btnClear_Click(object sender, EventArgs e) {
 			try {

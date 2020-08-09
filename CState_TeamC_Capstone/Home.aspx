@@ -8,7 +8,7 @@
     <main role="main" class="container-fluid">
         <h2>Near Miss Incident Dashboard</h2>
         <h5>Welcome:  
-            <span id="firstnamelastname" class="control-label" runat="server">
+            <span id="firstLastName" class="control-label" runat="server">
 
             </span>
         </h5>
