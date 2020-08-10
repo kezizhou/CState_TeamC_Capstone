@@ -47,7 +47,7 @@
                     </select>
                 </div>
                 <div class="form-group">
-                    <label for="txaSolution" class="control-label"> Near Miss Proposed Solution:</label>
+                    <label for="txaSolution" class="control-label"> Near Miss Detail / Proposed Solution:</label>
                     <textarea name="txaSolution" id="txaSolution" class="form-control" rows="8" required="required"></textarea>
                 </div>
 
