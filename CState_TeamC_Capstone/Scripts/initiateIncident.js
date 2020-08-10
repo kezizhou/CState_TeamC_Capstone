@@ -44,11 +44,12 @@ $(function () {
                 required: true,
             },
             txaSolution: {
-                required: true,
+                required: false,
+                minlength: 5,
             },
             txaActionTaken: {
                 required: true,
-                minlength: 3,
+                minlength: 5,
             },
         },
 
@@ -68,6 +69,7 @@ $(function () {
             sltDepartment: "Select department",
             sltNMType: "Select near miss type",
             txaSolution: {
+                required: "Enter proposed solution",
                 minlength: "Minimum description is 5 characters",
             },
             txaActionTaken: {

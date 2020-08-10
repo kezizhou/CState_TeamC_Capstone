@@ -1,4 +1,5 @@
 ﻿using CState_TeamC_Capstone.DomainObjects;
+using CState_TeamC_Capstone.Classes;
 using System;
 using System.Collections.Generic;
 using System.Configuration;
@@ -21,7 +22,7 @@ namespace CState_TeamC_Capstone
             {
                 CreateDropDown();
             }
-            userFullName.InnerText = GetUserName();
+            userFullName.InnerText = ExtensionMethods.GetLastNameFirstName();
         }
         public void Filter(object sender, EventArgs e)
         {

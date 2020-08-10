@@ -9,7 +9,6 @@ using System.Net.Mail;
 using System.IO;
 using System.Web.Services;
 
-
 namespace CState_TeamC_Capstone
 {
     public partial class initiateIncident : System.Web.UI.Page
@@ -20,7 +19,7 @@ namespace CState_TeamC_Capstone
         {
             lstDepartments = LoadDepartments();
             lstNMType = LoadNearMissType();
-            firstnamelastname.InnerText = GetFirstNameLastName();          
+            firstLastName.InnerText = ExtensionMethods.GetLastNameFirstName();
         }
 
         private List<Department> LoadDepartments()
@@ -134,31 +133,6 @@ namespace CState_TeamC_Capstone
             return lsttEHSMembers;
         }
 
-        private string GetFirstNameLastName()
-        {
-            int intUserID = int.Parse(Session["User_ID"].ToString());
-            string strfirstnamelastname = "";
-
-            SqlConnection conn = new SqlConnection(ConfigurationManager.ConnectionStrings["sqlConn"].ToString());
-            conn.Open();
-            string qry = "SELECT * FROM Data.Employee WHERE Person_ID = @id";
-            using (SqlCommand cmd = new SqlCommand(qry, conn))
-            {
-                var idParam = new SqlParameter("@id", System.Data.SqlDbType.Int);
-                idParam.Value = intUserID;
-                cmd.Parameters.Add(idParam);
-
-                SqlDataReader sdr = cmd.ExecuteReader();
-                sdr.Read();
-
-                strfirstnamelastname = sdr["Last_Name"].ToString() + ", " + sdr["First_Name"].ToString();
-
-                cmd.Dispose();
-                conn.Close();
-            }
-
-            return strfirstnamelastname;
-        }
         private string GetOperatorName(int intBadgeNumber)
         {
             string strOperatorName = "";
@@ -182,32 +156,6 @@ namespace CState_TeamC_Capstone
             }
 
             return strOperatorName;
-        }
-
-        private string GetUserEmailAddress()
-        {
-            int intUserID = int.Parse(Session["User_ID"].ToString());
-            string strUserEmail = "";
-
-            SqlConnection conn = new SqlConnection(ConfigurationManager.ConnectionStrings["sqlConn"].ToString());
-            conn.Open();
-            string qry = "SELECT * FROM Data.Employee WHERE Person_ID = @id";
-            using (SqlCommand cmd = new SqlCommand(qry, conn))
-            {
-                var idParam = new SqlParameter("@id", System.Data.SqlDbType.Int);
-                idParam.Value = intUserID;
-                cmd.Parameters.Add(idParam);
-
-                SqlDataReader sdr = cmd.ExecuteReader();
-                sdr.Read();
-
-                strUserEmail = sdr["Email"].ToString();
-
-                cmd.Dispose();
-                conn.Close();
-            }
-
-            return strUserEmail;
         }
         
        private void SendEHSReviewEmail(int intNearMissID, List<string> lsttEHSMembers, string strDepartment, string strType)
