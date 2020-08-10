@@ -15,9 +15,14 @@
             <!-- Future feature: Allow select boxes to be searched for a string -->
             <div class="container-fluid center2 form-inline">
                 <select id="sltDepartment" name="sltDepartment" class="form-control">
-                    <option value="" selected="selected" disabled="disabled">Department</option>
+                    <option value="none" selected="selected" disabled="disabled">Department</option>
                     <% foreach (var x in departments)
-                        {%><option value="<%= x.ID%>">
+                        {%><option value="<%= x.ID%>"
+                            <% if (Request["sltDepartment"] != null) {
+                                   if (int.Parse(Request["sltDepartment"]) == x.ID) { %>
+                                        selected="selected"
+                                <% }
+                               } %>>
 
                         <%= x.Description%>
    
@@ -27,8 +32,12 @@
                 <select id="sltNearMissType" name="sltNearMissType" class="form-control">
                     <option value="none" selected="selected" disabled="disabled">Near Miss Type</option>
                     <% foreach (var x in nearMissType)
-                        {%><option value="<%= x.ID%>">
-
+                        {%><option value="<%= x.ID%>"
+                            <% if (Request["sltNearMissType"] != null) {
+                                   if (int.Parse(Request["sltNearMissType"]) == x.ID) { %>
+                                        selected="selected"
+                                <% }
+                               } %>>
                         <%= x.Description%>
                             
                     </option>
@@ -37,8 +46,12 @@
                 <select id="sltSeverityLevel" name="sltSeverityLevel" class="form-control">
                     <option value="none" selected="selected" disabled="disabled">Severity Level</option>
                     <% foreach (var x in severity)
-                        {%><option value="<%= x.ID%>">
-
+                        {%><option value="<%= x.ID%>"
+                            <% if (Request["sltSeverityLevel"] != null) {
+                                   if (int.Parse(Request["sltSeverityLevel"]) == x.ID) { %>
+                                        selected="selected"
+                                <% }
+                               } %>>
                         <%= x.Description%>
                             
                     </option>
@@ -47,8 +60,12 @@
                 <select id="sltRiskLevel" name="sltRiskLevel" class="form-control">
                     <option value="none" selected="selected" disabled="disabled">Risk Level</option>
                     <% foreach (var x in risk)
-                        {%><option value="<%= x.ID%>">
-
+                        {%><option value="<%= x.ID%>"
+                            <% if (Request["sltRiskLevel"] != null) {
+                                   if (int.Parse(Request["sltRiskLevel"]) == x.ID) { %>
+                                        selected="selected"
+                                <% }
+                               } %>>
                         <%= x.Description%>
                             
                     </option>
