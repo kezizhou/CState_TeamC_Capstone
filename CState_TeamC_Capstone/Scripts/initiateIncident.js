@@ -44,7 +44,7 @@ $(function () {
                 required: true,
             },
             txaSolution: {
-                required: false,
+                required: true,
                 minlength: 5,
             },
             txaActionTaken: {
