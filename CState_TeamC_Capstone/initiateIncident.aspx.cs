@@ -86,6 +86,7 @@ namespace CState_TeamC_Capstone
                 int intBadgeNumber = Convert.ToInt32(Request.Form["txtBadgeNumber"]);
                 string strNearMissSolution = Request.Form["txaSolution"];
                 string strNearMiss_ActionTaken = Request.Form["txaActionTaken"];
+                //DateTime dteDateEntered = DateTime.Now;
 
                 string strDepartment = lstDepartments.Find(item => item.strID == Request.Form["sltDepartment"]).strDepartment;
                 string strType = lstNMType.Find(item => item.strID == Request.Form["sltNMType"]).strNearMissType;

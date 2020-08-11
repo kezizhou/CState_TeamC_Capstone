@@ -10,16 +10,23 @@ namespace CState_TeamC_Capstone {
         protected List<NearMissTypeInstructions> lstNMTypeInstructions { get; set; }
         protected void Page_Load(object sender, EventArgs e) {
 
-          string strNearMissType_ID = Request.QueryString["NearMissType_ID"];
+            string strNearMissType_ID = Request.QueryString["NearMissType_ID"];
 
-            nearmisstype.InnerText = GetNearMissType();
-            try
+            if (Request.QueryString["NearMissType_ID"] != null)
             {
-                lstNMTypeInstructions = LoadNearMissTypeInstructions();
+                nearmisstype.InnerText = GetNearMissType();
+                try
+                {
+                    lstNMTypeInstructions = LoadNearMissTypeInstructions();
+                }
+            
+                catch (Exception ex)
+                {
+                    Response.Write(ex.Message);
+                }
             }
-            catch (Exception ex)
-            {
-                Response.Write(ex.Message);
+            else {
+                Response.Redirect("~/typeInstructionRedirectTemplate.html");
             }
         }
 

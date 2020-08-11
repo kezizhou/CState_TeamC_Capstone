@@ -51,13 +51,13 @@ namespace CState_TeamC_Capstone
                 // ---------------------------------------------------------------------------------------------------------------------------------------------------
                 var _sqlCommand = new System.Data.SqlClient.SqlCommand(_sqlCommandText, _sqlConnection);
                 _sqlCommand.CommandType = System.Data.CommandType.StoredProcedure;
-                _sqlCommand.Parameters.Add(new System.Data.SqlClient.SqlParameter("@NearMissDate", System.Data.SqlDbType.DateTime)).Value = dtNearMissDate;
-                _sqlCommand.Parameters.Add(new System.Data.SqlClient.SqlParameter("@OperatorName", System.Data.SqlDbType.VarChar)).Value = strOperatorName;
-                _sqlCommand.Parameters.Add(new System.Data.SqlClient.SqlParameter("@Department_ID", System.Data.SqlDbType.Int)).Value = intDepartment_ID;
-                _sqlCommand.Parameters.Add(new System.Data.SqlClient.SqlParameter("@NearMissType_ID", System.Data.SqlDbType.Int)).Value = intNearMissType_ID;
-                _sqlCommand.Parameters.Add(new System.Data.SqlClient.SqlParameter("@NearMiss_Solution", System.Data.SqlDbType.VarChar)).Value = strNearMissSolution;
-                _sqlCommand.Parameters.Add(new System.Data.SqlClient.SqlParameter("@NearMiss_ActionTaken", System.Data.SqlDbType.VarChar)).Value = strNearMiss_ActionTaken;
-                _sqlCommand.Parameters.Add(new System.Data.SqlClient.SqlParameter("@DateEntered", System.Data.SqlDbType.DateTime2)).Value = System.DateTime.Now;
+                _sqlCommand.Parameters.Add(new SqlParameter("@NearMissDate", SqlDbType.DateTime)).Value = dtNearMissDate;
+                _sqlCommand.Parameters.Add(new SqlParameter("@OperatorName", SqlDbType.VarChar)).Value = strOperatorName;
+                _sqlCommand.Parameters.Add(new SqlParameter("@Department_ID", SqlDbType.Int)).Value = intDepartment_ID;
+                _sqlCommand.Parameters.Add(new SqlParameter("@NearMissType_ID", SqlDbType.Int)).Value = intNearMissType_ID;
+                _sqlCommand.Parameters.Add(new SqlParameter("@NearMiss_Solution", SqlDbType.VarChar)).Value = strNearMissSolution;
+                _sqlCommand.Parameters.Add(new SqlParameter("@NearMiss_ActionTaken", SqlDbType.VarChar)).Value = strNearMiss_ActionTaken;
+                _sqlCommand.Parameters.Add(new SqlParameter("@DateEntered", SqlDbType.DateTime2)).Value = DateTime.Now;
                 _sqlCommand.Parameters.Add("@NearMiss_ID", SqlDbType.Int).Direction = ParameterDirection.Output;
 
                 _sqlConnection.Open();
