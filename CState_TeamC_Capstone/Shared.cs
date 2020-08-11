@@ -373,7 +373,7 @@ namespace CState_TeamC_Capstone
             List<SearchToolQueryResult> resultList = new List<SearchToolQueryResult>();
 
             string sql = $@"SELECT Data.NearMissRecord.ID, data.NearMissRecord.OperatorName, Reference.Department.Department, Reference.NearMissType.NearMissType, data.NearMiss_ReviewLog.AssignedTo,
-                                   Reference.SeverityofInjury.SeverityType, Reference.RiskLevel.RiskType, data.NearMiss_ReviewLog.Comments
+                                   Reference.SeverityofInjury.SeverityType, Reference.RiskLevel.RiskType, data.NearMissRecord.NearMiss_Solution
                                     FROM data.NearMissRecord
                                     INNER JOIN data.NearMiss_ReviewLog ON data.NearMissRecord.ID = data.NearMiss_ReviewLog.NearMiss_ID
                                     INNER JOIN Reference.Department ON Reference.Department.ID = data.NearMissRecord.Department_ID
@@ -634,7 +634,7 @@ namespace CState_TeamC_Capstone
         {
             List<ReviewIncidentPageTable> resultList = new List<ReviewIncidentPageTable>();
 
-            string sql = $@"SELECT Data.NearMissRecord.ID, data.NearMissRecord.OperatorName, Reference.Department.Department, Reference.NearMissType.NearMissType, data.NearMissRecord.NearMiss_Solution
+            string sql = $@"SELECT Data.NearMissRecord.ID, data.NearMissRecord.OperatorName, Reference.Department.Department, Reference.NearMissType.NearMissType, data.NearMissRecord.NearMiss_Solution, data.NearMissRecord.NearMiss_ActionTaken
                                     FROM data.NearMissRecord
                                     LEFT JOIN Reference.Department ON Reference.Department.ID = data.NearMissRecord.Department_ID
                                     LEFT JOIN Reference.NearMissType ON Reference.NearMissType.ID = data.NearMissRecord.NearMissType_ID
@@ -671,7 +671,14 @@ namespace CState_TeamC_Capstone
             List<UpdateActionPageTable> resultList = new List<UpdateActionPageTable>();
 
             string sql = $@"SELECT Data.NearMissRecord.ID, data.NearMissRecord.OperatorName, Reference.Department.Department, Reference.NearMissType.NearMissType, data.NearMiss_ReviewLog.AssignedTo,
-                                   Reference.SeverityofInjury.SeverityType, Reference.RiskLevel.RiskType, data.NearMissRecord.NearMiss_Solution, data.NearMissRecord.NearMiss_ActionTaken
+                                   Reference.SeverityofInjury.SeverityType, Reference.RiskLevel.RiskType, data.NearMissRecord.NearMiss_Solution, data.NearMissRecord.NearMiss_ActionTaken,
+                                   SUBSTRING(
+			                        (
+			                        SELECT [NM_ActionTakenUpdate].[NearMiss_ActionTaken] + '(' + [UpdatedBy] + '  ' + CONVERT(varchar, [DateUpdate], 0)	 + ') '
+			                        FROM [Data].[NearMiss_ActionTakenUpdate]			AS [NM_ActionTakenUpdate]
+			                        	WHERE Data.NearMissRecord.[ID] = [NM_ActionTakenUpdate].[NearMiss_ID]
+			                        FOR XML PATH('')
+			                        ), 1, 9999) As [Additional_Actions_Taken]
                                     FROM data.NearMissRecord
                                     INNER JOIN data.NearMiss_ReviewLog ON data.NearMissRecord.ID = data.NearMiss_ReviewLog.NearMiss_ID
                                     INNER JOIN Reference.Department ON Reference.Department.ID = data.NearMissRecord.Department_ID
@@ -697,7 +704,8 @@ namespace CState_TeamC_Capstone
                                     INNER JOIN Reference.RiskLevel ON Reference.RiskLevel.ID = data.NearMiss_ReviewLog.Risk_ID
                                     WHERE data.NearMiss_ReviewLog.AssignedTo IS NOT NULL
                                     AND data.NearMiss_ReviewLog.Severity_ID IS NOT NULL
-                                    AND data.NearMiss_ReviewLog.Severity_ID IS NOT NULL";
+                                    AND data.NearMiss_ReviewLog.Severity_ID IS NOT NULL
+                                    ORDER BY data.NearMissRecord.ID ASC";
 
             using (SqlConnection connection = new SqlConnection(sqlConn))
             {

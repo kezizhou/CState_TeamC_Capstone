@@ -9,7 +9,7 @@
         public string AssignedTo { get; set; }
         public string SeverityType { get; set; }
         public string RiskType { get; set; }
-        public string Comments { get; set; }
+        public string NearMiss_Solution { get; set; }
         public int TotalRows { get; set; }
     }
 }

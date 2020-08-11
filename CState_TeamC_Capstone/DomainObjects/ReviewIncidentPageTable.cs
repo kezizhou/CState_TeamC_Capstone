@@ -12,5 +12,6 @@ namespace CState_TeamC_Capstone.DomainObjects
             public string Department { get; set; }
             public string NearMissType { get; set; }
             public string NearMiss_Solution { get; set; }
+            public string NearMiss_ActionTaken { get; set; }
     }
 }

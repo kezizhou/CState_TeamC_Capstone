@@ -129,7 +129,7 @@
                                 <th scope="col">Assigned To</th>
                                 <th scope="col">Severity Level</th>
                                 <th scope="col">Risk Level</th>
-                                <th scope="col">Brief Detail</th>
+                                <th scope="col">Near Miss Detail</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -143,7 +143,7 @@
                                 <td class="align-middle"><%= x.AssignedTo%></td>
                                 <td class="align-middle"><%= x.SeverityType%></td>
                                 <td class="align-middle"><%= x.RiskType%></td>
-                                <td class="align-middle"><%= x.Comments%></td>
+                                <td class="align-middle"><%= x.NearMiss_Solution%></td>
                             </tr>
                             <%};%>
                         </tbody>

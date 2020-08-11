@@ -31,8 +31,9 @@
                                     <th scope="col">Assigned To</th>
                                     <th scope="col">Severity Level</th>
                                     <th scope="col">Risk Level</th>
-                                    <th scope="col">Proposed Solution</th>
+                                    <th scope="col">Near Miss Detail</th>
                                     <th scope="col">Action Taken</th>
+                                    <th scope="col">Additional Actions</th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -48,6 +49,7 @@
                                     <td class="align-middle"><%= x?.RiskType%></td>
                                     <td class="align-middle"><%= x?.NearMiss_Solution%></td>
                                     <td class="align-middle"><%= x?.NearMiss_ActionTaken%></td>
+                                    <td class="align-middle"><%= x?.Additional_Actions_Taken%></td>
                                 </tr>
                                 <%};%>
                             </tbody>

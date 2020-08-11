@@ -28,7 +28,8 @@
                                     <th scope="col">Operator Name</th>
                                     <th scope="col">Department</th>
                                     <th scope="col">Near Miss Type</th>
-                                    <th scope="col">Brief Detail</th>
+                                    <th scope="col">Near Miss Detail</th>
+                                    <th scope="col">Action Taken</th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -40,6 +41,7 @@
                                     <td class="align-middle"><%= x?.Department%></td>
                                     <td class="align-middle"><%= x?.NearMissType%></td>
                                     <td class="align-middle"><%= x?.NearMiss_Solution%></td>
+                                    <td class="align-middle"><%= x?.NearMiss_ActionTaken%></td>
                                 </tr>
                                 <%};%>
                             </tbody>

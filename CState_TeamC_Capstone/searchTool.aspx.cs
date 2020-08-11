@@ -76,6 +76,7 @@ namespace CState_TeamC_Capstone
         protected void Clear(object sender, EventArgs e)
         {
             GetResults();
+            SetFilterOptions();
         }
         protected void Export(object sender, EventArgs e)
         {

@@ -16,5 +16,6 @@ namespace CState_TeamC_Capstone.DomainObjects
         public string RiskType { get; set; }
         public string NearMiss_Solution { get; set; }
         public string NearMiss_ActionTaken { get; set; }
+        public string Additional_Actions_Taken { get; set; }
     }
 }
