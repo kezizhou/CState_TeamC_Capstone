@@ -49,7 +49,8 @@ namespace CState_TeamC_Capstone
             var nearMissReportID = sltNearMissReportID.SelectedValue;
             var user = GetUserName();
             Shared.InsertReviewLogStatement(nearMissReportID, assignIncidentSelection, severitySelection, riskSelection, user, DateTime.Now.Date.ToString());
-            Response.Redirect(Request.RawUrl);
+            //Response.Redirect(Request.RawUrl);
+            ClientScript.RegisterStartupScript(this.GetType(), "alert", "ShowPopup();", true);
         }
         public void CreateDropDown()
         {

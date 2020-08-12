@@ -18,8 +18,8 @@
                     <option value="none" selected="selected" disabled="disabled">Department</option>
                     <% foreach (var x in departments)
                         {%><option value="<%= x.ID%>"
-                            <% if (Request["sltDepartment"] != null) {
-                                   if (int.Parse(Request["sltDepartment"]) == x.ID) { %>
+                            <% if (ViewState["sltDepartment"] != null) {
+                                   if (int.Parse(ViewState["sltDepartment"].ToString()) == x.ID) { %>
                                         selected="selected"
                                 <% }
                                } %>>
@@ -33,8 +33,8 @@
                     <option value="none" selected="selected" disabled="disabled">Near Miss Type</option>
                     <% foreach (var x in nearMissType)
                         {%><option value="<%= x.ID%>"
-                            <% if (Request["sltNearMissType"] != null) {
-                                   if (int.Parse(Request["sltNearMissType"]) == x.ID) { %>
+                            <% if (ViewState["sltNearMissType"] != null) {
+                                   if (int.Parse(ViewState["sltNearMissType"].ToString()) == x.ID) { %>
                                         selected="selected"
                                 <% }
                                } %>>
@@ -47,8 +47,8 @@
                     <option value="none" selected="selected" disabled="disabled">Severity Level</option>
                     <% foreach (var x in severity)
                         {%><option value="<%= x.ID%>"
-                            <% if (Request["sltSeverityLevel"] != null) {
-                                   if (int.Parse(Request["sltSeverityLevel"]) == x.ID) { %>
+                            <% if (ViewState["sltSeverityLevel"] != null) {
+                                   if (int.Parse(ViewState["sltSeverityLevel"].ToString()) == x.ID) { %>
                                         selected="selected"
                                 <% }
                                } %>>
@@ -61,8 +61,8 @@
                     <option value="none" selected="selected" disabled="disabled">Risk Level</option>
                     <% foreach (var x in risk)
                         {%><option value="<%= x.ID%>"
-                            <% if (Request["sltRiskLevel"] != null) {
-                                   if (int.Parse(Request["sltRiskLevel"]) == x.ID) { %>
+                            <% if (ViewState["sltRiskLevel"] != null) {
+                                   if (int.Parse(ViewState["sltRiskLevel"].ToString()) == x.ID) { %>
                                         selected="selected"
                                 <% }
                                } %>>

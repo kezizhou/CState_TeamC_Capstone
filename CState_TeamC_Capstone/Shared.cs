@@ -763,7 +763,8 @@ namespace CState_TeamC_Capstone
                                     INNER JOIN Reference.Department ON Reference.Department.ID = data.NearMissRecord.Department_ID
                                     INNER JOIN Reference.NearMissType ON Reference.NearMissType.ID = data.NearMissRecord.NearMissType_ID
                                     INNER JOIN Reference.SeverityofInjury ON Reference.SeverityofInjury.ID = data.NearMiss_ReviewLog.Severity_ID
-                                    INNER JOIN Reference.RiskLevel ON Reference.RiskLevel.ID = data.NearMiss_ReviewLog.Risk_ID";
+                                    INNER JOIN Reference.RiskLevel ON Reference.RiskLevel.ID = data.NearMiss_ReviewLog.Risk_ID
+                            ORDER BY Data.NearMissRecord.ID";
 
             using (IDbConnection connection = new SqlConnection(sqlConn))
             {

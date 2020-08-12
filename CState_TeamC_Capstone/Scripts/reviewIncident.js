@@ -9,6 +9,9 @@ $(function () {
             // The key name on the left side is the name attribute
             // of an input field. Validation rules are defined
             // on the right side
+            sltNearMissReportID: {
+                required: true,
+            },
             sltAssignIncident: {
                 required: true,
             },
@@ -17,11 +20,12 @@ $(function () {
             },
             sltRiskLevel: {
                 required: true,
-            }
+            }            
         },
 
         // Specify validation error messages
         messages: {
+            sltNearMissReportID: "Select a report to modify",
             sltAssignIncident: "Select person to assign to",
             sltInjurySeverity: "Select severity of injury",
             sltRiskLevel: "Select risk level"
@@ -37,5 +41,8 @@ $(function () {
         submitHandler: function (form) {
             form.submit();
         },
+        ShowPopup: function() {
+        $("#btnShowPopup").click();
+    }
     });
 });

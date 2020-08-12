@@ -36,13 +36,13 @@
                                 <% foreach (var x in results)
                                     {%><tr>
 
-                                    <th scope="row"><%= x?.ID%></th>
-                                    <td class="align-middle"><%= x?.OperatorName%></td>
-                                    <td class="align-middle"><%= x?.Department%></td>
-                                    <td class="align-middle"><%= x?.NearMissType%></td>
-                                    <td class="align-middle"><%= x?.NearMiss_Solution%></td>
-                                    <td class="align-middle"><%= x?.NearMiss_ActionTaken%></td>
-                                </tr>
+                                        <th scope="row"><%= x?.ID%></th>
+                                        <td class="align-middle"><%= x?.OperatorName%></td>
+                                        <td class="align-middle"><%= x?.Department%></td>
+                                        <td class="align-middle"><%= x?.NearMissType%></td>
+                                        <td class="align-middle"><%= x?.NearMiss_Solution%></td>
+                                        <td class="align-middle"><%= x?.NearMiss_ActionTaken%></td>
+                                    </tr>
                                 <%};%>
                             </tbody>
                         </table>
@@ -57,9 +57,9 @@
                             <% foreach (var x in assignTo)
                                 {%><option value="<%= x.Description%>">
 
-                                            <%= x.Description%>
+                                    <%= x.Description%>
                             
-                                        </option>
+                                </option>
                             <%};%>
                         </select>
                     </div>
@@ -70,9 +70,9 @@
                             <% foreach (var x in severity)
                                 {%><option value="<%= x.ID%>">
 
-                                        <%= x.Description%>
+                                    <%= x.Description%>
                             
-                                    </option>
+                                </option>
                             <%};%>
                         </select>
                     </div>
@@ -83,9 +83,9 @@
                             <% foreach (var x in risk)
                                 {%><option value="<%= x.ID%>">
 
-                                        <%= x.Description%>
+                                    <%= x.Description%>
                             
-                                    </option>
+                                </option>
                             <%};%>
                         </select>
                     </div>
@@ -93,6 +93,27 @@
                         <asp:Button runat="server" ID="btnSubmit" class="btn btn-primary btn-sm center" Text="Submit" OnClick="InsertReviewLog" />
                     </div>
                 </div>
+                <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                    <div class="modal-dialog" role="document">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h5 class="modal-title" id="exampleModalLabel">Update Record</h5>
+                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                    <span aria-hidden="true">&times;</span>
+                                </button>
+                            </div>
+                            <div class="modal-body">
+                                Success! Near Miss Record Updated.
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <button type="button" id="btnShowPopup" style="display: none;" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal">
+                    Launch demo modal
+                </button>
             </form>
         </div>
     </main>
@@ -101,4 +122,5 @@
     <!-- Validation JQuery -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.19.2/jquery.validate.min.js"></script>
     <script src="Scripts/reviewIncident.js"></script>
+    
 </asp:Content>

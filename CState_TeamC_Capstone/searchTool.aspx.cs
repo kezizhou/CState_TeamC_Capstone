@@ -64,9 +64,17 @@ namespace CState_TeamC_Capstone
         protected void Filter(object sender, EventArgs e)
         {
             var departmentSelection = Request["sltDepartment"];
+            ViewState["sltDepartment"] = departmentSelection;
+
             var nearMissTypeSElection = Request["sltNearMissType"];
+            ViewState["sltNearMissType"] = nearMissTypeSElection;
+
             var severitySelection = Request["sltSeverityLevel"];
+            ViewState["sltSeverityLevel"] = severitySelection;
+
             var riskSelection = Request["sltRiskLevel"];
+            ViewState["sltRiskLevel"] = riskSelection;
+
             var operatorSelection = Request["sltOperatorName"];
             var assignedToSelection = Request["sltAssignedTo"];
 
@@ -76,7 +84,7 @@ namespace CState_TeamC_Capstone
         protected void Clear(object sender, EventArgs e)
         {
             GetResults();
-            SetFilterOptions();
+            ViewState.Clear();
         }
         protected void Export(object sender, EventArgs e)
         {
