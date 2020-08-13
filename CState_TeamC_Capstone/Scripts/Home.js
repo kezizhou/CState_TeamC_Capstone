@@ -90,7 +90,7 @@ function drawInjurySeverityChart() {
             // Use https://learnui.design/tools/data-color-picker.html for more color schemes
             colors: colors,
             isStacked: 'true',
-            height: '100%',
+            height: '400',
             width: data.getNumberOfRows() * 150 + 300,
             bar: {
                 groupWidth: '75%'
@@ -98,13 +98,13 @@ function drawInjurySeverityChart() {
             hAxis: {
                 title: ''
             },
-            vAxis: {
-                viewWindow: {
-                    // Change this number to a multiple of 6 to have whole number y-axis labels
-                    min: '0',
-                    max: '6'
-                }
-            },
+            //vAxis: {
+            //    viewWindow: {
+            //        // Change this number to a multiple of 6 to have whole number y-axis labels
+            //        min: '0',
+            //        max: '6'
+            //    }
+            //},
             vAxes: {
                 0: {},
                 1: {
