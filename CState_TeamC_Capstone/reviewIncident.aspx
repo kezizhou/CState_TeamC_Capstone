@@ -1,9 +1,16 @@
 ﻿<%@ Page Title="Review Incident" Language="C#" MasterPageFile="~/Site.Master" AutoEventWireup="true" CodeBehind="reviewIncident.aspx.cs" Inherits="CState_TeamC_Capstone.reviewIncident" %>
 
 <asp:Content ID="Content1" ContentPlaceHolderID="HeadContent" runat="server">
-
     <link rel="stylesheet" type="text/css" href="Content/reviewIncident.css" media="screen" />
+
+    <!-- These must be placed before modal -->
+    <script src="https://code.jquery.com/jquery-3.5.1.min.js" integrity="sha256-9/aliU8dGd2tb6OSsuzixeV4y/faTqgFtohetphbbj0=" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js" integrity="sha384-OgVRvuATP1z7JjHLkuOU7Xw704+h835Lr+6QL9UvYjZE3Ipu6Tp75j7Bh/kR0JKI" crossorigin="anonymous"></script>
+
+    <script src="Scripts/reviewIncidentPopup.js"></script>
 </asp:Content>
+
 <asp:Content ID="Content2" ContentPlaceHolderID="MainContent" runat="server">
     <main role="main" class="container-fluid">
         <h2>Review Incident</h2>
@@ -111,9 +118,9 @@
                         </div>
                     </div>
                 </div>
-                <button type="button" id="btnShowPopup" style="display: none;" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal">
+<%--                <button type="button" id="btnShowPopup" style="display: none;" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal">
                     Launch demo modal
-                </button>
+                </button>--%>
             </form>
         </div>
     </main>
@@ -122,5 +129,4 @@
     <!-- Validation JQuery -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.19.2/jquery.validate.min.js"></script>
     <script src="Scripts/reviewIncident.js"></script>
-    
 </asp:Content>

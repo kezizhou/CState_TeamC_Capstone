@@ -50,7 +50,7 @@ namespace CState_TeamC_Capstone
             var user = GetUserName();
             Shared.InsertReviewLogStatement(nearMissReportID, assignIncidentSelection, severitySelection, riskSelection, user, DateTime.Now.Date.ToString());
             //Response.Redirect(Request.RawUrl);
-            ClientScript.RegisterStartupScript(this.GetType(), "alert", "ShowPopup();", true);
+            Page.ClientScript.RegisterStartupScript(this.GetType(), "ShowPopup", "ShowPopup();", true);
         }
         public void CreateDropDown()
         {
