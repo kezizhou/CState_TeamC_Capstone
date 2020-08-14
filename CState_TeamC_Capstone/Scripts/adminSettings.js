@@ -24,7 +24,9 @@ function CallBtnAcceptClick() {
         data: '{strRequestID: "' + buttonVal + '"}',
         contentType: "application/json; charset=utf-8",
         dataType: "json",
-        success: OnSuccess,
+        success: function () {
+            location.reload();
+        },
         failure: function (response) {
             alert(response.d);
         }
@@ -40,15 +42,11 @@ function CallBtnRejectClick() {
         data: '{strRequestID: "' + buttonVal + '"}',
         contentType: "application/json; charset=utf-8",
         dataType: "json",
-        success: OnSuccess,
+        success: function () {
+            location.reload();
+        },
         failure: function (response) {
             alert(response.d);
         }
     });
 }
-
-
-function OnSuccess(response) {
-    location.reload();
-}
-

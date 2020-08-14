@@ -31,6 +31,10 @@ namespace CState_TeamC_Capstone {
 						confirmMessage.InnerText = "Error: There was an error processing your request. Please try again.";
 						messageDiv.Attributes.Add("class", messageDiv.Attributes["class"].ToString().Replace("message", "invalid"));
 						break;
+					case "typeInstructionsError":
+						Page.Title = "Near Miss Reporting - Error";
+						confirmMessage.InnerText = "Error: The page you are trying to access can only be accessed after initiating an incident.";
+						break;
 					default:
 						break;
 				}
