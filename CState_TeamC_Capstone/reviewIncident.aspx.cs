@@ -58,7 +58,7 @@ namespace CState_TeamC_Capstone
             sltNearMissReportID.DataValueField = "Id";
             sltNearMissReportID.DataBind();
 
-            sltNearMissReportID.Items.Insert(0, new ListItem("Please Select Near Miss Incident Report", "-1"));
+            sltNearMissReportID.Items.Insert(0, new ListItem("Select Near Miss Incident Report", "-1"));
             var rownumber = 1;
             foreach (var x in nearMissReportID)
             {

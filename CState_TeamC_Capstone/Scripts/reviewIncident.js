@@ -1,21 +1,26 @@
 ﻿// Wait for the DOM to be ready
 $(function () {
-    // Initialize form validation on the registration form.
-    // It has the name attribute "registration"
+    $.validator.addMethod("dropDownValidator", function (value, element, param) {
+        if (value == '-1')
+            return false;
+        else
+            return true;
+    }, "This field is required.");
+
+    // Initialize form validation
     $("#frmReviewIncident").validate({
         // Specify validation rules
         rules: {
-
             // The key name on the left side is the name attribute
             // of an input field. Validation rules are defined
             // on the right side
             sltNearMissReportID: {
-                required: true,
+                dropDownValidator: true,
             },
             sltAssignIncident: {
                 required: true,
             },
-            sltInjurySeverity: {
+            sltSeverityLevel: {
                 required: true,
             },
             sltRiskLevel: {
@@ -25,9 +30,11 @@ $(function () {
 
         // Specify validation error messages
         messages: {
-            sltNearMissReportID: "Select a report to modify",
+            sltNearMissReportID: {
+                dropDownValidator: "Select a report to modify"
+            },
             sltAssignIncident: "Select person to assign to",
-            sltInjurySeverity: "Select severity of injury",
+            sltSeverityLevel: "Select severity of injury",
             sltRiskLevel: "Select risk level"
         },
 

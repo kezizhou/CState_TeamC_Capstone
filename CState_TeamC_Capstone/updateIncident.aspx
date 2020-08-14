@@ -74,5 +74,38 @@
 <asp:Content ID="Content3" ContentPlaceHolderID="ScriptContent" runat="server">
     <!-- Validation JQuery -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.19.2/jquery.validate.min.js"></script>
-    <script src="Scripts/updateIncident.js"></script>
+    <script type ="text/javascript"> 
+        $(function () {
+            $.validator.addMethod("dropDownValidator", function (value, element, param) {
+                if (value == '-1')
+                    return false;
+                else
+                    return true;
+            }, "This field is required.");
+
+            $("#frmUpdateIncident").validate({
+                rules: {
+                    <%=sltNearMissReportID.UniqueID %>: {
+                        dropDownValidator: true,
+                    },
+                    txaActionUpdate: {
+                        required: true,
+                        minlength: 5
+                    }
+                },
+                messages: {
+                    <%=sltNearMissReportID.UniqueID %>: {
+                        dropDownValidator: "Select a report to modify"
+                    },
+                    txaActionUpdate: {
+                        required: "Enter updated actions",
+                        minlength: "Update must be at least 5 characters"
+                    }
+                },
+                submitHandler: function (form) {
+                    form.submit();
+                }
+            });
+        });
+    </script>
 </asp:Content>
