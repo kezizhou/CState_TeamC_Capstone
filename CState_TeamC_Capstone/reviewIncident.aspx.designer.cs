@@ -22,6 +22,24 @@ namespace CState_TeamC_Capstone {
 		protected global::System.Web.UI.HtmlControls.HtmlGenericControl userFullName;
 
 		/// <summary>
+		/// messageDiv control.
+		/// </summary>
+		/// <remarks>
+		/// Auto-generated field.
+		/// To modify move field declaration from designer file to code-behind file.
+		/// </remarks>
+		protected global::System.Web.UI.HtmlControls.HtmlGenericControl messageDiv;
+
+		/// <summary>
+		/// confirmMessage control.
+		/// </summary>
+		/// <remarks>
+		/// Auto-generated field.
+		/// To modify move field declaration from designer file to code-behind file.
+		/// </remarks>
+		protected global::System.Web.UI.HtmlControls.HtmlGenericControl confirmMessage;
+
+		/// <summary>
 		/// frmReviewIncident control.
 		/// </summary>
 		/// <remarks>
