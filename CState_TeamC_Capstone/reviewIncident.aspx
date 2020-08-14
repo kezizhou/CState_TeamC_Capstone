@@ -71,7 +71,7 @@
                         </select>
                     </div>
                     <div class="form-group">
-                        <label for="sltInjurySeverity" class="control-label">Severity of Injury:</label>
+                        <label for="sltSeverityLevel" class="control-label">Severity of Injury:</label>
                         <select id="sltSeverityLevel" name="sltSeverityLevel" class="required form-control">
                             <option value="none" selected="selected" disabled="disabled">Severity Level</option>
                             <% foreach (var x in severity)
@@ -118,9 +118,6 @@
                         </div>
                     </div>
                 </div>
-<%--                <button type="button" id="btnShowPopup" style="display: none;" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal">
-                    Launch demo modal
-                </button>--%>
             </form>
         </div>
     </main>
@@ -128,5 +125,42 @@
 <asp:Content ID="Content3" ContentPlaceHolderID="ScriptContent" runat="server">
     <!-- Validation JQuery -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.19.2/jquery.validate.min.js"></script>
-    <script src="Scripts/reviewIncident.js"></script>
+    <script type ="text/javascript">
+        $(function () {
+            $.validator.addMethod("dropDownValidator", function (value, element, param) {
+                if (value == '-1')
+                    return false;
+                else
+                    return true; 
+            }, "This field is required.");
+
+            $("#frmReviewIncident").validate({
+                rules: {
+                    <%=sltNearMissReportID.UniqueID %>: {
+                        dropDownValidator: true,
+                    },
+                    sltAssignIncident: {
+                        required: true,
+                    },
+                    sltSeverityLevel: {
+                        required: true,
+                    },
+                    sltRiskLevel: {
+                        required: true,
+                    },
+                },
+                messages: {
+                    <%=sltNearMissReportID.UniqueID %>: {
+                        dropDownValidator: "Select a report to modify"
+                    },
+                    sltAssignIncident: "Select person to assign to",
+                    sltSeverityLevel: "Select severity of injury",
+                    sltRiskLevel: "Select risk level"
+                },
+                submitHandler: function (form) {
+                    form.submit();
+                }
+            });
+        });
+    </script>
 </asp:Content>
