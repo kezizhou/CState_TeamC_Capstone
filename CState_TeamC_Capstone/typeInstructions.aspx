@@ -6,10 +6,14 @@
 
 <asp:Content ID="Content2" ContentPlaceHolderID="MainContent" runat="server">
     <main role="main" class="container-fluid">
-        <h2>Near Miss Action Instructions</h2>
-        <h2> <span id="nearmisstype" class="align-center" runat="server">
-            </span>
+        <h2> Near Miss Incident  
+            <span id="nearmissid" class="align-center" runat="server"> </span>
+        was successfully initiated.
         </h2>
+        <h5 >Near Miss Action Instructions:  
+         <span id="nearmisstype" class="align-center" runat="server">
+            </span>
+        </h5>
 
         <!-- Form -->
         <form name="frmTypeInstructions" method="get" action="#" runat="server">

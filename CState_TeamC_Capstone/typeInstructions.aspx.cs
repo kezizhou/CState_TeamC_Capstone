@@ -9,14 +9,19 @@ namespace CState_TeamC_Capstone {
 	public partial class typeInstructions : System.Web.UI.Page {
         protected List<NearMissTypeInstructions> lstNMTypeInstructions { get; set; }
         protected void Page_Load(object sender, EventArgs e) {
-
+            
             string strNearMissType_ID = Request.QueryString["NearMissType_ID"];
+            string strNearMissID = Request.QueryString["NearMissID"];
+
+
 
             if (Request.QueryString["NearMissType_ID"] != null)
             {
+                nearmissid.InnerText = Shared.GetTopNearMissRecord();
                 nearmisstype.InnerText = GetNearMissType();
                 try
                 {
+
                     lstNMTypeInstructions = LoadNearMissTypeInstructions();
                 }
             

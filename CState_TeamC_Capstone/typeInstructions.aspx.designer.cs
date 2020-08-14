@@ -13,6 +13,15 @@ namespace CState_TeamC_Capstone {
     public partial class typeInstructions {
         
         /// <summary>
+        /// nearmissid control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlGenericControl nearmissid;
+        
+        /// <summary>
         /// nearmisstype control.
         /// </summary>
         /// <remarks>

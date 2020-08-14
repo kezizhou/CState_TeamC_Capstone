@@ -107,7 +107,7 @@ namespace CState_TeamC_Capstone
             {
                 Response.Write(ex.Message);
             }
-
+            
             int NearMissType_ID = Convert.ToInt32(Request.Form["sltNMType"].ToString());
             Response.Redirect("~/typeInstructions.aspx?NearMissType_ID=" + NearMissType_ID.ToString());
 
