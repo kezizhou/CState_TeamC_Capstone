@@ -20,6 +20,7 @@ namespace CState_TeamC_Capstone
         public List<Filters> risk;
         protected void Page_Load(object sender, EventArgs e)
         {
+            messageDiv.Style["display"] = "none";
             results = Shared.GetReviewIncidentPageQuery();
             assignTo = Shared.GetAssignIncidentReviewPage();
             severity = Shared.GetSeverityFilter();
@@ -31,6 +32,18 @@ namespace CState_TeamC_Capstone
                 CreateDropDown();
             }
             userFullName.InnerText = ExtensionMethods.GetLastNameFirstName();
+
+            if (!Page.IsPostBack) {
+                if (Request.QueryString["NearMissID"] != null) {
+                    sltNearMissReportID.SelectedValue = Request.QueryString["NearMissID"].ToString();
+                    if (sltNearMissReportID.SelectedValue == "-1") {
+                        // ID no longer found
+                        messageDiv.Style["display"] = "block";
+                    } else {
+                        Filter(sender, e);
+                    }
+                }
+            }
         }
         public void Filter(object sender, EventArgs e)
         {

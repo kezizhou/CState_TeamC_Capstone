@@ -1,3 +1,11 @@
 ﻿#resultTable {
     margin-bottom: 30px;
 }
+
+.message {
+    border: 1px solid #009999;
+    padding: 10px;
+    background: #CDD5C6;
+    margin: 15px;
+    display: none;
+}

@@ -17,6 +17,10 @@
         <h5>Welcome: <span id="userFullName" runat="server"></span></h5>
 
         <div class="container">
+            <div id="messageDiv" class="message center2" runat="server"><h5 id="confirmMessage" runat="server">This incident has already been reviewed.</h5></div>
+        </div>
+
+        <div class="container">
             <!-- Review Incident Form -->
             <form id="frmReviewIncident" name="frmReviewIncident" method="post" action="#" runat="server">
                 <div class="form-group container">
