@@ -31,7 +31,7 @@ namespace CState_TeamC_Capstone {
                 }
             }
             else {
-                Response.Redirect("~/typeInstructionRedirectTemplate.html");
+                Response.Redirect("reset.aspx?type=typeInstructionsError");
             }
         }
 

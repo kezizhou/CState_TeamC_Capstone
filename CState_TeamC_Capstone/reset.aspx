@@ -36,7 +36,7 @@
         <div id="messageDiv" class="message center2" runat="server"><h5 id="confirmMessage" runat="server">Thank you! An email has been sent to you with further instructions.</h5></div>
                         
         <div class="center2">
-            <a href="~/signIn.aspx" runat="server">Return to Sign In</a>
+            <a href="~/signIn.aspx" runat="server">Return to Home/Sign In</a>
         </div>
     </main>
 
