@@ -10,6 +10,10 @@
         <h5>Welcome: <span id="userFullName" runat="server"></span></h5>
 
         <div class="container">
+            <div id="messageDiv" class="message center2" runat="server"><h5 id="confirmMessage" runat="server">You are unauthorized to update actions for this incident. Please try an incident in the dropdown below.</h5></div>
+        </div>
+
+        <div class="container">
             <!-- Update Incident Action Form -->
             <form id="frmUpdateIncident" name="frmUpdateIncident" method="post" action="#" runat="server">
                 <div class="form-group container">

@@ -44,7 +44,6 @@ nav {
 }
 
 #ReviewIncident,
-#UpdateIncident,
 #SearchTool,
 #AdminSettings {
     display: none;

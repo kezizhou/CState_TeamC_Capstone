@@ -21,12 +21,10 @@ namespace CState_TeamC_Capstone {
 				// Check if user is authorized
 				if (Roles.IsUserInRole(HttpContext.Current.User.Identity.Name, "NearMissEHS")) {
 					ReviewIncident.Style["display"] = "block";
-					UpdateIncident.Style["display"] = "block";
 					SearchTool.Style["display"] = "block";
 				}
 				if (Roles.IsUserInRole(HttpContext.Current.User.Identity.Name, "NearMissAssignee")) {
-					ReviewIncident.Style["display"] = "block";
-					UpdateIncident.Style["display"] = "block";
+					
 				}
 				if (Roles.IsUserInRole(HttpContext.Current.User.Identity.Name, "NearMissAdmin")) {
 					// Load admin settings requests count

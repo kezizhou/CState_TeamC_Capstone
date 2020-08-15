@@ -138,8 +138,8 @@
     <Content Include="Content\Site.css" />
     <Content Include="Content\table.css" />
     <Content Include="Content\userSettings.css" />
+    <Content Include="emailAssigneeNotificationTemplate.html" />
     <Content Include="Scripts\reviewIncidentPopup.js" />
-    <Content Include="typeInstructionRedirectTemplate.html" />
     <Content Include="emailForgotUsernameTemplate.html" />
     <Content Include="emailEHSNotificationTemplate.html" />
     <Content Include="emailResetTemplate.html" />
