@@ -5,6 +5,8 @@ using System.Collections.Generic;
 using System.Configuration;
 using System.Data.SqlClient;
 using System.Web.UI.WebControls;
+using System.Web.Security;
+using System.Web;
 
 namespace CState_TeamC_Capstone
 {
@@ -13,14 +15,35 @@ namespace CState_TeamC_Capstone
         public List<UpdateActionPageTable> results;
         public List<Filters> nearMissReportID;
 
-        protected void Page_Load(object sender, EventArgs e)
-        {
+        protected void Page_Load(object sender, EventArgs e) {
+            messageDiv.Style["display"] = "none";
+
             results = Shared.GetUpdateActionIncidentPageQuery();
-            nearMissReportID = Shared.GetNearMissRecordIDUpdateActionPage();
+            if (Roles.IsUserInRole(HttpContext.Current.User.Identity.Name, "NearMissEHS")) {
+                nearMissReportID = Shared.GetNearMissRecordIDUpdateActionPage();
+            } else if (Roles.IsUserInRole(HttpContext.Current.User.Identity.Name, "NearMissAssignee")) {
+                string strName = ExtensionMethods.GetLastNameFirstName();
+                string strDepartment = GetDepartment();
+                nearMissReportID = Shared.GetNearMissRecordIDUpdateActionPage(strDepartment, strName);
+            } else {
+                // Not EHS or Assignee, only show incidents in department
+                string strDepartment = GetDepartment();
+                nearMissReportID = Shared.GetNearMissRecordIDUpdateActionPage(strDepartment);
+            }
+
             GetUserName();
             if (!IsPostBack)
             {
                 CreateDropDown();
+                if (Request.QueryString["NearMissID"] != null) {
+                    sltNearMissReportID.SelectedValue = Request.QueryString["NearMissID"].ToString();
+                    if (sltNearMissReportID.SelectedValue == "-1") {
+                        // Unauthorized to update this ID
+                        messageDiv.Style["display"] = "block";
+                    } else {
+                        Filter(sender, e);
+					}
+                }
             }
             userFullName.InnerText = ExtensionMethods.GetLastNameFirstName();
         }
@@ -55,7 +78,9 @@ namespace CState_TeamC_Capstone
             var nearMissReportID = sltNearMissReportID.SelectedValue;
             var user = GetUserName();
             Shared.InsertUpdateActionStatement(nearMissReportID, UpdateAction, user, DateTime.Now.Date.ToString());
-            Response.Redirect(Request.RawUrl);
+
+            Response.Redirect("updateIncident.aspx?NearMissID=" + nearMissReportID);;
+            sltNearMissReportID.SelectedValue = nearMissReportID;
         }
         private string GetUserName()
         {
@@ -82,6 +107,29 @@ namespace CState_TeamC_Capstone
 
             return strUserName;
         }
-    }
+        private string GetDepartment() 
+        {
+            int intUserID = int.Parse(Session["User_ID"].ToString());
+            string strDepartment = "";
 
+            SqlConnection conn = new SqlConnection(ConfigurationManager.ConnectionStrings["sqlConn"].ToString());
+            conn.Open();
+            string qry = "SELECT * FROM Data.Employee WHERE Person_ID = @id";
+            using (SqlCommand cmd = new SqlCommand(qry, conn)) {
+                var idParam = new SqlParameter("@id", System.Data.SqlDbType.VarChar);
+                idParam.Value = intUserID;
+                cmd.Parameters.Add(idParam);
+
+                SqlDataReader sdr = cmd.ExecuteReader();
+                sdr.Read();
+
+                strDepartment = sdr["Department"].ToString();
+
+                cmd.Dispose();
+                conn.Close();
+            }
+
+            return strDepartment;
+		}
+    }
 }

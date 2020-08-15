@@ -670,7 +670,7 @@ namespace CState_TeamC_Capstone
         {
             List<UpdateActionPageTable> resultList = new List<UpdateActionPageTable>();
 
-            string sql = $@"SELECT Data.NearMissRecord.ID, data.NearMissRecord.OperatorName, Reference.Department.Department, Reference.NearMissType.NearMissType, data.NearMiss_ReviewLog.AssignedTo,
+            string sql = $@"SELECT DISTINCT Data.NearMissRecord.ID, data.NearMissRecord.OperatorName, Reference.Department.Department, Reference.NearMissType.NearMissType, data.NearMiss_ReviewLog.AssignedTo,
                                    Reference.SeverityofInjury.SeverityType, Reference.RiskLevel.RiskType, data.NearMissRecord.NearMiss_Solution, data.NearMissRecord.NearMiss_ActionTaken,
                                    SUBSTRING(
 			                        (
@@ -685,7 +685,7 @@ namespace CState_TeamC_Capstone
                                     INNER JOIN Reference.NearMissType ON Reference.NearMissType.ID = data.NearMissRecord.NearMissType_ID
                                     INNER JOIN Reference.SeverityofInjury ON Reference.SeverityofInjury.ID = data.NearMiss_ReviewLog.Severity_ID
                                     INNER JOIN Reference.RiskLevel ON Reference.RiskLevel.ID = data.NearMiss_ReviewLog.Risk_ID
-                                      where Data.NearMissRecord.ID = COALESCE({nearMissRecordID ?? "null"}, Reference.Department.ID)";
+                                    WHERE Data.NearMissRecord.ID = COALESCE({nearMissRecordID ?? "null"}, Reference.Department.ID)";
 
             using (IDbConnection connection = new SqlConnection(sqlConn))
             {
@@ -717,6 +717,77 @@ namespace CState_TeamC_Capstone
                     {
                         searchQueryResults.Add(new Filters
                         {
+                            ID = (int)reader[0],
+                            Description = reader[1].ToString(),
+                        });
+                    }
+                }
+            }
+
+            return searchQueryResults;
+        }
+        public static List<Filters> GetNearMissRecordIDUpdateActionPage(string strDepartment, string strName) {
+            var searchQueryResults = new List<Filters>();
+            string queryString = @"SELECT DISTINCT data.NearMissRecord.ID, data.NearMissRecord.ID FROM[Data].[NearMissRecord]
+                                    INNER JOIN data.NearMiss_ReviewLog ON data.NearMissRecord.ID = data.NearMiss_ReviewLog.NearMiss_ID
+                                    INNER JOIN Reference.NearMissType ON Reference.NearMissType.ID = data.NearMissRecord.NearMissType_ID
+                                    INNER JOIN Reference.SeverityofInjury ON Reference.SeverityofInjury.ID = data.NearMiss_ReviewLog.Severity_ID
+                                    INNER JOIN Reference.RiskLevel ON Reference.RiskLevel.ID = data.NearMiss_ReviewLog.Risk_ID
+									JOIN data.Employee ON NearMiss_ReviewLog.AssignedTo = data.Employee.Last_Name + ', ' + data.Employee.First_Name
+									WHERE data.Employee.Department = @department
+                                    OR data.NearMiss_ReviewLog.AssignedTo = @name
+                                    AND data.NearMiss_ReviewLog.Severity_ID IS NOT NULL
+                                    AND data.NearMiss_ReviewLog.Severity_ID IS NOT NULL
+                                    ORDER BY data.NearMissRecord.ID ASC";
+
+            using (SqlConnection connection = new SqlConnection(sqlConn)) {
+                SqlCommand command = new SqlCommand(queryString, connection);
+                connection.Open();
+
+                var departmentParam = new SqlParameter("@department", System.Data.SqlDbType.VarChar);
+                departmentParam.Value = strDepartment;
+                command.Parameters.Add(departmentParam);
+
+                var nameParam = new SqlParameter("@name", System.Data.SqlDbType.VarChar);
+                nameParam.Value = strName;
+                command.Parameters.Add(nameParam);
+
+                using (SqlDataReader reader = command.ExecuteReader()) {
+                    while (reader.Read()) {
+                        searchQueryResults.Add(new Filters {
+                            ID = (int)reader[0],
+                            Description = reader[1].ToString(),
+                        });
+                    }
+                }
+            }
+
+            return searchQueryResults;
+        }
+        public static List<Filters> GetNearMissRecordIDUpdateActionPage(string strDepartment) {
+            var searchQueryResults = new List<Filters>();
+            string queryString = @"SELECT DISTINCT data.NearMissRecord.ID, data.NearMissRecord.ID FROM[Data].[NearMissRecord]
+                                    INNER JOIN data.NearMiss_ReviewLog ON data.NearMissRecord.ID = data.NearMiss_ReviewLog.NearMiss_ID
+                                    INNER JOIN Reference.NearMissType ON Reference.NearMissType.ID = data.NearMissRecord.NearMissType_ID
+                                    INNER JOIN Reference.SeverityofInjury ON Reference.SeverityofInjury.ID = data.NearMiss_ReviewLog.Severity_ID
+                                    INNER JOIN Reference.RiskLevel ON Reference.RiskLevel.ID = data.NearMiss_ReviewLog.Risk_ID
+									JOIN data.Employee ON NearMiss_ReviewLog.AssignedTo = data.Employee.Last_Name + ', ' + data.Employee.First_Name
+									WHERE data.Employee.Department = @department
+                                    AND data.NearMiss_ReviewLog.Severity_ID IS NOT NULL
+                                    AND data.NearMiss_ReviewLog.Severity_ID IS NOT NULL
+                                    ORDER BY data.NearMissRecord.ID ASC";
+
+            using (SqlConnection connection = new SqlConnection(sqlConn)) {
+                SqlCommand command = new SqlCommand(queryString, connection);
+                connection.Open();
+
+                var departmentParam = new SqlParameter("@department", System.Data.SqlDbType.VarChar);
+                departmentParam.Value = strDepartment;
+                command.Parameters.Add(departmentParam);
+
+                using (SqlDataReader reader = command.ExecuteReader()) {
+                    while (reader.Read()) {
+                        searchQueryResults.Add(new Filters {
                             ID = (int)reader[0],
                             Description = reader[1].ToString(),
                         });
