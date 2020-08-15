@@ -91,7 +91,7 @@ function drawInjurySeverityChart() {
             colors: colors,
             isStacked: 'true',
             height: '400',
-            width: data.getNumberOfRows() * 150 + 300,
+            width: data.getNumberOfRows() * 105 + 400,
             bar: {
                 groupWidth: '75%'
             },
@@ -162,6 +162,18 @@ function drawInjurySeverityChart() {
 
         // Dashboard
         var dashboard = new google.visualization.Dashboard();
+
+        google.visualization.events.addListener(dashboard, 'ready', function () {
+            // Dashboard redraw, look at how many rows are displayed
+            var numRows = chart.getDataTable().getNumberOfRows();
+            var expectedWidth = numRows * 105 + 365;
+            if (parseInt(chart.getOption("width"), 10) != expectedWidth) {
+                // Update chart options and redraw
+                chart.setOption("width", expectedWidth);
+                chart.draw();
+            }
+        })
+
         dashboard.bind(columnFilter, chart);
         dashboard.draw(data);
     }
@@ -211,7 +223,7 @@ function drawDepartmentNearMissTypesChart() {
         var options = {
             isStacked: 'true',
             height: '385',
-            width: data.getNumberOfRows() * 160 + 300,
+            width: data.getNumberOfRows() * 130 + 335,
             bar: {
                 groupWidth: '75%'
             },
@@ -350,6 +362,22 @@ function drawDepartmentNearMissTypesChart() {
 
             // Dashboard
             var dashboard = new google.visualization.Dashboard();
+
+            google.visualization.events.addListener(dashboard, 'ready', function () {
+                // Dashboard redraw, look at how many rows are displayed
+                var numRows = chart.getDataTable().getNumberOfRows();
+                var expectedWidth = numRows * 130 + 330;
+                if (parseInt(chart.getOption("width"), 10) != expectedWidth) {
+                    // Update chart options and redraw
+                    chart.setOption("width", expectedWidth);
+                    chart.draw();
+                }
+                if (numRows == 1) {
+                    chart.setOption("height", "90%");
+                    chart.setOption("width", "510");
+                }
+            })
+
             dashboard.bind(columnFilter, chart);
             dashboard.draw(data);
         }
