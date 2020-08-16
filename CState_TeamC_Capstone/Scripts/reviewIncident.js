@@ -25,7 +25,10 @@ $(function () {
             },
             sltRiskLevel: {
                 required: true,
-            }            
+            },
+            txaComments: {
+                required: false,
+            }
         },
 
         // Specify validation error messages
