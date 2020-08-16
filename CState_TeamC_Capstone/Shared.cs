@@ -648,10 +648,10 @@ namespace CState_TeamC_Capstone
 
             return resultList;
         }
-        public static void InsertReviewLogStatement(string sltNearMissReportID, string sltAssignIncident = null, string sltSeverityLevel = null, string sltRiskLevel = null, string strUserName = null, string reviewDate = null)
+        public static void InsertReviewLogStatement(string sltNearMissReportID, string sltAssignIncident = null, string sltSeverityLevel = null, string sltRiskLevel = null, string strUserName = null, string comments = null, string reviewDate = null)
         {
-            string sql = $@"INSERT INTO Data.NearMiss_ReviewLog(NearMiss_ID, AssignedTo, Severity_ID, Risk_ID, Comments, ReviewedBy, ReviewDate)
-                            VALUES(@sltNearMissReportID, @sltAssignIncident, @sltSeverityLevel, @sltRiskLevel, '', @strUserName, @reviewDate )";
+            string sql = $@"INSERT INTO Data.NearMiss_ReviewLog(NearMiss_ID, AssignedTo, Severity_ID, Risk_ID, ReviewedBy, Comments, ReviewDate)
+                            VALUES(@sltNearMissReportID, @sltAssignIncident, @sltSeverityLevel, @sltRiskLevel, @strUserName, @Comments, @reviewDate)";
 
             using (IDbConnection connection = new SqlConnection(sqlConn))
             {
@@ -661,6 +661,7 @@ namespace CState_TeamC_Capstone
                     sltSeverityLevel,
                     sltRiskLevel,
                     strUserName,
+                    comments,
                     reviewDate
                 });
             }
