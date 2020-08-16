@@ -557,7 +557,8 @@ namespace CState_TeamC_Capstone
 	                               FROM [Data].[Employee] AS [D_EMP]	
                                    LEFT JOIN [Config].[EmployeeRole]    AS [CON_ER] ON [D_EMP].[Person_ID] = [CON_ER].[Person_ID]
                                    INNER JOIN [Reference].[Role]        AS [REF_R]  ON [CON_ER].[Role_ID] = [REF_R].[ID]
-                                   CROSS APPLY [UTVF].[GetPersonRolesCommaDelimited] ([CON_ER].[Person_ID]) AS [GPRCD]";
+                                   CROSS APPLY [UTVF].[GetPersonRolesCommaDelimited] ([CON_ER].[Person_ID]) AS [GPRCD]
+                                   WHERE [REF_R].ID = 1";
 
             using (SqlConnection connection = new SqlConnection(sqlConn))
             {
