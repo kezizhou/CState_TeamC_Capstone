@@ -100,6 +100,10 @@
                             <%};%>
                         </select>
                     </div>
+                    <div>
+                        <label for="txaComments" class="control-label"> EHS Review Comments:</label>
+                        <textarea name="txaComments" id="txaComments" class="form-control" rows="8" required="required"></textarea>
+                    </div>
                     <div class="container">
                         <asp:Button runat="server" ID="btnSubmit" class="btn btn-primary btn-sm center" Text="Submit" OnClick="InsertReviewLog" />
                     </div>

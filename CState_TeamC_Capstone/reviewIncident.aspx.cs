@@ -58,7 +58,8 @@ namespace CState_TeamC_Capstone
             var riskSelection = Request["sltRiskLevel"];
             var nearMissReportID = sltNearMissReportID.SelectedValue;
             var user = GetUserName();
-            Shared.InsertReviewLogStatement(nearMissReportID, assignIncidentSelection, severitySelection, riskSelection, user, DateTime.Now.Date.ToString());
+            var comments = Request["txaComments"];
+            Shared.InsertReviewLogStatement(nearMissReportID, assignIncidentSelection, severitySelection, riskSelection, user, comments, DateTime.Now.Date.ToString());
 
             string strSeverity = GetSeverityFromID(severitySelection);
             string strRisk = GetRiskFromID(riskSelection);

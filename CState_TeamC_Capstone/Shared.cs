@@ -558,7 +558,8 @@ namespace CState_TeamC_Capstone
                                    LEFT JOIN [Config].[EmployeeRole]    AS [CON_ER] ON [D_EMP].[Person_ID] = [CON_ER].[Person_ID]
                                    INNER JOIN [Reference].[Role]        AS [REF_R]  ON [CON_ER].[Role_ID] = [REF_R].[ID]
                                    CROSS APPLY [UTVF].[GetPersonRolesCommaDelimited] ([CON_ER].[Person_ID]) AS [GPRCD]
-                                   WHERE [REF_R].ID = 1";
+                                   WHERE [REF_R].ID = 1
+                                   ORDER BY [DisplayName] ASC";
 
             using (SqlConnection connection = new SqlConnection(sqlConn))
             {
@@ -649,10 +650,10 @@ namespace CState_TeamC_Capstone
 
             return resultList;
         }
-        public static void InsertReviewLogStatement(string sltNearMissReportID, string sltAssignIncident = null, string sltSeverityLevel = null, string sltRiskLevel = null, string strUserName = null, string reviewDate = null)
+        public static void InsertReviewLogStatement(string sltNearMissReportID, string sltAssignIncident = null, string sltSeverityLevel = null, string sltRiskLevel = null, string strUserName = null, string comments = null, string reviewDate = null)
         {
-            string sql = $@"INSERT INTO Data.NearMiss_ReviewLog(NearMiss_ID, AssignedTo, Severity_ID, Risk_ID, Comments, ReviewedBy, ReviewDate)
-                            VALUES(@sltNearMissReportID, @sltAssignIncident, @sltSeverityLevel, @sltRiskLevel, '', @strUserName, @reviewDate )";
+            string sql = $@"INSERT INTO Data.NearMiss_ReviewLog(NearMiss_ID, AssignedTo, Severity_ID, Risk_ID, ReviewedBy, Comments, ReviewDate)
+                            VALUES(@sltNearMissReportID, @sltAssignIncident, @sltSeverityLevel, @sltRiskLevel, @strUserName, @Comments, @reviewDate)";
 
             using (IDbConnection connection = new SqlConnection(sqlConn))
             {
@@ -662,6 +663,7 @@ namespace CState_TeamC_Capstone
                     sltSeverityLevel,
                     sltRiskLevel,
                     strUserName,
+                    comments,
                     reviewDate
                 });
             }
