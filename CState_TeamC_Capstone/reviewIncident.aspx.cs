@@ -65,7 +65,7 @@ namespace CState_TeamC_Capstone
 
             string strSeverity = GetSeverityFromID(severitySelection);
             string strRisk = GetRiskFromID(riskSelection);
-            SendAssigneeEmail(nearMissReportID, assignIncidentSelection, strSeverity, strRisk);
+            SendAssigneeEmail(nearMissReportID, assignIncidentSelection, strSeverity, strRisk, comments);
 
             Page.ClientScript.RegisterStartupScript(this.GetType(), "ShowPopup", "ShowPopup();", true);
         }
@@ -105,7 +105,7 @@ namespace CState_TeamC_Capstone
 
             return strUserName;
         }
-        private void SendAssigneeEmail(string strNearMissID, string strAssigneeName, string strSeverity, string strRisk) {
+        private void SendAssigneeEmail(string strNearMissID, string strAssigneeName, string strSeverity, string strRisk, string strComments) {
             string strEmail = GetEmailFromName(strAssigneeName);
             ReviewIncidentPageTable incident = GetIncidentData(strNearMissID);
 
@@ -135,6 +135,7 @@ namespace CState_TeamC_Capstone
             strEmailBody = strEmailBody.Replace("[Risk]", strRisk);
             strEmailBody = strEmailBody.Replace("[NearMissDetails]", incident.NearMiss_Solution);
             strEmailBody = strEmailBody.Replace("[NearMissActionTaken]", incident.NearMiss_ActionTaken);
+            strEmailBody = strEmailBody.Replace("[EHSComments]", strComments);
 
             mailMessage.IsBodyHtml = true;
             mailMessage.Body = strEmailBody;
