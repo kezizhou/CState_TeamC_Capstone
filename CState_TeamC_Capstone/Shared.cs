@@ -676,7 +676,7 @@ namespace CState_TeamC_Capstone
                                    Reference.SeverityofInjury.SeverityType, Reference.RiskLevel.RiskType, data.NearMissRecord.NearMiss_Solution, data.NearMissRecord.NearMiss_ActionTaken,
                                    SUBSTRING(
 			                        (
-			                        SELECT [NM_ActionTakenUpdate].[NearMiss_ActionTaken] + '(' + [UpdatedBy] + '  ' + CONVERT(varchar, [DateUpdate], 0)	 + ') '
+			                        SELECT [NM_ActionTakenUpdate].[NearMiss_ActionTaken] + '(' + [UpdatedBy] + '  ' + CONVERT(varchar, [DateUpdate], 0) + ')'
 			                        FROM [Data].[NearMiss_ActionTakenUpdate]			AS [NM_ActionTakenUpdate]
 			                        	WHERE Data.NearMissRecord.[ID] = [NM_ActionTakenUpdate].[NearMiss_ID]
 			                        FOR XML PATH('')
