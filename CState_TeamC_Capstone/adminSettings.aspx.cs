@@ -23,8 +23,10 @@ namespace CState_TeamC_Capstone {
 
 			SqlConnection conn = new SqlConnection(ConfigurationManager.ConnectionStrings["sqlConn"].ToString());
 			conn.Open();
-			string qry = "SELECT CRR.ID, RR.Name, DE.First_Name, DE.Middle_Name, DE.Last_Name, DE.Email, DE.Employee_ID, DE.Department FROM Data.Employee AS DE " + 
-						 "JOIN Config.RoleRequests AS CRR ON DE.Person_ID = CRR.Person_ID JOIN Reference.Role AS RR ON CRR.Role_ID = RR.ID " +
+			string qry = "SELECT CRR.ID, RR.Name, DE.First_Name, DE.Middle_Name, DE.Last_Name, DE.Email, DE.Employee_ID, RD.Department FROM Data.Employee AS DE " + 
+						 "JOIN Config.RoleRequests AS CRR ON DE.Person_ID = CRR.Person_ID " +
+						 "JOIN Reference.Role AS RR ON CRR.Role_ID = RR.ID " +
+						 "JOIN Reference.Department AS RD ON DE.Department = RD.ID " +
 						 "WHERE NOT DE.Person_ID = @uid AND NOT CRR.Status_ID IN(1, 3) ";
 			using (SqlCommand cmd = new SqlCommand(qry, conn)) {
 				string strID = "";

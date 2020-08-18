@@ -100,7 +100,7 @@
                             <%};%>
                         </select>
                     </div>
-                    <div>
+                    <div class="form-group">
                         <label for="txaComments" class="control-label"> EHS Review Comments:</label>
                         <textarea name="txaComments" id="txaComments" class="form-control" rows="8" required="required"></textarea>
                     </div>
@@ -112,13 +112,13 @@
                     <div class="modal-dialog" role="document">
                         <div class="modal-content">
                             <div class="modal-header">
-                                <h5 class="modal-title" id="exampleModalLabel">Update Record</h5>
+                                <h5 class="modal-title" id="exampleModalLabel">Assign Record</h5>
                                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                                     <span aria-hidden="true">&times;</span>
                                 </button>
                             </div>
                             <div class="modal-body">
-                                Success! Near Miss Record Updated.
+                                Success! Near Miss Record Assigned.
                             </div>
                             <div class="modal-footer">
                                 <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>

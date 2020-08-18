@@ -4,11 +4,16 @@ using System.Configuration;
 using System.Data.SqlClient;
 using System.Web.Services;
 using System.Web;
+using DocumentFormat.OpenXml.Office2010.Excel;
+using CState_TeamC_Capstone.Classes;
+using System.Collections.Generic;
+using System.Security.Permissions;
 
 namespace CState_TeamC_Capstone
 {
     public partial class newUser : System.Web.UI.Page
     {
+        public List<Department> departments = new List<Department>();
 
         protected void Page_Load(object sender, EventArgs e)
         {
@@ -18,18 +23,17 @@ namespace CState_TeamC_Capstone
                 SqlConnection sqlconn = new SqlConnection(conn);
 
                 string sqlquery = "SELECT [ID], [Department] FROM [Reference].[Department] ORDER BY [Department] ASC";
-                SqlDataAdapter sda = new SqlDataAdapter(sqlquery, sqlconn);
+                SqlCommand command = new SqlCommand(sqlquery, sqlconn);
                 sqlconn.Open();
-                DataTable dt = new DataTable();
-                sda.Fill(dt);
-                sltDepartment.DataSource = dt;
-                sltDepartment.DataTextField = "Department";
-                sltDepartment.DataValueField = "Department";
-                sltDepartment.DataBind();
+                using (SqlDataReader reader = command.ExecuteReader()) 
+                {
+                    while (reader.Read()) 
+                    {
+                        departments.Add(new Department(reader[0].ToString(), reader[1].ToString()));
+					}
+				}
             
                 sqlconn.Close();
-
-                sltDepartment.Items.Insert(0, "Select Department");
 
             } catch (Exception ex) {
                 Response.Write(ex.Message);

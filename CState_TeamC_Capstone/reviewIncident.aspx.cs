@@ -28,12 +28,11 @@ namespace CState_TeamC_Capstone
             risk = Shared.GetRiskFilter();
             nearMissReportID = Shared.GetNearMissRecordIDReviewPage();
             GetUserName();
-            if (!IsPostBack) {
-                CreateDropDown();
-            }
             userFullName.InnerText = ExtensionMethods.GetLastNameFirstName();
 
             if (!Page.IsPostBack) {
+                CreateDropDown();
+
                 if (Request.QueryString["NearMissID"] != null) {
                     sltNearMissReportID.SelectedValue = Request.QueryString["NearMissID"].ToString();
                     if (sltNearMissReportID.SelectedValue == "-1") {
@@ -42,12 +41,15 @@ namespace CState_TeamC_Capstone
                     } else {
                         Filter(sender, e);
                     }
+                } else {
+                    Filter(sender, e);
                 }
-            }
+			}
         }
         public void Filter(object sender, EventArgs e) {
             var selectedID = sltNearMissReportID.SelectedItem;
             if (int.Parse(selectedID.Value) == -1) {
+                results = new List<ReviewIncidentPageTable>();
                 return;
             }
             results = Shared.GetReviewIncidentPageQuery(selectedID.ToString());
@@ -63,7 +65,7 @@ namespace CState_TeamC_Capstone
 
             string strSeverity = GetSeverityFromID(severitySelection);
             string strRisk = GetRiskFromID(riskSelection);
-            SendAssigneeEmail(nearMissReportID, assignIncidentSelection, strSeverity, strRisk);
+            SendAssigneeEmail(nearMissReportID, assignIncidentSelection, strSeverity, strRisk, comments);
 
             Page.ClientScript.RegisterStartupScript(this.GetType(), "ShowPopup", "ShowPopup();", true);
         }
@@ -103,7 +105,7 @@ namespace CState_TeamC_Capstone
 
             return strUserName;
         }
-        private void SendAssigneeEmail(string strNearMissID, string strAssigneeName, string strSeverity, string strRisk) {
+        private void SendAssigneeEmail(string strNearMissID, string strAssigneeName, string strSeverity, string strRisk, string strComments) {
             string strEmail = GetEmailFromName(strAssigneeName);
             ReviewIncidentPageTable incident = GetIncidentData(strNearMissID);
 
@@ -133,6 +135,7 @@ namespace CState_TeamC_Capstone
             strEmailBody = strEmailBody.Replace("[Risk]", strRisk);
             strEmailBody = strEmailBody.Replace("[NearMissDetails]", incident.NearMiss_Solution);
             strEmailBody = strEmailBody.Replace("[NearMissActionTaken]", incident.NearMiss_ActionTaken);
+            strEmailBody = strEmailBody.Replace("[EHSComments]", strComments);
 
             mailMessage.IsBodyHtml = true;
             mailMessage.Body = strEmailBody;
