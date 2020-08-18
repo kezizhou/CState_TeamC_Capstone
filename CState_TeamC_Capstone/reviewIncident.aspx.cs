@@ -28,12 +28,11 @@ namespace CState_TeamC_Capstone
             risk = Shared.GetRiskFilter();
             nearMissReportID = Shared.GetNearMissRecordIDReviewPage();
             GetUserName();
-            if (!IsPostBack) {
-                CreateDropDown();
-            }
             userFullName.InnerText = ExtensionMethods.GetLastNameFirstName();
 
             if (!Page.IsPostBack) {
+                CreateDropDown();
+
                 if (Request.QueryString["NearMissID"] != null) {
                     sltNearMissReportID.SelectedValue = Request.QueryString["NearMissID"].ToString();
                     if (sltNearMissReportID.SelectedValue == "-1") {
@@ -42,12 +41,15 @@ namespace CState_TeamC_Capstone
                     } else {
                         Filter(sender, e);
                     }
+                } else {
+                    Filter(sender, e);
                 }
-            }
+			}
         }
         public void Filter(object sender, EventArgs e) {
             var selectedID = sltNearMissReportID.SelectedItem;
             if (int.Parse(selectedID.Value) == -1) {
+                results = new List<ReviewIncidentPageTable>();
                 return;
             }
             results = Shared.GetReviewIncidentPageQuery(selectedID.ToString());
