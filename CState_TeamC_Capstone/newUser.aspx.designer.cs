@@ -49,15 +49,6 @@ namespace CState_TeamC_Capstone {
 		protected global::System.Web.UI.HtmlControls.HtmlInputText txtEmail;
 
 		/// <summary>
-		/// sltDepartment control.
-		/// </summary>
-		/// <remarks>
-		/// Auto-generated field.
-		/// To modify move field declaration from designer file to code-behind file.
-		/// </remarks>
-		protected global::System.Web.UI.HtmlControls.HtmlSelect sltDepartment;
-
-		/// <summary>
 		/// txtUsername control.
 		/// </summary>
 		/// <remarks>

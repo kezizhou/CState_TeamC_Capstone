@@ -43,6 +43,8 @@ namespace CState_TeamC_Capstone
                     } else {
                         Filter(sender, e);
 					}
+                } else {
+                    Filter(sender, e);
                 }
             }
             userFullName.InnerText = ExtensionMethods.GetLastNameFirstName();
