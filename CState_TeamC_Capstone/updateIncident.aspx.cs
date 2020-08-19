@@ -54,6 +54,7 @@ namespace CState_TeamC_Capstone
             var selectedID = sltNearMissReportID.SelectedItem;
             if (int.Parse(selectedID.Value) == -1)
             {
+                results = new List<UpdateActionPageTable>();
                 return;
             }
             results = Shared.GetUpdateActionIncidentPageQuery(selectedID.ToString());
