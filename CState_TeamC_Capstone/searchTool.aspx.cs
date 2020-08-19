@@ -66,8 +66,8 @@ namespace CState_TeamC_Capstone
             var departmentSelection = Request["sltDepartment"];
             ViewState["sltDepartment"] = departmentSelection;
 
-            var nearMissTypeSElection = Request["sltNearMissType"];
-            ViewState["sltNearMissType"] = nearMissTypeSElection;
+            var nearMissTypeSelection = Request["sltNearMissType"];
+            ViewState["sltNearMissType"] = nearMissTypeSelection;
 
             var severitySelection = Request["sltSeverityLevel"];
             ViewState["sltSeverityLevel"] = severitySelection;
@@ -78,7 +78,7 @@ namespace CState_TeamC_Capstone
             var operatorSelection = Request["sltOperatorName"];
             var assignedToSelection = Request["sltAssignedTo"];
 
-            GetResults(departmentSelection, nearMissTypeSElection, severitySelection, riskSelection, operatorSelection, assignedToSelection);
+            GetResults(departmentSelection, nearMissTypeSelection, severitySelection, riskSelection, operatorSelection, assignedToSelection);
         }
 
         protected void Clear(object sender, EventArgs e)
