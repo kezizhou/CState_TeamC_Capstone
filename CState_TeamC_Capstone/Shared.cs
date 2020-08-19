@@ -682,20 +682,20 @@ namespace CState_TeamC_Capstone
 
             string sql = $@"SELECT DISTINCT Data.NearMissRecord.ID, data.NearMissRecord.OperatorName, Reference.Department.Department, Reference.NearMissType.NearMissType, data.NearMiss_ReviewLog.AssignedTo,
                                    Reference.SeverityofInjury.SeverityType, Reference.RiskLevel.RiskType, data.NearMissRecord.NearMiss_Solution, data.NearMissRecord.NearMiss_ActionTaken,
-                                   SUBSTRING(
+                                   REPLACE(STUFF(
 			                        (
-			                        SELECT [NM_ActionTakenUpdate].[NearMiss_ActionTaken] + '(' + [UpdatedBy] + '  ' + CONVERT(varchar, [DateUpdate], 0) + ')'
+			                        SELECT CHAR(13) + CHAR(10) + [NM_ActionTakenUpdate].[NearMiss_ActionTaken] + ' (' + [UpdatedBy] + '  ' + CONVERT(varchar, [DateUpdate], 0)	 + ') '
 			                        FROM [Data].[NearMiss_ActionTakenUpdate]			AS [NM_ActionTakenUpdate]
 			                        	WHERE Data.NearMissRecord.[ID] = [NM_ActionTakenUpdate].[NearMiss_ID]
 			                        FOR XML PATH('')
-			                        ), 1, 9999) As [Additional_Actions_Taken]
+			                        , TYPE).value('.', 'nvarchar(max)'), 1, 1, ''), CHAR(13) + CHAR(10), '<br /><br />') As [Additional_Actions_Taken]
                                     FROM data.NearMissRecord
                                     INNER JOIN data.NearMiss_ReviewLog ON data.NearMissRecord.ID = data.NearMiss_ReviewLog.NearMiss_ID
                                     INNER JOIN Reference.Department ON Reference.Department.ID = data.NearMissRecord.Department_ID
                                     INNER JOIN Reference.NearMissType ON Reference.NearMissType.ID = data.NearMissRecord.NearMissType_ID
                                     INNER JOIN Reference.SeverityofInjury ON Reference.SeverityofInjury.ID = data.NearMiss_ReviewLog.Severity_ID
                                     INNER JOIN Reference.RiskLevel ON Reference.RiskLevel.ID = data.NearMiss_ReviewLog.Risk_ID
-                                    WHERE Data.NearMissRecord.ID = COALESCE({nearMissRecordID ?? "null"}, Reference.Department.ID)";
+                                    WHERE Data.NearMissRecord.ID = COALESCE(1, Reference.Department.ID)";
 
             using (IDbConnection connection = new SqlConnection(sqlConn))
             {
