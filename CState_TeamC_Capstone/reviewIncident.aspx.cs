@@ -123,8 +123,7 @@ namespace CState_TeamC_Capstone
             strEmailBody = strEmailBody.Replace("[actionURL]", ConfigurationManager.AppSettings["mainURL"] + "updateIncident?NearMissID=" + strNearMissID);
             strEmailBody = strEmailBody.Replace("[mainURL]", ConfigurationManager.AppSettings["mainURL"]);
 
-            string strFullName = GetUserName();
-            string strFirstName = strFullName.Substring(strFullName.LastIndexOf(',') + 2);
+            string strFirstName = strAssigneeName.Substring(strAssigneeName.LastIndexOf(',') + 2);
 
             strEmailBody = strEmailBody.Replace("[strUsername]", strFirstName);
             strEmailBody = strEmailBody.Replace("[NearMissID]", strNearMissID);
