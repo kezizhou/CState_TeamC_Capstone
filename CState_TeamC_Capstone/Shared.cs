@@ -373,7 +373,18 @@ namespace CState_TeamC_Capstone
             List<SearchToolQueryResult> resultList = new List<SearchToolQueryResult>();
             string sql = "";
 
-            if (departmentFilter != null || nearMissTypeFilter != null || severityTypeFilter != null || riskTypeFilter != null || operatorFilter != null || assigneeFilter != null) {
+            if ((departmentFilter != null || nearMissTypeFilter != null || operatorFilter != null) && severityTypeFilter == null && riskTypeFilter == null && assigneeFilter == null) {
+                // Department, near miss type, or operator name filters applied
+                // Show all incidents, including unassigned
+                sql = $@"SELECT[ID], [OperatorName], [Department], [NearMissType], [AssignedTo], [SeverityType], [RiskType], [NearMiss_Solution]
+                                    FROM[VW].[NearMissReportingSearchTool]
+                                    WHERE[Department_ID] = COALESCE({ departmentFilter ?? "null"}, [Department_ID])
+                                        AND[NearMissType_ID] = COALESCE({ nearMissTypeFilter ?? "null"}, [NearMissType_ID])
+                                        AND[OperatorName] = COALESCE({ GetNameFormattedForSQL(operatorFilter)}, [OperatorName])
+                                    ORDER BY[ID]";
+            } else if (severityTypeFilter != null || riskTypeFilter != null || assigneeFilter != null) {
+                // Severity, risk or assigned to filters applied
+                // Only show assigned incidents
                 sql = $@"SELECT[ID], [OperatorName], [Department], [NearMissType], [AssignedTo], [SeverityType], [RiskType], [NearMiss_Solution]
                                     FROM[VW].[NearMissReportingSearchTool]
                                     WHERE[Department_ID] = COALESCE({ departmentFilter ?? "null"}, [Department_ID])
@@ -384,6 +395,7 @@ namespace CState_TeamC_Capstone
                                         AND[AssignedTo] = COALESCE({ GetNameFormattedForSQL(assigneeFilter)}, [AssignedTo])
                                     ORDER BY[ID]";
             } else {
+                // Show all incidents, including unassigned
                 sql = $@"SELECT[ID], [OperatorName], [Department], [NearMissType], [AssignedTo], [SeverityType], [RiskType], [NearMiss_Solution]
                                     FROM[VW].[NearMissReportingSearchTool]
                                     WHERE[Department_ID] = COALESCE({ departmentFilter ?? "null"}, [Department_ID])
@@ -695,7 +707,7 @@ namespace CState_TeamC_Capstone
                                     INNER JOIN Reference.NearMissType ON Reference.NearMissType.ID = data.NearMissRecord.NearMissType_ID
                                     INNER JOIN Reference.SeverityofInjury ON Reference.SeverityofInjury.ID = data.NearMiss_ReviewLog.Severity_ID
                                     INNER JOIN Reference.RiskLevel ON Reference.RiskLevel.ID = data.NearMiss_ReviewLog.Risk_ID
-                                    WHERE Data.NearMissRecord.ID = COALESCE(1, Reference.Department.ID)";
+                                    WHERE Data.NearMissRecord.ID = COALESCE({nearMissRecordID ?? "null"}, Reference.Department.ID)";
 
             using (IDbConnection connection = new SqlConnection(sqlConn))
             {
