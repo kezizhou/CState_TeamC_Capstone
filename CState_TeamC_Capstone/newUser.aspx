@@ -65,8 +65,13 @@
 
                 <div class="form-group" id="departmentDiv">
                     <label for="sltDepartment" class="control-label">Department:</label>
-                    <select id="sltDepartment" name="sltDepartment" runat="server" class="required form-control">
-                        <option value="none" title="Select Department" selected="selected" disabled="disabled" hidden="hidden" runat="server" >Select Production Area</option>               
+                    <select id="sltDepartment" name="sltDepartment" class="required form-control">
+                        <option value="none" selected="selected" disabled="disabled" hidden="hidden">Select Department</option>               
+                        <% foreach (var x in departments)
+                            {%><option value="<%= x.strID%>">
+                                <%= x.strDepartment%>
+                            </option>
+                        <%};%>
                     </select>
                </div>
 

@@ -371,22 +371,41 @@ namespace CState_TeamC_Capstone
         {
 
             List<SearchToolQueryResult> resultList = new List<SearchToolQueryResult>();
+            string sql = "";
 
-            string sql = $@"SELECT Data.NearMissRecord.ID, data.NearMissRecord.OperatorName, Reference.Department.Department, Reference.NearMissType.NearMissType, data.NearMiss_ReviewLog.AssignedTo,
-                                   Reference.SeverityofInjury.SeverityType, Reference.RiskLevel.RiskType, data.NearMissRecord.NearMiss_Solution
-                                    FROM data.NearMissRecord
-                                    INNER JOIN data.NearMiss_ReviewLog ON data.NearMissRecord.ID = data.NearMiss_ReviewLog.NearMiss_ID
-                                    INNER JOIN Reference.Department ON Reference.Department.ID = data.NearMissRecord.Department_ID
-                                    INNER JOIN Reference.NearMissType ON Reference.NearMissType.ID = data.NearMissRecord.NearMissType_ID
-                                    INNER JOIN Reference.SeverityofInjury ON Reference.SeverityofInjury.ID = data.NearMiss_ReviewLog.Severity_ID
-                                    INNER JOIN Reference.RiskLevel ON Reference.RiskLevel.ID = data.NearMiss_ReviewLog.Risk_ID
-                                      where Reference.Department.ID = COALESCE({departmentFilter ?? "null"}, Reference.Department.ID)
-                                        AND Reference.NearMissType.ID = COALESCE({nearMissTypeFilter ?? "null"}, Reference.NearMissType.ID)
-                                        AND Reference.SeverityofInjury.ID = COALESCE({severityTypeFilter ?? "null"}, SeverityofInjury.ID)
-                                        AND Reference.RiskLevel.ID = COALESCE({riskTypeFilter ?? "null"}, Reference.RiskLevel.ID)
-                                        AND data.NearMissRecord.OperatorName = COALESCE({GetNameFormattedForSQL(operatorFilter)}, data.NearMissRecord.OperatorName)
-                                        AND data.NearMiss_ReviewLog.AssignedTo = COALESCE({GetNameFormattedForSQL(assigneeFilter)}, data.NearMiss_ReviewLog.AssignedTo)
-                                    ORDER BY DATA.NearMissRecord.ID";
+            if ((departmentFilter != null || nearMissTypeFilter != null || operatorFilter != null) && severityTypeFilter == null && riskTypeFilter == null && assigneeFilter == null) {
+                // Department, near miss type, or operator name filters applied
+                // Show all incidents, including unassigned
+                sql = $@"SELECT[ID], [OperatorName], [Department], [NearMissType], [AssignedTo], [SeverityType], [RiskType], [NearMiss_Solution]
+                                    FROM[VW].[NearMissReportingSearchTool]
+                                    WHERE[Department_ID] = COALESCE({ departmentFilter ?? "null"}, [Department_ID])
+                                        AND[NearMissType_ID] = COALESCE({ nearMissTypeFilter ?? "null"}, [NearMissType_ID])
+                                        AND[OperatorName] = COALESCE({ GetNameFormattedForSQL(operatorFilter)}, [OperatorName])
+                                    ORDER BY[ID]";
+            } else if (severityTypeFilter != null || riskTypeFilter != null || assigneeFilter != null) {
+                // Severity, risk or assigned to filters applied
+                // Only show assigned incidents
+                sql = $@"SELECT[ID], [OperatorName], [Department], [NearMissType], [AssignedTo], [SeverityType], [RiskType], [NearMiss_Solution]
+                                    FROM[VW].[NearMissReportingSearchTool]
+                                    WHERE[Department_ID] = COALESCE({ departmentFilter ?? "null"}, [Department_ID])
+                                        AND[NearMissType_ID] = COALESCE({ nearMissTypeFilter ?? "null"}, [NearMissType_ID])
+                                        AND[Severity_ID] = COALESCE({ severityTypeFilter ?? "null"}, [Severity_ID])
+                                        AND[Risk_ID] = COALESCE({ riskTypeFilter ?? "null"}, [Risk_ID])
+                                        AND[OperatorName] = COALESCE({ GetNameFormattedForSQL(operatorFilter)}, [OperatorName])
+                                        AND[AssignedTo] = COALESCE({ GetNameFormattedForSQL(assigneeFilter)}, [AssignedTo])
+                                    ORDER BY[ID]";
+            } else {
+                // Show all incidents, including unassigned
+                sql = $@"SELECT[ID], [OperatorName], [Department], [NearMissType], [AssignedTo], [SeverityType], [RiskType], [NearMiss_Solution]
+                                    FROM[VW].[NearMissReportingSearchTool]
+                                    WHERE[Department_ID] = COALESCE({ departmentFilter ?? "null"}, [Department_ID])
+                                        OR[NearMissType_ID] = COALESCE({ nearMissTypeFilter ?? "null"}, [NearMissType_ID])
+                                        OR[Severity_ID] = COALESCE({ severityTypeFilter ?? "null"}, [Severity_ID])
+                                        OR[Risk_ID] = COALESCE({ riskTypeFilter ?? "null"}, [Risk_ID])
+                                        OR[OperatorName] = COALESCE({ GetNameFormattedForSQL(operatorFilter)}, [OperatorName])
+                                        OR[AssignedTo] = COALESCE({ GetNameFormattedForSQL(assigneeFilter)}, [AssignedTo])
+                                    ORDER BY[ID]";
+            }
 
             using (IDbConnection connection = new SqlConnection(sqlConn))
             {
@@ -558,7 +577,8 @@ namespace CState_TeamC_Capstone
                                    LEFT JOIN [Config].[EmployeeRole]    AS [CON_ER] ON [D_EMP].[Person_ID] = [CON_ER].[Person_ID]
                                    INNER JOIN [Reference].[Role]        AS [REF_R]  ON [CON_ER].[Role_ID] = [REF_R].[ID]
                                    CROSS APPLY [UTVF].[GetPersonRolesCommaDelimited] ([CON_ER].[Person_ID]) AS [GPRCD]
-                                   ORDER BY [DisplayName] ASC ";
+                                   WHERE [REF_R].ID = 1
+                                   ORDER BY [DisplayName] ASC";
 
             using (SqlConnection connection = new SqlConnection(sqlConn))
             {
@@ -674,13 +694,13 @@ namespace CState_TeamC_Capstone
 
             string sql = $@"SELECT DISTINCT Data.NearMissRecord.ID, data.NearMissRecord.OperatorName, Reference.Department.Department, Reference.NearMissType.NearMissType, data.NearMiss_ReviewLog.AssignedTo,
                                    Reference.SeverityofInjury.SeverityType, Reference.RiskLevel.RiskType, data.NearMissRecord.NearMiss_Solution, data.NearMissRecord.NearMiss_ActionTaken,
-                                   SUBSTRING(
+                                   REPLACE(STUFF(
 			                        (
-			                        SELECT [NM_ActionTakenUpdate].[NearMiss_ActionTaken] + '(' + [UpdatedBy] + '  ' + CONVERT(varchar, [DateUpdate], 0)	 + ') '
+			                        SELECT CHAR(13) + CHAR(10) + [NM_ActionTakenUpdate].[NearMiss_ActionTaken] + ' (' + [UpdatedBy] + '  ' + CONVERT(varchar, [DateUpdate], 0)	 + ') '
 			                        FROM [Data].[NearMiss_ActionTakenUpdate]			AS [NM_ActionTakenUpdate]
 			                        	WHERE Data.NearMissRecord.[ID] = [NM_ActionTakenUpdate].[NearMiss_ID]
 			                        FOR XML PATH('')
-			                        ), 1, 9999) As [Additional_Actions_Taken]
+			                        , TYPE).value('.', 'nvarchar(max)'), 1, 1, ''), CHAR(13) + CHAR(10), '<br /><br />') As [Additional_Actions_Taken]
                                     FROM data.NearMissRecord
                                     INNER JOIN data.NearMiss_ReviewLog ON data.NearMissRecord.ID = data.NearMiss_ReviewLog.NearMiss_ID
                                     INNER JOIN Reference.Department ON Reference.Department.ID = data.NearMissRecord.Department_ID

@@ -10,8 +10,7 @@ $(function () {
         return this.optional(element) || /^[a-zA-Z]*$/i.test(value);
     }, "Letters only");
 
-    // Initialize form validation on the registration form.
-    // It has the name attribute "registration"
+    // Initialize form validation
     $("#frmNewUser").validate({
         // Specify validation rules
         rules: {
@@ -59,7 +58,7 @@ $(function () {
                 }
             },
             sltDepartment: {
-                required: true,
+                required: true
             },
             txtUsername: {
                 required: true,
