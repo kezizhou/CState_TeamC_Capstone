@@ -40,13 +40,11 @@ namespace CState_TeamC_Capstone
                     if (sltNearMissReportID.SelectedValue == "-1") {
                         // Unauthorized to update this ID
                         messageDiv.Style["display"] = "block";
-                    } else {
-                        Filter(sender, e);
-					}
-                } else {
-                    Filter(sender, e);
+
+                    }
                 }
             }
+            Filter(sender, e);
             userFullName.InnerText = ExtensionMethods.GetLastNameFirstName();
         }
         public void Filter(object sender, EventArgs e)

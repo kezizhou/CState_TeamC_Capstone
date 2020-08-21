@@ -64,7 +64,7 @@ namespace CState_TeamC_Capstone {
 							FormsAuthentication.SetAuthCookie(sdr["Username"].ToString(), false);
 							cmd.Dispose();
 							conn.Close();
-							Response.Redirect("~/Home.aspx");
+							Response.Redirect("Home.aspx");
 						} else {
 							// Incorrect password
 							cmd.Dispose();
