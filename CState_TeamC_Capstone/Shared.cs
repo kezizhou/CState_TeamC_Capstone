@@ -819,7 +819,7 @@ namespace CState_TeamC_Capstone
 
             return searchQueryResults;
         }
-        public static void InsertUpdateActionStatement(string sltNearMissReportID, string txaActionUpdate = null, string strUserName = null, string reviewDate = null)
+        public static void InsertUpdateActionStatement(string sltNearMissReportID, string txaActionUpdate = null, string strUserName = null, DateTime reviewDate = new DateTime())
         {
             string sql = $@"INSERT INTO Data.NearMiss_ActionTakenUpdate(NearMiss_ID, NearMiss_ActionTaken, UpdatedBy, DateUpdate)
                             VALUES(@sltNearMissReportID, @txaActionUpdate, @strUserName, @reviewDate )";

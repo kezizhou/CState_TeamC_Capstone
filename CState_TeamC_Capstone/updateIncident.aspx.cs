@@ -78,7 +78,7 @@ namespace CState_TeamC_Capstone
             var UpdateAction = Request["txaActionUpdate"];
             var nearMissReportID = sltNearMissReportID.SelectedValue;
             var user = GetUserName();
-            Shared.InsertUpdateActionStatement(nearMissReportID, UpdateAction, user, DateTime.Now.Date.ToString());
+            Shared.InsertUpdateActionStatement(nearMissReportID, UpdateAction, user, DateTime.Now);
 
             Response.Redirect("updateIncident.aspx?NearMissID=" + nearMissReportID);;
             sltNearMissReportID.SelectedValue = nearMissReportID;
