@@ -1,6 +1,15 @@
 # CState_TeamC_Capstone
 A near miss incident reporting tool for the manufacturing industry to report, update, and analyze incidents for trend data
 
+### Technologies Used
+- ASP.NET
+- HTML
+- CSS
+- Bootstrap
+- C#
+- JavaScript
+- JQuery
+
 ### Sample Screenshots
 **Sign In**  
 ![Sign In](screenshots/latest/signIn.png)  
