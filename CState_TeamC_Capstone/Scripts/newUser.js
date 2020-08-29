@@ -55,7 +55,8 @@ $(function () {
                         }
                     }
                     return r;
-                }
+                },
+                maxlength: 50
             },
             sltDepartment: {
                 required: true
@@ -84,7 +85,10 @@ $(function () {
                 minlength: 5,
                 maxlength: 25
             },
-
+            txtConfirmPassword: {
+                required: true,
+                equalTo: "#txtPassword"
+            }
         },
 
         // Specify validation error messages
@@ -114,7 +118,8 @@ $(function () {
             txtEmail: {
                 required: "Enter email",
                 email: "Invalid email entered",
-                remote: "Email already in use"
+                remote: "Email already in use",
+                maxlength: "Maximum length is 50 characters"
             },
             sltDepartment: {
                 required: "Select department"
@@ -128,8 +133,12 @@ $(function () {
             },
             txtPassword: {
                 required: "Enter password",
-                minlength: "Minimum length is 3 characters",
+                minlength: "Minimum length is 5 characters",
                 maxlength: "Maximum length is 25 characters",
+            },
+            txtConfirmPassword: {
+                required: "Enter password again",
+                equalTo: "Passwords do not match"
             }
         },
 

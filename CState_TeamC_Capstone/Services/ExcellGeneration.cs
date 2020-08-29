@@ -43,7 +43,11 @@ namespace CState_TeamC_Capstone.Services
                     ws.Cell("K" + (i + 2)).Value = export[i].RiskType;
                     ws.Cell("L" + (i + 2)).Value = export[i].Comments;
                     ws.Cell("M" + (i + 2)).Value = export[i].ReviewedBy;
-                    ws.Cell("N" + (i + 2)).Value = export[i].ReviewDate;
+                    if (export[i].ReviewDate == new DateTime(0001, 1, 1)) {
+                        ws.Cell("N" + (i + 2)).Value = "";
+                    } else {
+                        ws.Cell("N" + (i + 2)).Value = export[i].ReviewDate;
+                    }
                 }
                 wb.Style.Alignment.Horizontal = XLAlignmentHorizontalValues.Center;
                 wb.Style.Font.Bold = true;

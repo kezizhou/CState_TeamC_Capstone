@@ -40,27 +40,27 @@
 
                 <div class="form-group" id="firstNameDiv">
                     <label for="txtFirstName" class="control-label">First Name:</label>
-                    <input id="txtFirstName" name="txtFirstName" class="form-control" type="text" required="required"/>
+                    <input id="txtFirstName" name="txtFirstName" class="form-control" type="text" required="required" maxlength="51"/>
                 </div>
 
                 <div class="form-group" id="middleNameDiv">
                     <label for="txtMiddleName" class="control-label">Middle Name:</label>
-                    <input id="txtMiddleName" name="txtMiddleName" class="form-control" type="text"/>
+                    <input id="txtMiddleName" name="txtMiddleName" class="form-control" type="text" maxlength="51"/>
                 </div>
 
                 <div class="form-group" id="lastNameDiv">
                     <label for="txtLastName" class="control-label">Last Name:</label>
-                    <input id="txtLastName" name="txtLastName" runat="server" class="form-control" type="text" required="required"/>
+                    <input id="txtLastName" name="txtLastName" runat="server" class="form-control" type="text" required="required" maxlength="51"/>
                 </div>
                 
                 <div class="form-group" id="employeeIDDiv">
                     <label for="txtEmployeeID" class="control-label">Employee ID (6-digit):</label>
-                    <input id="txtEmployeeID" name="txtEmployeeID" runat="server" class="form-control" type="text" required="required"/>
+                    <input id="txtEmployeeID" name="txtEmployeeID" runat="server" class="form-control" type="text" required="required" maxlength="7"/>
                 </div>
 
                 <div class="form-group" id="emailDiv">
                     <label for="txtEmail" class="control-label">Email:</label>
-                    <input id="txtEmail" name="txtEmail" runat="server" class="form-control" type="text" required="required"/>
+                    <input id="txtEmail" name="txtEmail" runat="server" class="form-control" type="text" required="required" maxlength="51"/>
                 </div>
 
                 <div class="form-group" id="departmentDiv">
@@ -77,12 +77,17 @@
 
                 <div class="form-group" id="usernameDiv">
                     <label for="txtUsername" class="control-label">Username:</label>
-                    <input id="txtUsername" name="txtUsername" runat="server" class="form-control" type="text" required="required"/>
+                    <input id="txtUsername" name="txtUsername" runat="server" class="form-control" type="text" required="required" maxlength="21"/>
                 </div>
 
                 <div class="form-group" id="passwordDiv">
                     <label for="txtPassword" class="control-label">Password:</label>
-                    <input id="txtPassword" name="txtPassword" runat="server" class="form-control" type="password" required="required"/>
+                    <input id="txtPassword" name="txtPassword" runat="server" class="form-control" type="password" required="required" maxlength="26"/>
+                </div>
+
+                <div class="form-group" id="confirmpasswordDiv">
+                    <label for="txtPassword" class="control-label">Confirm Password:</label>
+                    <input id="txtConfirmPassword" name="txtConfirmPassword" runat="server" class="form-control" type="password" required="required" maxlength="26"/>
                 </div>
 
                 <div class="form-group" id="EmployeeStatusDiv">
@@ -92,7 +97,7 @@
 
                 <div class="container">
                     <button type="submit" id="btnSubmitNewUser" class="btn btn-primary btn-sm center"  runat="server" onserverclick="btnSubmitNewUser_Click">
-                        <i class="fas fa-sign-in-alt"></i> Submit New User</button>
+                        <i class="fas fa-sign-in-alt"></i> Create New User</button>
                 </div>
                         
                 <div class="center2">
