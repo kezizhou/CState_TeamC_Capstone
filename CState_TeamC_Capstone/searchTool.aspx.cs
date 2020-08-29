@@ -10,6 +10,7 @@ namespace CState_TeamC_Capstone
     public partial class searchTool : System.Web.UI.Page
     {
         public List<SearchToolQueryResult> results;
+        public List<ExcellTableExport> excelExport;
         public int pageCount;
 
         public List<Filters> departments;
@@ -24,20 +25,6 @@ namespace CState_TeamC_Capstone
         {
             GetResults();
             SetFilterOptions();
-        }
-
-        private void SetPageCountFromResults()
-        {
-            var recordIntoPages = (results.FirstOrDefault()?.TotalRows / 5.0);
-            if (recordIntoPages != null)
-            {
-                pageCount = (int)Math.Ceiling((double)recordIntoPages);
-
-            }
-            else
-            {
-                pageCount = 1;
-            }
         }
 
         private void SetFilterOptions()
@@ -58,7 +45,7 @@ namespace CState_TeamC_Capstone
                              string assigneeFilter = null)
         {
             results = Shared.GetSearchToolQuery(departmentFilter, nearMissTypeFilter, severityTypeFilter, riskTypeFilter, operatorFilter, assigneeFilter);
-            SetPageCountFromResults();
+            excelExport = Shared.GetExcellTableExport(departmentFilter, nearMissTypeFilter, severityTypeFilter, riskTypeFilter, operatorFilter, assigneeFilter);
         }
 
         protected void Filter(object sender, EventArgs e)
@@ -88,10 +75,10 @@ namespace CState_TeamC_Capstone
         }
         protected void Export(object sender, EventArgs e)
         {
-            var exportExcell = Shared.GetExcellTableExport();
-            var excellBytes = Services.ExcellGeneration.CreateExcelDocument(exportExcell);
+            Filter(sender, e);
+            var excellBytes = Services.ExcellGeneration.CreateExcelDocument(excelExport);
 
-            string myName = Server.UrlEncode("NearMissReports.xlsx");
+            string myName = Server.UrlEncode("NearMissReports" + DateTime.Now.ToString("yyyy'-'MM'-'dd'-'HH'_'mm'_'ss") + ".xlsx");
 
             Response.Clear();
             Response.Buffer = true;

@@ -67,6 +67,15 @@ namespace CState_TeamC_Capstone {
 		protected global::System.Web.UI.HtmlControls.HtmlInputPassword txtPassword;
 
 		/// <summary>
+		/// txtConfirmPassword control.
+		/// </summary>
+		/// <remarks>
+		/// Auto-generated field.
+		/// To modify move field declaration from designer file to code-behind file.
+		/// </remarks>
+		protected global::System.Web.UI.HtmlControls.HtmlInputPassword txtConfirmPassword;
+
+		/// <summary>
 		/// cbEmployeeStatus control.
 		/// </summary>
 		/// <remarks>

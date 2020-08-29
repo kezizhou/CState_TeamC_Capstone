@@ -38,16 +38,16 @@
             <form name="frmNewPassword" id="frmNewPassword" method="post" action="#" runat="server" onsubmit="return $('#frmNewPassword').valid()">
                 <div class="form-group">
                     <label for="txtUsername" class="control-label">Username:</label>             
-                    <input id="txtUsername" type="text" name="txtUsername" class="form-control populated" readonly="readonly" runat="server"/>
+                    <input id="txtUsername" type="text" name="txtUsername" class="form-control populated" readonly="readonly" maxlength="21" runat="server"/>
                 </div>
                 <div class="form-group" id="firstNameDiv">
                     <label for="txtPassword" class="control-label">New Password:</label>
-                    <input id="txtPassword" name="txtPassword" class="form-control" type="password" required="required" runat="server"/>
+                    <input id="txtPassword" name="txtPassword" class="form-control" type="password" required="required" maxlength="26" runat="server"/>
                 </div>
 
                 <div class="form-group" id="lastNameDiv">
                     <label for="txtConfirmedPassword" class="control-label">Confirm New Password:</label>
-                    <input id="txtConfirmedPassword" name="txtConfirmedPassword" class="form-control" type="password" required="required" runat="server"/>
+                    <input id="txtConfirmedPassword" name="txtConfirmedPassword" class="form-control" type="password" required="required" maxlength="26" runat="server"/>
                 </div>
 
                 <div class="container">
